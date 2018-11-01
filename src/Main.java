@@ -18,6 +18,7 @@ public class Main {
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.add(new GamePanel());
                 frame.setVisible(true);
+                SoundLoader soundloader= new SoundLoader("bg.wav");
     }
 
 }

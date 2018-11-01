@@ -76,9 +76,9 @@ public class GamePanel extends JPanel implements Runnable {
 
 		//we create our objects here
 		circ = new Circle(0,700, 0, 0, Color.CYAN);
-		foreground1 = new Background(0,0,"img/foreground1.png");
-		middleground1 = new Background(0,0,"img/middleground1.png");
-		background1 = new Background(0,0,"img/background1.png");
+		foreground1 = new Background(0,0,"img/foreground3.png");
+		middleground1 = new Background(0,0,"img/middleground3.png");
+		background1 = new Background(0,0,"img/background3.png");
 
 
 	} //End of GamePanel()
