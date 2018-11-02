@@ -1,9 +1,5 @@
-import java.io.*;
 import javax.sound.sampled.*;
-import javax.swing.*;
-import java.net.*;
 import java.util.*;
-import sun.audio.*;
 
 public class SoundLoader implements Runnable {
 	
@@ -17,8 +13,6 @@ public class SoundLoader implements Runnable {
 		for(String file: files) {
 			soundList.add(file);//.add("/src"+file+".wav");
 		}
-		
-		startMusic();
 	}
 	
 	private void playSound(String filename) {
@@ -45,7 +39,7 @@ public class SoundLoader implements Runnable {
 	}
 	
 	
-	public void startMusic() {// initialise and start the thread
+	public void startMusic() {// initialize and start the thread
 		if (musicthread==null || !running) {
 			musicthread = new Thread(this);
 			musicthread.start();

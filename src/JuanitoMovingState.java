@@ -1,5 +1,4 @@
 
-
 public class JuanitoMovingState implements JuanitoState {
 	JuanitoStateContext jc;
 

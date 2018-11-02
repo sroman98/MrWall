@@ -1,10 +1,9 @@
 /*
- * Autor: Daniel Elias Becerra
  * 16/09/18
  * Esta clase es la clase padre de la cual se heredan las figuras.
  */
-import java.awt.*;
 
+import java.awt.*;
 
 public abstract class Shape {
 

@@ -1,20 +1,14 @@
 /*
- * Autor: Daniel Elias Becerra
  * 14/09/18
  * Esta clase hereda de Shape su posición en x, y y color.
  * Así mismo tiene la posibilidad de moverse hacía arriba, abajo, derecha, izquierda
  */
 
 import java.awt.Color;
-import java.awt.*;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.event.KeyEvent;
-import java.awt.Rectangle;
 
 
 public class Circle extends Shape {
- private int radio;
 
  public Circle(int x, int y, int width, int height, Color c) {
    super(x, y, width, height, c);

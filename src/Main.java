@@ -1,10 +1,8 @@
 /*
- * Autor: Daniel Elias Becerra
  * 14/09/18
  * Main que empieza el juego
  */
 
-import java.awt.*;
 import javax.swing.*;
 
 public class Main {
@@ -18,7 +16,6 @@ public class Main {
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.add(new GamePanel());
                 frame.setVisible(true);
-                SoundLoader soundloader= new SoundLoader("jean.wav");
     }
 
 }

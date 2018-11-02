@@ -1,5 +1,4 @@
 /*
- * Autor: Daniel Elias Becerra
  * 14/09/18 - 16/09/18
  * Esta clase implementa Runnable y utiliza un thread para crear
  * un ciclo de animación que utiliza Update() Render() Sleep()
@@ -11,6 +10,11 @@
 
 
 public class GamePanel extends JPanel implements Runnable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private static final int NO_DELAYS_PER_YIELD = 16;
 	  /* Number of frames with a delay of 0 ms before the
 	     animation thread yields to other running threads. */
@@ -28,8 +32,8 @@ public class GamePanel extends JPanel implements Runnable {
 	private boolean isPaused = false;
 
 	// global variables for off-screen rendering
-  private Graphics dbg;
-  private Image dbImage = null;
+	private Graphics dbg;
+	private Image dbImage = null;
 
 	//Our objects
 	private Circle circ;
@@ -44,6 +48,7 @@ public class GamePanel extends JPanel implements Runnable {
 	private boolean down = false;
 
 	private ImageIcon mygif = new ImageIcon("img/juanito.gif");
+	private SoundLoader soundloader = new SoundLoader("/jean.wav");
 
 	public GamePanel() {
 		setBackground(Color.white); //white background
@@ -93,6 +98,7 @@ public class GamePanel extends JPanel implements Runnable {
 			animator = new Thread(this);
 			animator.start();
 		}
+		soundloader.startMusic();
 	} //end of startGame()
 
 	public void stopGame() {

@@ -1,5 +1,4 @@
 /*
- * Autor: Daniel Elias Becerra
  * 16/09/18
  * Esta clase crea un background para ser usado en el GamePanel
  * Utiliza un Image Loader para obtener la imagen del background
@@ -8,7 +7,6 @@
  */
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import java.io.*;
@@ -24,7 +22,7 @@ public class Background {
    public Background(int x, int y, String path) {
   	 this.x=x;
   	 this.y=y;
-  	 this.path = path;
+  	 this.setPath(path);
 
   	 File srcFile = new File(path);
   	 try {
@@ -43,6 +41,10 @@ public class Background {
    public void setY(int n) {
   	 this.y += n;
    }
+   
+   public void setPath(String path) {
+		this.path = path;
+	}
 
    public int getX() {
   	 return x;
@@ -51,9 +53,15 @@ public class Background {
    public int getY() {
   	 return y;
    }
+   
+   public String getPath() {
+		return path;
+	}
 
    public void draw(Graphics g) {
   	 g.drawImage(img, x, y, null);
    }
+
+
 
 }
