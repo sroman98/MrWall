@@ -4,12 +4,16 @@
  * un ciclo de animación que utiliza Update() Render() Sleep()
  */
 
- import javax.swing.*;
- import java.awt.event.*;
- import java.awt.*;
+ import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import javax.swing.JPanel;
 
 
-public class GamePanel extends JPanel implements Runnable {
+public class GamePanel extends JPanel implements Runnable, KeyListener {
 	/**
 	 * 
 	 */
@@ -36,18 +40,11 @@ public class GamePanel extends JPanel implements Runnable {
 	private Image dbImage = null;
 
 	//Our objects
-	private Circle circ;
-	private Background background1;
-	private Background foreground1;
-	private Background middleground1;
+	private Background background;
+	private Background foreground;
+	private Background middleground;
+	private Juanito juanito;
 
-	//Direction variables
-	private boolean right = false;
-	private boolean left = false;
-	private boolean up = false;
-	private boolean down = false;
-
-	private ImageIcon mygif = new ImageIcon("img/juanito.gif");
 	private SoundLoader soundloader = new SoundLoader("/jean.wav");
 
 	public GamePanel() {
@@ -57,35 +54,13 @@ public class GamePanel extends JPanel implements Runnable {
 		setFocusable(true);
 		requestFocus(); //JPanel now receives keyEvents;
 
-		addMouseListener( new MouseAdapter() {
-			public void mousePressed(MouseEvent e){
-				testPress(e.getX(), e.getY());
-			}
-		});
-
-		addKeyListener(new KeyAdapter() {
-		// listen for esc, q, end, ctrl-c
-     public void keyTyped(KeyEvent e) {
-			 int keyCode = e.getKeyCode();
-       readyForTermination(keyCode, e.isControlDown());
-			}
-			public void keyPressed(KeyEvent e) {
- 			 int keyCode = e.getKeyCode();
-        pressed(keyCode);
- 			}
-			public void keyReleased(KeyEvent e) {
- 			 int keyCode = e.getKeyCode();
-        released(keyCode);
-			}
- 		});
-
 		//we create our objects here
-		circ = new Circle(0,700, 0, 0, Color.CYAN);
-		foreground1 = new Background(0,0,"img/foreground3.png");
-		middleground1 = new Background(0,0,"img/middleground3.png");
-		background1 = new Background(0,0,"img/background3.png");
+		foreground = new Background(0,0,"img/foreground3.png");
+		middleground = new Background(0,0,"img/middleground3.png");
+		background = new Background(0,0,"img/background3.png");
+		juanito = new Juanito(0, 600, 10, 120, "img/juanito.gif");
 
-
+		addKeyListener(this);
 	} //End of GamePanel()
 
 	public void addNotify() { // waits for the JPanel to be added to the JFrame/JApplet before starting;
@@ -93,7 +68,7 @@ public class GamePanel extends JPanel implements Runnable {
 		startGame(); // start the thread
 	} //end of addNotify()
 
-	public void startGame() {// initialise and start the thread
+	public void startGame() {// initialize and start the thread
 		if (animator==null || !running) {
 			animator = new Thread(this);
 			animator.start();
@@ -133,13 +108,14 @@ public class GamePanel extends JPanel implements Runnable {
 		running = true;
 		while(running) {
 			try {
-        if (isPaused) {
-          synchronized(this) {
-            while (isPaused && running)
-							wait(); }
-        }
-      } // of try block
-      catch (InterruptedException e){}
+		        if (isPaused) {
+		          synchronized(this) {
+		            while (isPaused && running)
+		            	wait(); 
+		           }
+		        }
+		    } // of try block
+			catch (InterruptedException e){}
 
 			gameUpdate(); // game state is updated
 
@@ -153,21 +129,21 @@ public class GamePanel extends JPanel implements Runnable {
 			sleepTime = (period - timeDiff) - overSleepTime; //time left in this loop
 
 			if (sleepTime > 0) {   // some time left in this cycle
-        try {
+				try {
 					Thread.sleep(sleepTime/1000000L); // nano -> ms
 				}
-        catch(InterruptedException ex){}
-        overSleepTime = (java.lang.System.nanoTime() - afterTime) - sleepTime;
-      }
-      else {    // sleepTime <= 0; frame took longer than the period
-				excess -= sleepTime;  // store excess time value
-        overSleepTime = 0L;
-        if (++noDelays >= NO_DELAYS_PER_YIELD) {
-          Thread.yield();   // give another thread a chance to run
-          noDelays = 0;
-        }
+				catch(InterruptedException ex){}
+				overSleepTime = (java.lang.System.nanoTime() - afterTime) - sleepTime;
 			}
-      beforeTime = java.lang.System.nanoTime();
+			else {    // sleepTime <= 0; frame took longer than the period
+				excess -= sleepTime;  // store excess time value
+		        overSleepTime = 0L;
+		        if (++noDelays >= NO_DELAYS_PER_YIELD) {
+		          Thread.yield();   // give another thread a chance to run
+		          noDelays = 0;
+		        }
+			}
+			beforeTime = java.lang.System.nanoTime();
 
 			/* If frame animation is taking too long, update the game state
 			   without rendering it, to get the updates/sec nearer to
@@ -186,108 +162,70 @@ public class GamePanel extends JPanel implements Runnable {
 
 	private void gameUpdate() {
 		if(!gameOver) { // if game is not over
-
-			circ.move(right, left, up, down, background1, middleground1, foreground1);
-
+			juanito.move(foreground, middleground, background);
 		}
 	}
 
 	private void gameRender()
-  // draw the current frame to an image buffer
-  {
-    if (dbImage == null){  // create the buffer
-      dbImage = createImage(PWIDTH, PHEIGHT);
-      if (dbImage == null) {
-        System.out.println("dbImage is null");
+	// draw the current frame to an image buffer
+	{
+		if (dbImage == null){  // create the buffer
+			dbImage = createImage(PWIDTH, PHEIGHT);
+			if (dbImage == null) {
+				System.out.println("dbImage is null");
 				return;
 			}
-      else
-        dbg = dbImage.getGraphics();
+			else
+				dbg = dbImage.getGraphics();
 		}
-    // clear the background
-    dbg.setColor(Color.white);
-    dbg.fillRect (0, 0, PWIDTH, PHEIGHT);
-    // draw game elements
-		background1.draw(dbg);
-		middleground1.draw(dbg);
-		foreground1.draw(dbg);
-		circ.draw(dbg);
-
-		mygif.paintIcon(null,dbg, circ.getX()-10, circ.getY()-120);
-
-    if (gameOver)
-      gameOverMessage(dbg);
-  }  // end of gameRender()
+	    // clear the background
+	    dbg.setColor(Color.white);
+	    dbg.fillRect (0, 0, PWIDTH, PHEIGHT);
+	    // draw game elements
+		background.draw(dbg);
+		middleground.draw(dbg);
+		foreground.draw(dbg);
+		juanito.draw(dbg);
+	
+	
+	    if (gameOver)
+	      gameOverMessage(dbg);
+	} // end of gameRender()
 
 	private void gameOverMessage(Graphics g)
-  // center the game-over message
-  { //...
-    g.drawString("Game Over", PWIDTH/2, PHEIGHT/2);
-  }  // end of gameOverMessage()
-
-	private void readyForTermination(int key, boolean control) {
-		if ((key == KeyEvent.VK_ESCAPE) ||
-			 (key == KeyEvent.VK_Q) ||
-			 (key == KeyEvent.VK_END) ||
-			 ((key == KeyEvent.VK_C) && control) ) {
-				 running = false;
-			 }
-	} // end of readyForTermination()
-
-	private void pressed(int key) {
-		switch(key) {
-			case KeyEvent.VK_UP:
-				up = true;
-				break;
-			case KeyEvent.VK_DOWN:
-				down = true;
-				break;
-			case KeyEvent.VK_RIGHT:
-				right = true;
-				break;
-			case KeyEvent.VK_LEFT:
-				left = true;
-				break;
-		}
-	} // end of pressed()
-
-	private void released(int key) {
-		switch(key) {
-			case KeyEvent.VK_UP:
-				up = false;
-				break;
-			case KeyEvent.VK_DOWN:
-				down = false;
-				break;
-			case KeyEvent.VK_RIGHT:
-				right = false;
-				break;
-			case KeyEvent.VK_LEFT:
-				left = false;
-				break;
-		}
-	} // end of released()
-
-	private void testPress(int x, int y)
-	// is (x,y) important to the game?
-	{
-		if (!gameOver) {
-			// do something
-		}
-	} //end of testPress()
+	// center the game-over message
+	{ //...
+		g.drawString("Game Over", PWIDTH/2, PHEIGHT/2);
+	}  // end of gameOverMessage()
 
 	private void paintScreen()
 	// actively render the buffer image to the screen
-  {
-    Graphics g;
-    try {
-      g = this.getGraphics();  // get the panel’s graphic context
-      if ((g != null) && (dbImage != null))
-        g.drawImage(dbImage, 0, 0, null);
-      g.dispose();
-    }
-    catch (Exception e)
-    { System.out.println("Graphics context error: " + e);  }
-  } // end of paintScreen()
+	{
+		Graphics g;
+		try {
+			g = this.getGraphics();  // get the panel’s graphic context
+			if ((g != null) && (dbImage != null))
+				g.drawImage(dbImage, 0, 0, null);
+			g.dispose();
+	    }
+	    catch (Exception e)
+	    { System.out.println("Graphics context error: " + e);  }
+	} // end of paintScreen()
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		if(e.getKeyCode() == KeyEvent.VK_SPACE)
+			juanito.jump();
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		juanito.move(e);
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		juanito.stop(e);
+	}
 
 }
