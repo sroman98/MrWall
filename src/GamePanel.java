@@ -3,7 +3,6 @@
  * Esta clase implementa Runnable y utiliza un thread para crear
  * un ciclo de animación que utiliza Update() Render() Sleep()
  */
-
  import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -72,22 +71,15 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		if (animator==null || !running) {
 			animator = new Thread(this);
 			animator.start();
-		}
-		soundloader.startMusic();
+		}soundloader.startMusic();
 	} //end of startGame()
 
-	public void stopGame() {
-		// called by the user to stop execution
+	public void stopGame() {/* called by the user to stop execution*/
 		running=false;
 	} //end of stopGame()
 
-	public void pauseGame() {
-		isPaused = true;
-	} //end of pauseGame()
-
-	public void resumeGame() {
-		isPaused = false;
-	}//end of resumeGame()
+	public void pauseGame() {isPaused = true;} //end of pauseGame()
+	public void resumeGame() {isPaused = false;}//end of resumeGame()
 
 	public void run() {
 	/* Repeatedly update, render, sleep so loop takes close
@@ -110,17 +102,14 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 			try {
 		        if (isPaused) {
 		          synchronized(this) {
-		            while (isPaused && running)
-		            	wait(); 
+		            while (isPaused && running) {wait();} 
 		           }
 		        }
 		    } // of try block
 			catch (InterruptedException e){}
 
 			gameUpdate(); // game state is updated
-
 			gameRender(); // render to buffer
-
 			paintScreen(); // paint with the buffer
 			paintScreen(); // paint with the buffer
 
@@ -131,19 +120,16 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 			if (sleepTime > 0) {   // some time left in this cycle
 				try {
 					Thread.sleep(sleepTime/1000000L); // nano -> ms
-				}
-				catch(InterruptedException ex){}
+				}catch(InterruptedException ex){}
 				overSleepTime = (java.lang.System.nanoTime() - afterTime) - sleepTime;
-			}
-			else {    // sleepTime <= 0; frame took longer than the period
+			}else {    // sleepTime <= 0; frame took longer than the period
 				excess -= sleepTime;  // store excess time value
 		        overSleepTime = 0L;
 		        if (++noDelays >= NO_DELAYS_PER_YIELD) {
 		          Thread.yield();   // give another thread a chance to run
 		          noDelays = 0;
 		        }
-			}
-			beforeTime = java.lang.System.nanoTime();
+			}beforeTime = java.lang.System.nanoTime();
 
 			/* If frame animation is taking too long, update the game state
 			   without rendering it, to get the updates/sec nearer to
@@ -155,28 +141,21 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		      gameUpdate();
 		      skips++;
 			} //end of while2
-
 		} //end of while1
 		System.exit(0);
 	} //end of run
 
 	private void gameUpdate() {
-		if(!gameOver) { // if game is not over
-			juanito.move(foreground, middleground, background);
-		}
+		if(!gameOver) {juanito.move(foreground, middleground, background);}/*if game is not over*/
 	}
 
-	private void gameRender()
-	// draw the current frame to an image buffer
-	{
+	private void gameRender(){	// draw the current frame to an image buffer
 		if (dbImage == null){  // create the buffer
 			dbImage = createImage(PWIDTH, PHEIGHT);
 			if (dbImage == null) {
 				System.out.println("dbImage is null");
 				return;
-			}
-			else
-				dbg = dbImage.getGraphics();
+			}else {dbg = dbImage.getGraphics();}
 		}
 	    // clear the background
 	    dbg.setColor(Color.white);
@@ -188,32 +167,18 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		juanito.draw(dbg);
 	} // end of gameRender()
 
-	private void paintScreen()
-	// actively render the buffer image to the screen
-	{
+	private void paintScreen(){	// actively render the buffer image to the screen
 		Graphics g;
 		try {
 			g = this.getGraphics();  // get the panel’s graphic context
-			if ((g != null) && (dbImage != null))
-				g.drawImage(dbImage, 0, 0, null);
+			if ((g != null) && (dbImage != null)) {g.drawImage(dbImage, 0, 0, null);}
 			g.dispose();
-	    }
-	    catch (Exception e)
-	    { System.out.println("Graphics context error: " + e);  }
+	    }catch (Exception e){ System.out.println("Graphics context error: " + e);  }
 	} // end of paintScreen()
-
 	@Override
-	public void keyTyped(KeyEvent e) {
-	}
-
+	public void keyTyped(KeyEvent e) {}
 	@Override
-	public void keyPressed(KeyEvent e) {
-		juanito.move(e);
-	}
-
+	public void keyPressed(KeyEvent e) {juanito.move(e);}
 	@Override
-	public void keyReleased(KeyEvent e) {
-		juanito.stop(e);
-	}
-
+	public void keyReleased(KeyEvent e) {juanito.stop(e);}
 }

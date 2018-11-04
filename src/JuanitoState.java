@@ -1,5 +1,3 @@
-
-
 interface JuanitoState {
 
 		public void jump();
@@ -10,6 +8,6 @@ interface JuanitoState {
 
 		public void hurt();
 		public void heal();
-
+		
 		public void die();
 }

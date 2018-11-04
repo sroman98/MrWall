@@ -25,57 +25,23 @@ public abstract class Personaje {
 		this.path = path;
 		mygif = new ImageIcon(path);
 	}
-	
 	//Setters & getters
-	public int getX() {
-		return x;
-	}
-	 public void setX(int n) {
-		 this.x += n;
-	 }
-	public int getY() {
-		return y;
-	}
-	public void setY(int n) {
-		 this.y += n;
-	}
-	public int getWidth() {
-		return width;
-	}
-	public void setWidth(int width) {
-		this.width = width;
-	}
-	public int getHeight() {
-		return height;
-	}
-	public void setHeight(int height) {
-		this.height = height;
-	}
-	public int getVida() {
-		return vida;
-	}
-	public void setVida(int vida) {
-		this.vida = vida;
-	}
-	public int getVelx() {
-		return velx;
-	}
-	public void setVelx(int velx) {
-		this.velx = velx;
-	}
-	public int getVely() {
-		return vely;
-	}
-	public void setVely(int vely) {
-		this.vely = vely;
-	}
-	public String getPath() {
-		return path;
-	}
-	public void setPath(String path) {
-		this.path = path;
-	}
-	
+	public int getX() {return x;}
+	public void setX(int n) {this.x += n;}
+	public int getY() {return y;}
+	public void setY(int n) {this.y += n;}
+	public int getWidth() {return width;}
+	public void setWidth(int width) {this.width = width;}
+	public int getHeight() {return height;}
+	public void setHeight(int height) {this.height = height;}
+	public int getVida() {return vida;}
+	public void setVida(int vida) {this.vida = vida;}
+	public int getVelx() {return velx;}
+	public void setVelx(int velx) {this.velx = velx;}
+	public int getVely() {return vely;}
+	public void setVely(int vely) {this.vely = vely;}
+	public String getPath() {return path;}
+	public void setPath(String path) {this.path = path;}
 	//methods
 	public abstract void move();
 
