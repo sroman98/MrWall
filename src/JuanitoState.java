@@ -1,4 +1,5 @@
 
+
 interface JuanitoState {
 
 		public void jump();

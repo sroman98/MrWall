@@ -1,4 +1,5 @@
 
+
 public class JuanitoInjuredState implements JuanitoState{
 	JuanitoStateContext jc;
 

@@ -186,17 +186,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		middleground.draw(dbg);
 		foreground.draw(dbg);
 		juanito.draw(dbg);
-	
-	
-	    if (gameOver)
-	      gameOverMessage(dbg);
 	} // end of gameRender()
-
-	private void gameOverMessage(Graphics g)
-	// center the game-over message
-	{ //...
-		g.drawString("Game Over", PWIDTH/2, PHEIGHT/2);
-	}  // end of gameOverMessage()
 
 	private void paintScreen()
 	// actively render the buffer image to the screen
@@ -214,8 +204,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		if(e.getKeyCode() == KeyEvent.VK_SPACE)
-			juanito.jump();
 	}
 
 	@Override

@@ -1,3 +1,4 @@
+
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 
@@ -6,11 +7,16 @@ public class Juanito extends Personaje {
 	private JuanitoStateContext juan;
 	private boolean right;
 	private boolean left;
+	private boolean up;
+	private float dt;
+	private int gravity;
 	
 	public Juanito(int x, int y, int w, int h, String path) {
 		super(x,y,w,h, 5, 3, 0, path);
 		right = false;
 		left = false;
+		dt = (float) 0.666;
+		gravity = 2;
 		
 		juan = new JuanitoStateContext();
 		System.out.println("Creaste un juanito e inicializaste su contexto");
@@ -21,7 +27,10 @@ public class Juanito extends Personaje {
 	}
 	
 	public void jump() {
-		
+		if((vely > 0 && y <600-10) || vely <= 0) {
+			y = (int)(y + vely*dt);
+			vely = (int)(vely + gravity*dt);
+		}
 	}
 	
 	public void move(Background fg, Background mg, Background bg) {
@@ -48,10 +57,13 @@ public class Juanito extends Personaje {
 			   }
 		   }
 	   }
+	   if(up) {
+		   jump();
+	   }
 	}
 
 	public void move(KeyEvent e) {
-		int key = e.getExtendedKeyCode();
+		int key = e.getKeyCode();
 		
 		if(!(right || left))
 			juan.move();
@@ -62,6 +74,12 @@ public class Juanito extends Personaje {
 			break;
 		case KeyEvent.VK_LEFT:
 			left = true;
+			break;
+		case KeyEvent.VK_UP:
+			up = true;
+			juan.jump();
+			if(vely != -25)
+				vely = -25;
 			break;
 		}
 	}
@@ -77,7 +95,7 @@ public class Juanito extends Personaje {
 			break;
 		}
 		
-		if(!(right && left))
+		if(!(right || left))
 			juan.stop();
 	}
 
