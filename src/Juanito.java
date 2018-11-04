@@ -25,11 +25,13 @@ public class Juanito extends Personaje {
 			vely = (int)(vely + gravity*dt);
 		}
 	}
-	public void move(Background fg, Background mg, Background bg) {
+	public void move(Background fg, Background mg, Background bg, Obstaculos obs) {
 		if(right) {
 	      if(x<480 || (fg.getX()<=-3240 && x+width<=1000)) {x += velx;}
 	      else {
 	    	  fg.setX(-3);
+	    	  if(fg.getX()!=-3240)
+	    		  obs.avanzar(-3);
 	    	  if(fg.getX()>-3240) {
 	    		mg.setX(-2);
 	    		bg.setX(-1);
@@ -39,6 +41,8 @@ public class Juanito extends Personaje {
 		   if(x>480 || (fg.getX()>=0 && x>0)) {x -= velx;}
 		   else {
 			   fg.setX(3);
+			   if(fg.getX()!=0)
+				   obs.avanzar(3);
 			   if(fg.getX()>-3240) {
 				   mg.setX(2);
 				   bg.setX(1);

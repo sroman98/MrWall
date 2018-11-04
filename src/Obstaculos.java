@@ -13,11 +13,11 @@ public class Obstaculos {
 	Obstaculos(){
 		obstaculos = new ArrayList<Obstaculo>(5);
 		
-		obs1 = new Obstaculo(30, 300, 30, "");
-		obs2 = new Obstaculo(70, 300, 30, "");
-		obs3 = new Obstaculo(110, 300, 30, "");
-		obs4 = new Obstaculo(150, 300, 30, "");
-		obs5 = new Obstaculo(190, 300, 30, "");
+		obs1 = new Obstaculo(30, 635, 150, "img/obs1.png");
+		obs2 = new Obstaculo(570, 635, 150, "img/obs1.png");
+		obs3 = new Obstaculo(910, 635, 150, "img/obs1.png");
+		obs4 = new Obstaculo(1850, 635, 150, "img/obs1.png");
+		obs5 = new Obstaculo(3300, 635, 150, "img/obs1.png");
 		
 		obstaculos.add(obs1);
 		obstaculos.add(obs2);
@@ -26,16 +26,18 @@ public class Obstaculos {
 		obstaculos.add(obs5);
 	}
 	
-	public void paint(Graphics g) {
+	public void draw(Graphics g) {
 		ListIterator<Obstaculo> apt = obstaculos.listIterator(); 
 		while(apt.hasNext()) {
 			Obstaculo obstaculo = apt.next();
-			obstaculo.paint(g);
+			obstaculo.draw(g);
 		}//While
 	}
 	public void avanzar(int n) {
 		ListIterator<Obstaculo> apt = obstaculos.listIterator(); 
+		
 		while(apt.hasNext()) {
+			
 			Obstaculo obstaculo = apt.next();
 			obstaculo.setX(obstaculo.getX()+n);
 		}//While		

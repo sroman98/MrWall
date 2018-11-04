@@ -43,6 +43,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 	private Background foreground;
 	private Background middleground;
 	private Juanito juanito;
+	private Obstaculos obstaculos;
 
 	private SoundLoader soundloader = new SoundLoader("/jean.wav");
 
@@ -58,6 +59,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		middleground = new Background(0,0,"img/middleground3.png");
 		background = new Background(0,0,"img/background3.png");
 		juanito = new Juanito(0, 600, 10, 120, "img/juanito.gif");
+		obstaculos = new Obstaculos();
 
 		addKeyListener(this);
 	} //End of GamePanel()
@@ -146,7 +148,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 	} //end of run
 
 	private void gameUpdate() {
-		if(!gameOver) {juanito.move(foreground, middleground, background);}/*if game is not over*/
+		if(!gameOver) {juanito.move(foreground, middleground, background, obstaculos);}/*if game is not over*/
 	}
 
 	private void gameRender(){	// draw the current frame to an image buffer
@@ -165,6 +167,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		middleground.draw(dbg);
 		foreground.draw(dbg);
 		juanito.draw(dbg);
+		obstaculos.draw(dbg);
 	} // end of gameRender()
 
 	private void paintScreen(){	// actively render the buffer image to the screen
