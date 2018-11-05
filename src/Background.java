@@ -11,9 +11,7 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import java.io.*;
 
-
 public class Background {
-
   private int x;
   private int y;
   private String path;
@@ -23,7 +21,7 @@ public class Background {
   	 this.x=x;
   	 this.y=y;
   	 this.setPath(path);
-
+  	 
   	 File srcFile = new File(path);
   	 try {
   		 img = ImageIO.read(srcFile);
@@ -31,37 +29,14 @@ public class Background {
   		 e.printStackTrace();
   	 }
    }
-
-  public void setX(int n) {
-  	 int aux= this.x+n;
-  	if((aux<=0) && (aux>=-3240))
-  	   this.x += n;
+   public void setX(int n) {
+	  int aux= this.x+n;
+	  if((aux<=0) && (aux>=-3240)) {this.x += n;}
    }
-
-   public void setY(int n) {
-  	 this.y += n;
-   }
-   
-   public void setPath(String path) {
-		this.path = path;
-	}
-
-   public int getX() {
-  	 return x;
-   }
-
-   public int getY() {
-  	 return y;
-   }
-   
-   public String getPath() {
-		return path;
-	}
-
-   public void draw(Graphics g) {
-  	 g.drawImage(img, x, y, null);
-   }
-
-
-
+   public void setY(int n) {this.y += n;}
+   public void setPath(String path) {this.path = path;}
+   public int getX() {return x;}
+   public int getY() {return y;}
+   public String getPath() {return path;}
+   public void draw(Graphics g) {g.drawImage(img, x, y, null);}
 }

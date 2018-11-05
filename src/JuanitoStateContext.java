@@ -1,7 +1,4 @@
-
-
 public class JuanitoStateContext {
-
 	private JuanitoState estados[]= new JuanitoState[5];
 	private JuanitoStateProperties propiedades;
 	private JuanitoState current;
@@ -20,26 +17,4 @@ public class JuanitoStateContext {
 	public JuanitoMovingState getMovingState() {return (JuanitoMovingState) estados[1];}
 	public JuanitoInjuredState getInjuredState() {return (JuanitoInjuredState) estados[2];}
 	public JuanitoDeadState getDeadState() {return (JuanitoDeadState) estados[3];}
-
-	public void jump() {
-		current.jump();
-	}
-	public void shoot() {
-		current.shoot();
-	}
-	public void move() {
-		current.move();
-	}
-	public void stop() {
-		current.stop();
-	}
-	public void hurt() {
-		current.hurt();
-	}
-	public void heal() {
-		current.heal();
-	}
-	public void die() {
-		current.die();
-	}
 }

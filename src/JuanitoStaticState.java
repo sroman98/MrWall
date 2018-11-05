@@ -2,7 +2,7 @@ public class JuanitoStaticState implements JuanitoState {
 		JuanitoStateContext jc;
 
 		public JuanitoStaticState(JuanitoStateContext nc) {jc = nc;}
-		public void jump() {jc.setCurrent(jc.getMovingState());}
+		public void jump(Juanito juanito) {/*jc.setCurrent(jc.getMovingState());*/System.out.println("Estatico");}
 		public void shoot() {jc.setCurrent(jc.getMovingState());}
 		public void move() {
 			jc.setCurrent(jc.getMovingState());

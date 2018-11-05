@@ -11,56 +11,46 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JPanel;
 
-
 public class GamePanel extends JPanel implements Runnable, KeyListener {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
 	private static final int NO_DELAYS_PER_YIELD = 16;
-	  /* Number of frames with a delay of 0 ms before the
-	     animation thread yields to other running threads. */
+	/* Number of frames with a delay of 0 ms before the
+	animation thread yields to other running threads. */
 	private static int MAX_FRAME_SKIPS = 5;
-   // no. of frames that can be skipped in any one animation loop
-	 // i.e the games state is updated but not rendered
-
+	// no. of frames that can be skipped in any one animation loop
+	// i.e the games state is updated but not rendered
 	private static final int PWIDTH = 1080; // largo del panel
 	private static final int PHEIGHT = 720; // alto del panel
-
 	private Thread animator; // for the animation
 	private boolean running = false; // stops the animation
 
 	private boolean gameOver = false; // for game termination
 	private boolean isPaused = false;
-
 	// global variables for off-screen rendering
 	private Graphics dbg;
 	private Image dbImage = null;
-
 	//Our objects
 	private Background background;
 	private Background foreground;
 	private Background middleground;
 	private Juanito juanito;
 	private Obstaculos obstaculos;
-
 	private SoundLoader soundloader = new SoundLoader("/jean.wav");
 
 	public GamePanel() {
 		setBackground(Color.white); //white background
 		setPreferredSize(new Dimension(PWIDTH, PHEIGHT));
-
 		setFocusable(true);
 		requestFocus(); //JPanel now receives keyEvents;
-
 		//we create our objects here
 		foreground = new Background(0,0,"img/foreground3.png");
 		middleground = new Background(0,0,"img/middleground3.png");
 		background = new Background(0,0,"img/background3.png");
-		juanito = new Juanito(0, 600, 10, 120, "img/juanito.gif");
+		juanito = new Juanito(0, 600, 90, 90, "img/juanito.gif");
 		obstaculos = new Obstaculos();
-
 		addKeyListener(this);
 	} //End of GamePanel()
 
@@ -82,7 +72,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
 	public void pauseGame() {isPaused = true;} //end of pauseGame()
 	public void resumeGame() {isPaused = false;}//end of resumeGame()
-
 	public void run() {
 	/* Repeatedly update, render, sleep so loop takes close
 		to period nsecs. Sleep inaccuracies are handled.
@@ -132,7 +121,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		          noDelays = 0;
 		        }
 			}beforeTime = java.lang.System.nanoTime();
-
 			/* If frame animation is taking too long, update the game state
 			   without rendering it, to get the updates/sec nearer to
 			   the required FPS. */
@@ -148,7 +136,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 	} //end of run
 
 	private void gameUpdate() {
-		if(!gameOver) {juanito.move(foreground, middleground, background, obstaculos);}/*if game is not over*/
+		if(!gameOver) {juanito.moveWithLandscape(foreground, middleground, background, obstaculos);}/*if game is not over*/
 	}
 
 	private void gameRender(){	// draw the current frame to an image buffer

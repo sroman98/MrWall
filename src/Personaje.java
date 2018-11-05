@@ -43,15 +43,10 @@ public abstract class Personaje {
 	public String getPath() {return path;}
 	public void setPath(String path) {this.path = path;}
 	//methods
-	public abstract void move();
-
-	public abstract void stop();
-
 	public abstract void hurt();
 	public abstract void heal();
 
 	public abstract void die();
 	
 	public abstract void draw(Graphics g);
-	
 }

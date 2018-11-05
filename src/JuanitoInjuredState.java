@@ -2,7 +2,7 @@ public class JuanitoInjuredState implements JuanitoState{
 	JuanitoStateContext jc;
 
 	public JuanitoInjuredState(JuanitoStateContext nc) {jc = nc;}
-	public void jump() {System.out.println("No se puede jump en injured!");}
+	public void jump(Juanito juanito) {System.out.println("No se puede jump en injured!");}
 	public void shoot() {System.out.println("No se puede shoot en injured!");}
 	public void move() {jc.setCurrent(jc.getMovingState());}
 	public void stop() {System.out.println("No se puede stop en injured!");}

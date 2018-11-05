@@ -1,6 +1,6 @@
 interface JuanitoState {
 
-		public void jump();
+		public void jump(Juanito juanito);
 		public void shoot();
 		public void move();
 

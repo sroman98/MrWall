@@ -3,7 +3,7 @@ public class JuanitoDeadState implements JuanitoState{
 
 	public JuanitoDeadState(JuanitoStateContext nc) {jc = nc;}
 
-	public void jump() {System.out.println("No se puede jump en dead!");}
+	public void jump(Juanito juanito) {System.out.println("No se puede jump en dead!");}
 	public void shoot() {System.out.println("No se puede shoot en dead!");}
 	public void move() {System.out.println("No se puede move en dead!");}
 	public void stop() {System.out.println("No se puede stop en dead!");}
