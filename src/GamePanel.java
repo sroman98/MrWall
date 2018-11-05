@@ -136,7 +136,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 	} //end of run
 
 	private void gameUpdate() {
-		if(!gameOver) {juanito.moveWithLandscape(foreground, middleground, background, obstaculos);}/*if game is not over*/
+		if(!gameOver) {juanito.movingWithLandscape(foreground, middleground, background, obstaculos);}/*if game is not over*/
 	}
 
 	private void gameRender(){	// draw the current frame to an image buffer

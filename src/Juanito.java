@@ -22,27 +22,24 @@ public class Juanito extends Personaje {
 		System.out.println("Creaste un juanito e inicializaste su contexto");
 		referencia = this.getY();
 	}
-	
 	public JuanitoStateContext getContextoEstado() {return this.juanitoStateContext;}
-	
-	public void moveWithLandscape(Background fg, Background mg, Background bg, Obstaculos obs) {
+	public void movingWithLandscape(Background fg, Background mg, Background bg, Obstaculos obs) {
 		if(right) {
-			if(x<480 || (fg.getX()<=-3240 && x+width<=1070)) {
-				x += velx;
-			}else {
-	    	fg.setX(-3);
-	    	if(fg.getX()!=-3240) {obs.avanzar(-3);}
-	    	if(fg.getX()>-3240) {
-	    		mg.setX(-2);
-	    		bg.setX(-1);
-	    	  }
-	      }
+			if(x<480 || (fg.getX()<=-3240 && x+width<=1070)) {x += velx;}
+			else {
+				fg.setX(-3);
+				if(fg.getX()!=-3240) {obs.avanzar(-3);}
+				if(fg.getX()>-3240) {
+					mg.setX(-2);
+					bg.setX(-1);
+				}
+			}
 	   }if(left) {
 		   if(x>480 || (fg.getX()>=0 && x>0)) {x -= velx;}
 		   else {
 			   fg.setX(3);
 			   if(fg.getX()!=0) {obs.avanzar(3);}
-			   if(fg.getX()>-3240) {
+			   if(fg.getX()>-3240) { 
 				   mg.setX(2);
 				   bg.setX(1);
 			   }
@@ -67,8 +64,8 @@ public class Juanito extends Personaje {
 			if(vely != -25 && this.y>=590) {vely = -25;} //Complemented with -&& 590-
 			break;
 		}
-		if(right || left || up){juanitoStateContext.setCurrent(juanitoStateContext.getMovingState());}
-		else {juanitoStateContext.setCurrent(juanitoStateContext.getStaticState());}
+		if(right || left || up){juanitoStateContext.getCurrent().move();}
+		else {juanitoStateContext.getCurrent().stop();}
 	}
 	public void stop(KeyEvent e) {
 		int key = e.getKeyCode();
@@ -87,10 +84,9 @@ public class Juanito extends Personaje {
 			juanitoStateContext.getCurrent().stop();
 		}
 	}
-	
-	public void hurt() {juanitoStateContext.setCurrent(juanitoStateContext.getInjuredState());}
-	public void heal() {juanitoStateContext.setCurrent(juanitoStateContext.getStaticState());}
-	public void die() {juanitoStateContext.setCurrent(juanitoStateContext.getDeadState());}
+	public void hurt() {juanitoStateContext.getCurrent().hurt();}
+	public void heal() {juanitoStateContext.getCurrent().heal();}
+	public void die() {juanitoStateContext.getCurrent().die();}
 	//getters
 	public float getDt() {return this.dt;}
 	public int getGravity() {return this.gravity;}

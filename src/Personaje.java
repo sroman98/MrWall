@@ -12,7 +12,6 @@ public abstract class Personaje {
 	protected int vely;
 	protected String path;
 	protected ImageIcon mygif;
-	
 	//Constructor
 	public Personaje(int x, int y, int w, int h, int vida, int velx, int vely, String path) {
 		this.x = x;
@@ -45,8 +44,6 @@ public abstract class Personaje {
 	//methods
 	public abstract void hurt();
 	public abstract void heal();
-
 	public abstract void die();
-	
 	public abstract void draw(Graphics g);
 }
