@@ -38,7 +38,6 @@ public class SoundLoader implements Runnable {
 		playSound(soundList.get(currentSongIndex));
 	}
 	
-	
 	public void startMusic() {// initialize and start the thread
 		if (musicthread==null || !running) {
 			musicthread = new Thread(this);

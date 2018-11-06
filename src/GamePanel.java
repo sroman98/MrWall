@@ -10,6 +10,9 @@ import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JPanel;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.awt.Graphics2D;
 
 public class GamePanel extends JPanel implements Runnable, KeyListener {
 	/**
@@ -49,7 +52,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		foreground = new Background(0,0,"img/foreground3.png");
 		middleground = new Background(0,0,"img/middleground3.png");
 		background = new Background(0,0,"img/background3.png");
-		juanito = new Juanito(0, 600, 90, 90, "img/juanito.gif");
+		juanito = new Juanito(0, 600, 90, 90, "img/jstillder.png");
 		obstaculos = new Obstaculos();
 		addKeyListener(this);
 	} //End of GamePanel()

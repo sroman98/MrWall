@@ -1,6 +1,7 @@
 import java.awt.Graphics;
 import javax.swing.ImageIcon;
 
+
 public abstract class Personaje {
 	//Variables
 	protected int x;
@@ -41,9 +42,15 @@ public abstract class Personaje {
 	public void setVely(int vely) {this.vely = vely;}
 	public String getPath() {return path;}
 	public void setPath(String path) {this.path = path;}
+	public ImageIcon getIcon() {return mygif;}
+	public void setIcon(ImageIcon mygif) {
+		this.mygif=mygif;
+	}
 	//methods
 	public abstract void hurt();
 	public abstract void heal();
 	public abstract void die();
 	public abstract void draw(Graphics g);
+	
+	
 }
