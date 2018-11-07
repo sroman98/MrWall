@@ -18,6 +18,8 @@ public class Juanito extends Personaje {
 	private int gravity;
 	private Rectangle rectangulo;
 	private int referencia;
+	private int puntaje;
+	private int nivel;
 	private ImageIcon jmoveizq;
 	private ImageIcon jmoveder;
 	private ImageIcon jstillizq;
@@ -35,6 +37,8 @@ public class Juanito extends Personaje {
 		rectangulo = new Rectangle();
 		System.out.println("Creaste un juanito e inicializaste su contexto");
 		referencia = this.getY();
+		puntaje = 0;
+		nivel = 1;
 		
 		jmoveder= new ImageIcon("img/jmoveder.gif");
 		jmoveizq= new ImageIcon("img/jmoveizq.gif");
@@ -118,46 +122,26 @@ public class Juanito extends Personaje {
 	}
 	
 	public void updateIcon() {
-		if(right) {
-			this.setIcon(jmoveder);
-		}
-		
-		if(left) {
-			this.setIcon(jmoveizq);
-		}
-		
-		if(right && up==true) {
-			this.setIcon(jsaltader);
-		}
-		
-		if(left && up==true) {
-			this.setIcon(jsaltaizq);
-		}
-		
-		if(right==false && left==false && up==false && (this.getIcon()==jmoveder || this.getIcon()==jsaltader)) {
-			this.setIcon(jstillder);
-		}
-		
-		if(right==false && left==false && up==false && (this.getIcon()==jmoveizq || this.getIcon()==jsaltaizq)) {
-			this.setIcon(jstillizq);
-		}
-		
-		if(up==true && left==false && right==false && this.getIcon()==jstillder) {
-			this.setIcon(jsaltader);
-		}
-		
-		if(up==true && left==false && right==false && this.getIcon()==jstillizq) {
-			this.setIcon(jsaltaizq);
-		}
-		
-		
+		if(right) {this.setIcon(jmoveder);}
+		if(left) {this.setIcon(jmoveizq);}
+		if(right && up==true) {this.setIcon(jsaltader);}
+		if(left && up==true) {this.setIcon(jsaltaizq);}
+		if(right==false && left==false && up==false && (this.getIcon()==jmoveder || this.getIcon()==jsaltader)) {this.setIcon(jstillder);}
+		if(right==false && left==false && up==false && (this.getIcon()==jmoveizq || this.getIcon()==jsaltaizq)) {this.setIcon(jstillizq);}
+		if(up==true && left==false && right==false && this.getIcon()==jstillder) {this.setIcon(jsaltader);}
+		if(up==true && left==false && right==false && this.getIcon()==jstillizq) {this.setIcon(jsaltaizq);}	
 	}
-	
 	public void hurt() {juanitoStateContext.getCurrent().hurt();}
 	public void heal() {juanitoStateContext.getCurrent().heal();}
 	public void die() {juanitoStateContext.getCurrent().die();}
 	
-	//getters
+	//setters and getters
+	public void setPuntaje(int p) {this.puntaje+=p;}
+	public int getPuntaje() {return this.puntaje;}
+	public void setNivel(int n) {
+		if(n>this.nivel) {this.nivel = n;} //prevenir que se repita el mismo # de nivel y me den número negativos
+	}
+	public int getNivel() {return this.nivel;}
 	public float getDt() {return this.dt;}
 	public int getGravity() {return this.gravity;}
 	

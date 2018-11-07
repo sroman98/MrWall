@@ -42,6 +42,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 	private Juanito juanito;
 	private Obstaculos obstaculos;
 	private SoundLoader soundloader = new SoundLoader("/jean.wav");
+	private JuanitoHUD hud;
 
 	public GamePanel() {
 		setBackground(Color.white); //white background
@@ -54,6 +55,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		background = new Background(0,0,"img/background3.png");
 		juanito = new Juanito(0, 600, 90, 90, "img/jstillder.png");
 		obstaculos = new Obstaculos();
+		hud = JuanitoHUD.getInstance();
 		addKeyListener(this);
 	} //End of GamePanel()
 
@@ -139,7 +141,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 	} //end of run
 
 	private void gameUpdate() {
-		if(!gameOver) {juanito.movingWithLandscape(foreground, middleground, background, obstaculos);}/*if game is not over*/
+		if(!gameOver) {
+			juanito.movingWithLandscape(foreground, middleground, background, obstaculos);
+			hud.update(juanito);
+		}/*if game is not over*/
 	}
 
 	private void gameRender(){	// draw the current frame to an image buffer
@@ -159,8 +164,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		foreground.draw(dbg);
 		juanito.draw(dbg);
 		obstaculos.draw(dbg);
+		hud.draw(dbg);
 	} // end of gameRender()
-
 	private void paintScreen(){	// actively render the buffer image to the screen
 		Graphics g;
 		try {
@@ -172,7 +177,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 	@Override
 	public void keyTyped(KeyEvent e) {}
 	@Override
-	public void keyPressed(KeyEvent e) {juanito.move(e);}
+	public void keyPressed(KeyEvent e) {
+		juanito.move(e);
+		//juanito.setPuntaje(1); /*Esto era para sumar 1 pto a cada paso y testear el HUD*/
+	}
 	@Override
 	public void keyReleased(KeyEvent e) {juanito.stop(e);}
 }
