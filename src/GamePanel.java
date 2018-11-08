@@ -30,8 +30,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 	private Thread animator; // for the animation
 	private boolean running = false; // stops the animation
 
-	private boolean gameOver = false; // for game termination
-	private boolean isPaused = false;
+	private volatile boolean gameOver = false; // for game termination
+	private volatile boolean isPaused = false;
 	// global variables for off-screen rendering
 	private Graphics dbg;
 	private Image dbImage = null;

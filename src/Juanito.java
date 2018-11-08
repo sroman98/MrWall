@@ -26,11 +26,18 @@ public class Juanito extends Personaje {
 	private ImageIcon jstillder;
 	private ImageIcon jsaltader;
 	private ImageIcon jsaltaizq;
+	private boolean perfilDer;
+	private boolean perfilIzq;
 	
 	public Juanito(int x, int y, int w, int h, String path) {
 		super(x,y,w,h, 5, 3, 0, path);
+		
 		right = false;
 		left = false;
+		
+		perfilDer=true;		//perfiles Derecho
+		perfilIzq=false;	//perfiles Izquierdo
+		
 		dt = (float) 0.666;
 		gravity = 2;	
 		juanitoStateContext = new JuanitoStateContext();
@@ -49,11 +56,8 @@ public class Juanito extends Personaje {
 		
 	}
 	public JuanitoStateContext getContextoEstado() {return this.juanitoStateContext;}
-	
 	public void movingWithLandscape(Background fg, Background mg, Background bg, Obstaculos obs) {
-		
 		updateIcon(); // cambia de imagen dependiendo de la tecla presionada o no presionada
-		
 		if(right){
 			if(x<480 || (fg.getX()<=-3240 && x+width<=1070)) {x += velx;}
 			else {
@@ -64,9 +68,7 @@ public class Juanito extends Personaje {
 					bg.setX(-1);
 				}
 			}
-		}
-		
-		if(left){  
+		}if(left){  
 		   if(x>480 || (fg.getX()>=0 && x>0)) {x -= velx;}
 		   else {
 			   fg.setX(3);
@@ -76,9 +78,7 @@ public class Juanito extends Personaje {
 				   bg.setX(1);
 			   }
 		   }  
-	   }
-		
-		if(up || this.y < referencia-10){ // -10 due to relative error
+	   }if(up || this.y < referencia-10){ // -10 due to relative error
 		   juanitoStateContext.setCurrent(juanitoStateContext.getMovingState());
 		   juanitoStateContext.getCurrent().jump(this);
 	   }
@@ -89,18 +89,20 @@ public class Juanito extends Personaje {
 		switch(key) {
 		case KeyEvent.VK_RIGHT:
 			right = true;
+			perfilDer= true;
+			perfilIzq=false;
 			break;
 		case KeyEvent.VK_LEFT:
 			left = true;
+			perfilDer= false;
+			perfilIzq=true;
 			break;
 		case KeyEvent.VK_UP:
 			up = true;
 			juanitoStateContext.getCurrent().jump(this);
 			if(vely != -25 && this.y>=590) {vely = -25;} //Complemented with -&& 590-
 			break;
-		}
-		if(right || left || up){juanitoStateContext.getCurrent().move();}
-		else {juanitoStateContext.getCurrent().stop();}
+		}if(right || left || up){juanitoStateContext.getCurrent().move();}
 	}
 	
 	public void stop(KeyEvent e) {
@@ -111,6 +113,7 @@ public class Juanito extends Personaje {
 			break;
 		case KeyEvent.VK_LEFT:
 			left = false;
+			
 			break;
 		case KeyEvent.VK_UP:
 			up = false;
@@ -120,8 +123,8 @@ public class Juanito extends Personaje {
 			juanitoStateContext.getCurrent().stop();
 		}
 	}
-	
 	public void updateIcon() {
+		if(perfilDer && up) {this.setIcon(jsaltader);}
 		if(right) {this.setIcon(jmoveder);}
 		if(left) {this.setIcon(jmoveizq);}
 		if(right && up==true) {this.setIcon(jsaltader);}
