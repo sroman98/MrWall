@@ -12,11 +12,11 @@ public class Obstaculos {
 	
 	Obstaculos(){
 		obstaculos = new ArrayList<Obstaculo>(5);
-		obs1 = new Obstaculo(30  , 635, 100, 48, "img/obs1.png");
-		obs2 = new Obstaculo(570 , 635, 100, 48, "img/obs1.png");
-		obs3 = new Obstaculo(910 , 635, 100, 48, "img/obs1.png");
-		obs4 = new Obstaculo(1850, 635, 100, 48, "img/obs1.png");
-		obs5 = new Obstaculo(3300, 635, 100, 48, "img/obs1.png");
+		obs1 = new Obstaculo(930 , 635, 100, 48, "img/obs1.png");
+		obs2 = new Obstaculo(1400, 635, 100, 48, "img/obs1.png");
+		obs3 = new Obstaculo(1510, 635, 100, 48, "img/obs1.png");
+		obs4 = new Obstaculo(1990, 635, 100, 48, "img/obs1.png");
+		obs5 = new Obstaculo(3110, 635, 100, 48, "img/obs1.png");
 		obstaculos.add(obs1);
 		obstaculos.add(obs2);
 		obstaculos.add(obs3);
@@ -43,6 +43,6 @@ public class Obstaculos {
 		while(apt.hasNext()) {
 			Obstaculo obstaculo = apt.next();
 			if(obstaculo instanceof Obstaculo) {obstaculos.remove(index);}
-		}//While		
+		}//While
 	}
 }

@@ -93,16 +93,14 @@ public class PlayPanel  extends JPanel implements Runnable, KeyListener {
 	}
 	
 	public void checkLevelChange(){
-		
-		if(juanito.getX()>=950) {
+		if(juanito.getX()>=980 && juanito.getNivel()==1) {
 			playpanelstatecontext.setCurrent(playpanelstatecontext.getNivel2());
 			currentbackground.setX(0);
 			currentmiddleground.setX(0);
 			currentforeground.setX(0);
 			juanito.setX(currentbackground.getX()+100);
-			
+			juanito.setNivel(2);
 		}
-		
 	}
 
 	public void addNotify() { // waits for the JPanel to be added to the JFrame/JApplet before starting;
@@ -116,7 +114,7 @@ public class PlayPanel  extends JPanel implements Runnable, KeyListener {
 			animator.start();
 		}soundloader.startMusic();
 	} //end of startGame()
-
+	
 	public void stopGame() {/* called by the user to stop execution*/
 		running=false;
 	} //end of stopGame()
@@ -125,9 +123,6 @@ public class PlayPanel  extends JPanel implements Runnable, KeyListener {
 	public void resumeGame() {isPaused = false;}//end of resumeGame()
 	
 	public void run() {
-		
-		
-		
 	/* Repeatedly update, render, sleep so loop takes close
 		to period nsecs. Sleep inaccuracies are handled.
 		The timing calculation uses java.lang.System.nanoTime().
@@ -146,10 +141,12 @@ public class PlayPanel  extends JPanel implements Runnable, KeyListener {
 		running = true;
 		while(running) {
 			try {
-		        if (isPaused) {
-		          synchronized(this) {
-		            while (isPaused && running) {wait();} 
-		           }
+				if (isPaused) {
+					synchronized(this) {
+						while (isPaused && running) {
+							wait();
+						} 
+		           	}
 		        }
 		    } // of try block
 			catch (InterruptedException e){}
@@ -193,16 +190,15 @@ public class PlayPanel  extends JPanel implements Runnable, KeyListener {
 	private void gameUpdate() {
 		if(!gameOver) {
 			checkLevelChange();
-			
 			juanito.movingWithLandscape(currentforeground, currentmiddleground, currentbackground, obstaculos);
 			hud.update(juanito);
 			if(playpanelstatecontext.getCurrent()==playpanelstatecontext.getNivel2()) {
-				
 				currentbackground=background3;
 				currentmiddleground=middleground3;
 				currentforeground=foreground3;
 			}
 		}/*if game is not over*/
+		//System.out.println(isPaused);
 	}
 
 	private void gameRender(){	// draw the current frame to an image buffer
@@ -224,9 +220,7 @@ public class PlayPanel  extends JPanel implements Runnable, KeyListener {
 		juanito.draw(dbg);
 		obstaculos.draw(dbg);
 		hud.draw(dbg);
-		
 	} // end of gameRender()
-	
 	
 	private void paintScreen(){	// actively render the buffer image to the screen
 		Graphics g;
@@ -237,21 +231,20 @@ public class PlayPanel  extends JPanel implements Runnable, KeyListener {
 	    }catch (Exception e){ System.out.println("Graphics context error: " + e);  }
 	} // end of paintScreen()
 	
-	
 	@Override
 	public void keyTyped(KeyEvent e){}
-	
 	@Override
 	public void keyPressed(KeyEvent e){
+		/*if(isPaused==false && e.getKeyCode()==KeyEvent.VK_P) {
+			pauseGame();
+		}else if(isPaused==true && e.getKeyCode()==KeyEvent.VK_Q) {
+			resumeGame();
+		}*/
 		juanito.move(e);
 		//juanito.setPuntaje(1); /*Esto era para sumar 1 pto a cada paso y testear el HUD*/
 	}
-	
 	@Override
 	public void keyReleased(KeyEvent e) {
 		juanito.stop(e);
 	}
-		
-	
-
 }
