@@ -4,9 +4,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.File;
 
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 public class PlayPanel  extends JPanel implements Runnable, KeyListener {
@@ -80,8 +78,8 @@ public class PlayPanel  extends JPanel implements Runnable, KeyListener {
 		
 		
 		/////////////////////////
-		playnivel1=false;
-		playnivel2=false;
+		setPlaynivel1(false);
+		setPlaynivel2(false);
 		playpanelstatecontext= new PlayPanelStateContext();
 		System.out.println("CREASTE UN PLAY PANEL E INICIALIZASTE SU CONTEXTO");
 		 
@@ -92,6 +90,22 @@ public class PlayPanel  extends JPanel implements Runnable, KeyListener {
 		return this.playpanelstatecontext;
 	}
 	
+	public boolean isPlaynivel1() {
+		return playnivel1;
+	}
+
+	public void setPlaynivel1(boolean playnivel1) {
+		this.playnivel1 = playnivel1;
+	}
+
+	public boolean isPlaynivel2() {
+		return playnivel2;
+	}
+
+	public void setPlaynivel2(boolean playnivel2) {
+		this.playnivel2 = playnivel2;
+	}
+
 	public void checkLevelChange(){
 		if(juanito.getX()>=980 && juanito.getNivel()==1) {
 			playpanelstatecontext.setCurrent(playpanelstatecontext.getNivel2());

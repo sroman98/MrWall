@@ -10,9 +10,6 @@ import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JPanel;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
-import java.awt.Graphics2D;
 
 public class GamePanel extends JPanel implements Runnable, KeyListener {
 	/**
@@ -68,7 +65,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		if (animator==null || !running) {
 			animator = new Thread(this);
 			animator.start();
-		}soundloader.startMusic();
+		}
+		soundloader.startMusic();
 	} //end of startGame()
 
 	public void stopGame() {/* called by the user to stop execution*/

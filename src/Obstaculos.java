@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.ListIterator;
 
 public class Obstaculos {
-	private ArrayList obstaculos;
+	private ArrayList<Obstaculo> obstaculos;
 	private Obstaculo obs1;
 	private Obstaculo obs2;
 	private Obstaculo obs3;
