@@ -3,9 +3,6 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.*;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
-import java.awt.Graphics;
 import javax.swing.ImageIcon;
 import java.awt.image.BufferedImage;
 
@@ -37,12 +34,12 @@ public class Juanito extends Personaje {
 		left = false;
 		
 		perfilDer=true;		//perfiles Derecho
-		perfilIzq=false;	//perfiles Izquierdo
+		setPerfilIzq(false);	//perfiles Izquierdo
 		
 		dt = (float) 0.666;
 		gravity = 2;	
 		juanitoStateContext = new JuanitoStateContext();
-		rectangulo = new Rectangle();
+		setRectangulo(new Rectangle());
 		System.out.println("Creaste un juanito e inicializaste su contexto");
 		referencia = this.getY();
 		puntaje = 0;
@@ -57,6 +54,18 @@ public class Juanito extends Personaje {
 		
 	}
 	public JuanitoStateContext getContextoEstado() {return this.juanitoStateContext;}
+	public Rectangle getRectangulo() {
+		return rectangulo;
+	}
+	public void setRectangulo(Rectangle rectangulo) {
+		this.rectangulo = rectangulo;
+	}
+	public boolean isPerfilIzq() {
+		return perfilIzq;
+	}
+	public void setPerfilIzq(boolean perfilIzq) {
+		this.perfilIzq = perfilIzq;
+	}
 	public void movingWithLandscape(Background fg, Background mg, Background bg, Obstaculos obs) {
 		updateIcon(); // cambia de imagen dependiendo de la tecla presionada o no presionada
 		if(right){
@@ -92,12 +101,12 @@ public class Juanito extends Personaje {
 		case KeyEvent.VK_RIGHT:
 			right = true;
 			perfilDer= true;
-			perfilIzq=false;
+			setPerfilIzq(false);
 			break;
 		case KeyEvent.VK_LEFT:
 			left = true;
 			perfilDer= false;
-			perfilIzq=true;
+			setPerfilIzq(true);
 			break;
 		case KeyEvent.VK_UP:
 			up = true;
@@ -147,7 +156,7 @@ public class Juanito extends Personaje {
 	public void setPuntaje(int p) {this.puntaje+=p;}
 	public int getPuntaje() {return this.puntaje;}
 	public void setNivel(int n) {
-		if(n>this.nivel) {this.nivel = n;} //prevenir que se repita el mismo # de nivel y me den número negativos
+		if(n>this.nivel) {this.nivel = n;} //prevenir que se repita el mismo # de nivel y me den nï¿½mero negativos
 	}
 	public int getNivel() {return this.nivel;}
 	public float getDt() {return this.dt;}
