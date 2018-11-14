@@ -29,24 +29,24 @@ public class JuanitoHUD {
 		BufferedImage img;
 		
 		g.setColor(Color.WHITE);
-		g.setFont(new Font("Times New Roman",Font.BOLD,18));
-		g.drawString("Nivel: "+nivel, 15, 18);
-		g.drawString(" "+vidas, 1040, 18);
+		g.setFont(new Font("Pixeled",Font.BOLD,15));
+		g.drawString("Level: "+nivel, 20, 26);
+		g.drawString(" "+vidas, 1020, 26);
 		
-		if(              puntos<10){g.drawString("00000000"+puntos, 500, 18);}
-		else if(        puntos<100){g.drawString("0000000"+puntos, 500, 18);}
-		else if(      puntos<1_000){g.drawString("000000"+puntos, 500, 18);}
-		else if(     puntos<10_000){g.drawString("00000"+puntos, 500, 18);}
-		else if(    puntos<100_000){g.drawString("0000"+puntos, 500, 18);}
-		else if(  puntos<1_000_000){g.drawString("000"+puntos, 500, 18);}
-		else if( puntos<10_000_000){g.drawString("00"+puntos, 500, 18);}
-		else if(puntos<100_000_000){g.drawString("0"+puntos, 500, 18);}
-		else {                      g.drawString(""+puntos, 500, 18);}
+		if(              puntos<10){g.drawString("00000000"+puntos, 460, 30);}
+		else if(        puntos<100){g.drawString("0000000"+puntos, 460, 30);}
+		else if(      puntos<1_000){g.drawString("000000"+puntos, 460, 30);}
+		else if(     puntos<10_000){g.drawString("00000"+puntos, 460, 30);}
+		else if(    puntos<100_000){g.drawString("0000"+puntos, 460, 30);}
+		else if(  puntos<1_000_000){g.drawString("000"+puntos, 460, 30);}
+		else if( puntos<10_000_000){g.drawString("00"+puntos, 460, 30);}
+		else if(puntos<100_000_000){g.drawString("0"+puntos, 460, 30);}
+		else {                      g.drawString(""+puntos, 460, 30);}
 		
 		File srcFile = new File("img/heart.png");
 	  	try {
 	  		img = ImageIO.read(srcFile);
-	  		g.drawImage(img, 1020, 2, 20, 20, null);
+	  		g.drawImage(img, 1000, 7, 20, 20, null);
 	  	}catch (IOException e){e.printStackTrace();}
 	}
 }

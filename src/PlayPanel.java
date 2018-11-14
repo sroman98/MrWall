@@ -1,15 +1,22 @@
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-public class PlayPanel  extends JPanel implements Runnable, KeyListener {
+public class PlayPanel extends JPanel implements Runnable, KeyListener {
 	
 	private boolean playnivel1;
 	private boolean playnivel2;
@@ -45,12 +52,20 @@ public class PlayPanel  extends JPanel implements Runnable, KeyListener {
 	private Background currentforeground;
 	private Background currentmiddleground;
 	private Background currentbackground;
+	private Background currentstatebackground;
+	private Background stopbackground;
+	private Background runbackground;
 	
 	
 	private Juanito juanito;
 	private Obstaculos obstaculos; //////////////VA EN NIVELES
 	private SoundLoader soundloader;
 	private JuanitoHUD hud;
+	
+	private Button pausebutton;
+	private Button resumebutton;
+	
+	private boolean pausedstate;//QUITAR DESPUES
 
 	public PlayPanel() {
 		setBackground(Color.white); //white background
@@ -58,6 +73,8 @@ public class PlayPanel  extends JPanel implements Runnable, KeyListener {
 		setFocusable(true);
 		requestFocus(); //JPanel now receives keyEvents;
 		//we create our objects here
+		
+		//createFont("fonts/Pix.ttf");
 		
 		soundloader=new SoundLoader("/jean.wav");
 		
@@ -69,22 +86,71 @@ public class PlayPanel  extends JPanel implements Runnable, KeyListener {
 		middleground3 = new Background(0,0,"img/middleground3.png"); //////////////VA EN NIVELES
 		background3 = new Background(0,0,"img/background3.png"); //////////////VA EN NIVELES
 		
+		stopbackground = new Background(0,0, "img/pausedbackground.png");
+		runbackground = new Background(0,0, "img/runningbackground.png");
+		
 		currentforeground = foreground;
 		currentmiddleground = middleground;
 		currentbackground = background;
+		currentstatebackground = runbackground;
 		
 		juanito = new Juanito(0, 600, 90, 90, "img/jstillder.png");
 		obstaculos = new Obstaculos(); //////////////VA EN NIVELES
 		hud = JuanitoHUD.getInstance();
 		addKeyListener(this);
 		
-		
 		/////////////////////////
 		playnivel1=false;
 		playnivel2=false;
 		playpanelstatecontext= new PlayPanelStateContext();
 		System.out.println("CREASTE UN PLAY PANEL E INICIALIZASTE SU CONTEXTO");
+		
+		pausebutton=new Button(200,5,140,40,Color.CYAN, "pause",15, "#4372e8");
+		resumebutton=new Button(460,350,160,40,Color.CYAN, "resume",15, "#4372e8");
+		pausedstate=false; //agregar luego este estado;
 		 
+		////////////////////////////////////////////////////////////////
+		//MOUSE LISTENERS - NEEDS REFACTOR CHANGE LOCATION;
+		this.addMouseMotionListener( new MouseAdapter(){ 
+			public void mouseMoved(MouseEvent e) {
+				int x=e.getX();
+				int y=e.getY();
+				
+				 if(pausebutton.contains(x, y) || resumebutton.contains(x, y)) {
+					 pausebutton.setColor("#385fc1");
+					 resumebutton.setColor("#385fc1");
+
+				 }
+				 else {
+					 pausebutton.setColor("#4372e8");
+					 resumebutton.setColor("#4372e8");
+				 }
+				
+			}
+		});
+		
+		this.addMouseListener( new MouseAdapter(){ 
+			public void mouseClicked(MouseEvent e) {
+				int x=e.getX();
+				int y=e.getY();
+				 if(pausebutton.contains(x,y) ) {
+					 currentstatebackground=stopbackground;
+					 pausebutton.setColor("#213a7a");
+					 pausedstate=true;
+					 resumebutton.setColor("#4372e8");
+					 
+				 }
+				 if(resumebutton.contains(x,y) ) {
+					 currentstatebackground=runbackground;
+					 resumebutton.setColor("#213a7a");
+					 pausedstate=false;
+					 pausebutton.setColor("#4372e8");
+				 }
+				
+			}
+			
+		});
+		///////////////////////////////////////////////////////////////////
 
 	} //End of GamePanel()
 	
@@ -220,6 +286,18 @@ public class PlayPanel  extends JPanel implements Runnable, KeyListener {
 		juanito.draw(dbg);
 		obstaculos.draw(dbg);
 		hud.draw(dbg);
+		
+		
+		if(pausedstate){
+			currentstatebackground.draw(dbg);
+			resumebutton.draw(dbg); 
+		}
+		
+		else {
+			pausebutton.draw(dbg);
+		}
+		
+		
 	} // end of gameRender()
 	
 	private void paintScreen(){	// actively render the buffer image to the screen
@@ -231,6 +309,16 @@ public class PlayPanel  extends JPanel implements Runnable, KeyListener {
 	    }catch (Exception e){ System.out.println("Graphics context error: " + e);  }
 	} // end of paintScreen()
 	
+	
+	/*public void createFont(String fontpath) {
+		try {
+			 GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+			 ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(fontpath)));
+			} catch (IOException|FontFormatException e) {
+			 //Handle exception
+			}	
+	}*/
+	
 	@Override
 	public void keyTyped(KeyEvent e){}
 	@Override
@@ -241,10 +329,13 @@ public class PlayPanel  extends JPanel implements Runnable, KeyListener {
 			resumeGame();
 		}*/
 		juanito.move(e);
-		//juanito.setPuntaje(1); /*Esto era para sumar 1 pto a cada paso y testear el HUD*/
+		juanito.setPuntaje(100); /*Esto era para sumar 1 pto a cada paso y testear el HUD*/
 	}
 	@Override
 	public void keyReleased(KeyEvent e) {
 		juanito.stop(e);
 	}
+	
+	
+
 }
