@@ -1,8 +1,11 @@
-interface JuanitoState {
 
-		public void jump(Juanito juanito);
+
+
+interface JuanitoState {
 		public void shoot();
-		public void move();
+		public void moveRight();
+		public void moveLeft();
+		public void moveJump();
 
 		public void stop();
 

@@ -1,19 +1,10 @@
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.FontFormatException;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GraphicsEnvironment;
-import java.awt.event.KeyEvent;
-import java.io.File;
-import java.io.IOException;
-import java.awt.Rectangle;
-import java.util.Observer;
-import java.util.*;
 
 // Inherits Shape methods and attributes, it also implements Observer to detect collisions with the main character (our circle)
-public class Button extends Shape{
+public class Button extends Shape {
 	
 	private int width; // private to force Encapsulation
 	private int height; 
@@ -50,10 +41,25 @@ public class Button extends Shape{
 	public boolean contains(int xmouse, int ymouse) {
 		if((x<=xmouse && xmouse<=x+width) && (y<=ymouse && ymouse<=y+height)) {
 			return true;
-			
 		}
 		
 		return false;
+	}
+
+	public int getAddX() {
+		return addX;
+	}
+
+	public void setAddX(int addX) {
+		this.addX = addX;
+	}
+
+	public int getAddY() {
+		return addY;
+	}
+
+	public void setAddY(int addY) {
+		this.addY = addY;
 	}
 	
 }

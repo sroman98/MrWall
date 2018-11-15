@@ -1,3 +1,6 @@
+
+
+
 public class JuanitoStateContext {
 	private JuanitoState estados[]= new JuanitoState[5];
 	private JuanitoStateProperties propiedades;

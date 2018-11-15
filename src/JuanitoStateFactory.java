@@ -1,3 +1,6 @@
+
+
+
 public class JuanitoStateFactory {
 	// estructura de datos que albergue los constructores
 	private static JuanitoStateFactory instance;
@@ -5,7 +8,7 @@ public class JuanitoStateFactory {
 	public static synchronized JuanitoStateFactory getInstance() {//singleton pattern
 		if(instance == null) {instance = new JuanitoStateFactory();}
 		return instance;
-	}													// el context no lo debo que pasar así
+	}													// el context no lo debo que pasar asï¿½
 	public JuanitoState getJuanitoState(String tipo, JuanitoStateContext jsc) {
 		JuanitoState js= null;
 		try {

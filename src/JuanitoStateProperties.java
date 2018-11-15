@@ -1,3 +1,6 @@
+
+
+
 public class JuanitoStateProperties {
 	private String stringClase;
 	JuanitoStateProperties(){

@@ -1,19 +1,12 @@
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FontFormatException;
 import java.awt.Graphics;
-import java.awt.GraphicsEnvironment;
 import java.awt.Image;
-import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 public class PlayPanel extends JPanel implements Runnable, KeyListener {
@@ -56,8 +49,6 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 	private Background stopbackground;
 	private Background runbackground;
 	
-	
-	private Juanito juanito;
 	private Obstaculos obstaculos; //////////////VA EN NIVELES
 	private SoundLoader soundloader;
 	private JuanitoHUD hud;
@@ -94,7 +85,7 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 		currentbackground = background;
 		currentstatebackground = runbackground;
 		
-		juanito = new Juanito(0, 600, 90, 90, "img/jstillder.png");
+		
 		obstaculos = new Obstaculos(); //////////////VA EN NIVELES
 		hud = JuanitoHUD.getInstance();
 		addKeyListener(this);
@@ -105,8 +96,8 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 		playpanelstatecontext= new PlayPanelStateContext();
 		System.out.println("CREASTE UN PLAY PANEL E INICIALIZASTE SU CONTEXTO");
 		
-		pausebutton=new Button(200,5,140,40,Color.CYAN, "pause",15, "#4372e8");
-		resumebutton=new Button(460,350,160,40,Color.CYAN, "resume",15, "#4372e8");
+		pausebutton = new Button(200,5,140,40,Color.CYAN, "pause",15, "#4372e8");
+		resumebutton = new Button(460,350,160,40,Color.CYAN, "resume",15, "#4372e8");
 		pausedstate=false; //agregar luego este estado;
 		 
 		////////////////////////////////////////////////////////////////
@@ -160,13 +151,13 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 	}
 	
 	public void checkLevelChange(){
-		if(juanito.getX()>=980 && juanito.getNivel()==1) {
+		if(Juanito.getInstance().getX()>=980 && Juanito.getInstance().getNivel()==1) {
 			playpanelstatecontext.setCurrent(playpanelstatecontext.getNivel2());
 			currentbackground.setX(0);
 			currentmiddleground.setX(0);
 			currentforeground.setX(0);
-			juanito.setX(currentbackground.getX()+100);
-			juanito.setNivel(2);
+			Juanito.getInstance().setX(100);
+			Juanito.getInstance().setNivel(2);
 		}
 	}
 
@@ -257,8 +248,11 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 	private void gameUpdate() {
 		if(!gameOver) {
 			checkLevelChange();
-			juanito.movingWithLandscape(currentforeground, currentmiddleground, currentbackground, obstaculos);
-			hud.update(juanito);
+			
+			Juanito.getInstance().move(currentforeground, currentmiddleground, currentbackground, obstaculos);
+			Juanito.getInstance().jump();
+
+			hud.update(Juanito.getInstance());
 			if(playpanelstatecontext.getCurrent()==playpanelstatecontext.getNivel2()) {
 				currentbackground=background3;
 				currentmiddleground=middleground3;
@@ -284,7 +278,9 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 		currentbackground.draw(dbg);
 		currentmiddleground.draw(dbg);
 		currentforeground.draw(dbg);
-		juanito.draw(dbg);
+		
+		Juanito.getInstance().draw(dbg);
+		
 		obstaculos.draw(dbg);
 		hud.draw(dbg);
 		
@@ -310,33 +306,42 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 	    }catch (Exception e){ System.out.println("Graphics context error: " + e);  }
 	} // end of paintScreen()
 	
-	
-	/*public void createFont(String fontpath) {
-		try {
-			 GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-			 ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(fontpath)));
-			} catch (IOException|FontFormatException e) {
-			 //Handle exception
-			}	
-	}*/
-	
 	@Override
-	public void keyTyped(KeyEvent e){}
+	public void keyTyped(KeyEvent e){
+		if(e.getExtendedKeyCode() == KeyEvent.VK_SPACE) {
+			Juanito.getInstance().getJuanitoStateContext().getCurrent().moveJump();
+		}	
+	}
 	@Override
-	public void keyPressed(KeyEvent e){
-		/*if(isPaused==false && e.getKeyCode()==KeyEvent.VK_P) {
-			pauseGame();
-		}else if(isPaused==true && e.getKeyCode()==KeyEvent.VK_Q) {
-			resumeGame();
-		}*/
-		juanito.move(e);
-		juanito.setPuntaje(100); /*Esto era para sumar 1 pto a cada paso y testear el HUD*/
+	public void keyPressed(KeyEvent e) {
+		if(e.getExtendedKeyCode() == KeyEvent.VK_RIGHT)
+			Juanito.getInstance().getJuanitoStateContext().getCurrent().moveRight();
+		if(e.getExtendedKeyCode() == KeyEvent.VK_LEFT)
+			Juanito.getInstance().getJuanitoStateContext().getCurrent().moveLeft();
+
+	    Juanito.getInstance().setPuntaje(100); /*Esto era para sumar 1 pto a cada paso y testear el HUD*/
 	}
 	@Override
 	public void keyReleased(KeyEvent e) {
-		juanito.stop(e);
+		if(e.getExtendedKeyCode() == KeyEvent.VK_RIGHT || e.getExtendedKeyCode() == KeyEvent.VK_LEFT)
+			Juanito.getInstance().getJuanitoStateContext().getCurrent().stop();
 	}
 	
-	
+	//setters & getters
+	public boolean isPlaynivel1() {
+		return playnivel1;
+	}
+
+	public void setPlaynivel1(boolean playnivel1) {
+		this.playnivel1 = playnivel1;
+	}
+
+	public boolean isPlaynivel2() {
+		return playnivel2;
+	}
+
+	public void setPlaynivel2(boolean playnivel2) {
+		this.playnivel2 = playnivel2;
+	}	
 
 }
