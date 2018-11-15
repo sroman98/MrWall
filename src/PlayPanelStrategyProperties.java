@@ -1,8 +1,8 @@
 
-public class PlayPanelStateProperties {
+public class PlayPanelStrategyProperties {
 	
 	private String stringClase;
-	PlayPanelStateProperties(){
+	PlayPanelStrategyProperties(){
 		stringClase= "Nivel1";
 	}	
 	public String getClase(int n) {

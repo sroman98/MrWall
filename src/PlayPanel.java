@@ -13,8 +13,8 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 	
 	private boolean playnivel1;
 	private boolean playnivel2;
-	private PlayPanelStateContext playpanelstatecontext;
-	
+	private PlayPanelStrategyContext playpanelstatecontext;
+	private GameStateContext gamestatecontext;
 	 
 	private static final long serialVersionUID = 1L;
 	private static final int NO_DELAYS_PER_YIELD = 16;
@@ -34,22 +34,18 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 	// global variables for off-screen rendering
 	private Graphics dbg;
 	private Image dbImage = null;
-	//Our objects
 	
-	private Background background; //////////////VA EN NIVELES
-	private Background foreground; //////////////VA EN NIVELES
-	private Background middleground; //////////////VA EN NIVELES
-	private Background background3; //////////////VA EN NIVELES
-	private Background foreground3; //////////////VA EN NIVELES
-	private Background middleground3; //////////////VA EN NIVELES
+	
+	private Background stopbackground; //////////////deberia ir en los estados del juego
+	private Background runbackground; //////////////deberia ir en los estados del juego
+	
 	private Background currentforeground;
 	private Background currentmiddleground;
 	private Background currentbackground;
 	private Background currentstatebackground;
-	private Background stopbackground;
-	private Background runbackground;
 	
-	private Obstaculos obstaculos; //////////////VA EN NIVELES
+	
+	private Obstaculos obstaculos;
 	private SoundLoader soundloader;
 	private JuanitoHUD hud;
 	
@@ -65,36 +61,22 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 		requestFocus(); //JPanel now receives keyEvents;
 		//we create our objects here
 		
-		//createFont("fonts/Pix.ttf");
-		
 		soundloader=new SoundLoader("/jean.wav");
-		
-		foreground = new Background(0,0,"img/foreground1.png"); //////////////VA EN NIVELES
-		middleground = new Background(0,0,"img/middleground1.png"); //////////////VA EN NIVELES
-		background = new Background(0,0,"img/background1.png"); //////////////VA EN NIVELES
-		
-		foreground3 = new Background(0,0,"img/foreground3.png"); //////////////VA EN NIVELES
-		middleground3 = new Background(0,0,"img/middleground3.png"); //////////////VA EN NIVELES
-		background3 = new Background(0,0,"img/background3.png"); //////////////VA EN NIVELES
+		playnivel1=false;
+		playnivel2=false;
+		playpanelstatecontext= new PlayPanelStrategyContext();
 		
 		stopbackground = new Background(0,0, "img/pausedbackground.png");
 		runbackground = new Background(0,0, "img/runningbackground.png");
 		
-		currentforeground = foreground;
-		currentmiddleground = middleground;
-		currentbackground = background;
+		currentforeground = playpanelstatecontext.getCurrent().getForeground();
+		currentmiddleground = playpanelstatecontext.getCurrent().getMiddleground();
+		currentbackground = playpanelstatecontext.getCurrent().getBackground();
 		currentstatebackground = runbackground;
 		
-		
-		obstaculos = new Obstaculos(); //////////////VA EN NIVELES
+		obstaculos = playpanelstatecontext.getCurrent().getObstaculos();
 		hud = JuanitoHUD.getInstance();
 		addKeyListener(this);
-		
-		/////////////////////////
-		playnivel1=false;
-		playnivel2=false;
-		playpanelstatecontext= new PlayPanelStateContext();
-		System.out.println("CREASTE UN PLAY PANEL E INICIALIZASTE SU CONTEXTO");
 		
 		pausebutton = new Button(200,5,140,40,Color.CYAN, "pause",15, "#4372e8");
 		resumebutton = new Button(460,350,160,40,Color.CYAN, "resume",15, "#4372e8");
@@ -129,6 +111,7 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 					 pausebutton.setColor("#213a7a");
 					 pausedstate=true;
 					 resumebutton.setColor("#4372e8");
+					 //isPaused=true; //PERO CONSIDERAR QUE BOTON DEJA DE FUNCIONAR ENEMIGOS SE SEGUIRIAN MOVIENDO 
 					 
 				 }
 				 if(resumebutton.contains(x,y) ) {
@@ -137,16 +120,13 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 					 pausedstate=false;
 					 pausebutton.setColor("#4372e8");
 				 }
-				
-			
 			}
 			
 		});
 		///////////////////////////////////////////////////////////////////
-
 	} //End of GamePanel()
 	
-	public PlayPanelStateContext getPlayPanelContextoEstado() {
+	public PlayPanelStrategyContext getPlayPanelContextoEstado() {
 		return this.playpanelstatecontext;
 	}
 	
@@ -199,7 +179,7 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 		running = true;
 		while(running) {
 			try {
-				if (isPaused) {
+				if (isPaused) { //Pausa el juego
 					synchronized(this) {
 						while (isPaused && running) {
 							wait();
@@ -208,11 +188,12 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 		        }
 		    } // of try block
 			catch (InterruptedException e){}
-
-			gameUpdate(); // game state is updated
+			
 			gameRender(); // render to buffer
 			paintScreen(); // paint with the buffer
 			paintScreen(); // paint with the buffer
+			gameUpdate(); // game state is updated
+			
 
 			afterTime = java.lang.System.nanoTime();
 			timeDiff = afterTime - beforeTime;
@@ -253,13 +234,13 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 			Juanito.getInstance().jump();
 
 			hud.update(Juanito.getInstance());
+			
 			if(playpanelstatecontext.getCurrent()==playpanelstatecontext.getNivel2()) {
-				currentbackground=background3;
-				currentmiddleground=middleground3;
-				currentforeground=foreground3;
+				currentbackground= playpanelstatecontext.getCurrent().getBackground();
+				currentmiddleground= playpanelstatecontext.getCurrent().getMiddleground();
+				currentforeground= playpanelstatecontext.getCurrent().getForeground();
 			}
 		}/*if game is not over*/
-		//System.out.println(isPaused);
 	}
 
 	private void gameRender(){	// draw the current frame to an image buffer
@@ -293,7 +274,6 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 		else {
 			pausebutton.draw(dbg);
 		}
-		
 		
 	} // end of gameRender()
 	
