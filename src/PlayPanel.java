@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
@@ -11,8 +12,6 @@ import javax.swing.JPanel;
 
 public class PlayPanel extends JPanel implements Runnable, KeyListener {
 	
-	private boolean playnivel1;
-	private boolean playnivel2;
 	private PlayPanelStrategyContext playpanelstatecontext;
 	private GameStateContext gamestatecontext;
 	 
@@ -35,24 +34,16 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 	private Graphics dbg;
 	private Image dbImage = null;
 	
-	
-	private Background stopbackground; //////////////deberia ir en los estados del juego
-	private Background runbackground; //////////////deberia ir en los estados del juego
-	
 	private Background currentforeground;
 	private Background currentmiddleground;
 	private Background currentbackground;
 	private Background currentstatebackground;
 	
-	
-	private Obstaculos obstaculos;
+	private Obstaculos currentobstaculos;
 	private SoundLoader soundloader;
 	private JuanitoHUD hud;
 	
-	private Button pausebutton;
-	private Button resumebutton;
-	
-	private boolean pausedstate;//QUITAR DESPUES
+	private Button currentstatebutton;
 
 	public PlayPanel() {
 		setBackground(Color.white); //white background
@@ -62,69 +53,37 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 		//we create our objects here
 		
 		soundloader=new SoundLoader("/jean.wav");
-		playnivel1=false;
-		playnivel2=false;
-		playpanelstatecontext= new PlayPanelStrategyContext();
 		
-		stopbackground = new Background(0,0, "img/pausedbackground.png");
-		runbackground = new Background(0,0, "img/runningbackground.png");
+		playpanelstatecontext = new PlayPanelStrategyContext();
+		gamestatecontext = new GameStateContext();
 		
 		currentforeground = playpanelstatecontext.getCurrent().getForeground();
 		currentmiddleground = playpanelstatecontext.getCurrent().getMiddleground();
 		currentbackground = playpanelstatecontext.getCurrent().getBackground();
-		currentstatebackground = runbackground;
+		currentstatebackground = gamestatecontext.getCurrent().getBackground();
 		
-		obstaculos = playpanelstatecontext.getCurrent().getObstaculos();
+		currentobstaculos = playpanelstatecontext.getCurrent().getObstaculos();
 		hud = JuanitoHUD.getInstance();
 		addKeyListener(this);
 		
-		pausebutton = new Button(200,5,140,40,Color.CYAN, "pause",15, "#4372e8");
-		resumebutton = new Button(460,350,160,40,Color.CYAN, "resume",15, "#4372e8");
-		pausedstate=false; //agregar luego este estado;
-		 
-		////////////////////////////////////////////////////////////////
-		//MOUSE LISTENERS - NEEDS REFACTOR CHANGE LOCATION;
-		this.addMouseMotionListener( new MouseAdapter(){ 
+		currentstatebutton = gamestatecontext.getCurrent().getButton();
+		
+		addMouseMotionListener( new MouseAdapter(){ 
 			public void mouseMoved(MouseEvent e) {
-				int x=e.getX();
-				int y=e.getY();
-				
-				 if(pausebutton.contains(x, y) || resumebutton.contains(x, y)) {
-					 pausebutton.setColor("#385fc1");
-					 resumebutton.setColor("#385fc1");
-
-				 }
-				 else {
-					 pausebutton.setColor("#4372e8");
-					 resumebutton.setColor("#4372e8");
-				 }
-				
+				Point p = new Point(e.getX(),e.getY());
+				checkButtonState(p, currentstatebutton);
 			}
 		});
 		
-		this.addMouseListener( new MouseAdapter(){ 
+		addMouseListener( new MouseAdapter(){ 
 			public void mouseClicked(MouseEvent e) {
-				int x=e.getX();
-				int y=e.getY();
-				 if(pausebutton.contains(x,y) ) {
-					 currentstatebackground=stopbackground;
-					 pausebutton.setColor("#213a7a");
-					 pausedstate=true;
-					 resumebutton.setColor("#4372e8");
-					 //isPaused=true; //PERO CONSIDERAR QUE BOTON DEJA DE FUNCIONAR ENEMIGOS SE SEGUIRIAN MOVIENDO 
-					 
-				 }
-				 if(resumebutton.contains(x,y) ) {
-					 currentstatebackground=runbackground;
-					 resumebutton.setColor("#213a7a");
-					 pausedstate=false;
-					 pausebutton.setColor("#4372e8");
-				 }
+				Point p = new Point(e.getX(),e.getY());
+				checkGameState(p);
 			}
-			
 		});
-		///////////////////////////////////////////////////////////////////
-	} //End of GamePanel()
+		
+	} //End of GamePanel() Constructor
+	
 	
 	public PlayPanelStrategyContext getPlayPanelContextoEstado() {
 		return this.playpanelstatecontext;
@@ -139,6 +98,31 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 			Juanito.getInstance().setX(100);
 			Juanito.getInstance().setNivel(2);
 		}
+	}
+	
+	public void checkButtonState(Point p, Button b) {
+		 if(b.contains(p.getX(),p.getY())) {
+			 b.setColor("#385fc1");
+		 }
+		 else {
+			 b.setColor("#4372e8");
+		 }
+	}
+	
+	public void checkGameState(Point p) {
+		 if(currentstatebutton.contains(p.getX(),p.getY()) && gamestatecontext.getCurrent()==gamestatecontext.getGameActiveState()) {
+			 gamestatecontext.setCurrent(gamestatecontext.getGamePausedState());
+			 currentstatebutton = gamestatecontext.getCurrent().getButton();
+			 currentstatebackground = gamestatecontext.getCurrent().getBackground();
+			 isPaused=true; //PERO CONSIDERAR QUE BOTON DEJA DE FUNCIONAR ENEMIGOS SE SEGUIRIAN MOVIENDO 
+		 }
+		 
+		 else if(currentstatebutton.contains(p.getX(),p.getY()) && gamestatecontext.getCurrent()==gamestatecontext.getGamePausedState()) {
+			 gamestatecontext.setCurrent(gamestatecontext.getGameActiveState());
+			 currentstatebutton = gamestatecontext.getCurrent().getButton();
+			 currentstatebackground = gamestatecontext.getCurrent().getBackground();
+			 isPaused=false; //PERO CONSIDERAR QUE BOTON DEJA DE FUNCIONAR ENEMIGOS SE SEGUIRIAN MOVIENDO 
+		 }
 	}
 
 	public void addNotify() { // waits for the JPanel to be added to the JFrame/JApplet before starting;
@@ -230,7 +214,7 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 		if(!gameOver) {
 			checkLevelChange();
 			
-			Juanito.getInstance().move(currentforeground, currentmiddleground, currentbackground, obstaculos);
+			Juanito.getInstance().move(currentforeground, currentmiddleground, currentbackground, currentobstaculos);
 			Juanito.getInstance().jump();
 
 			hud.update(Juanito.getInstance());
@@ -262,19 +246,11 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 		
 		Juanito.getInstance().draw(dbg);
 		
-		obstaculos.draw(dbg);
+		currentobstaculos.draw(dbg);
 		hud.draw(dbg);
 		
-		
-		if(pausedstate){
-			currentstatebackground.draw(dbg);
-			resumebutton.draw(dbg); 
-		}
-		
-		else {
-			pausebutton.draw(dbg);
-		}
-		
+		currentstatebackground.draw(dbg);
+		currentstatebutton.draw(dbg);
 	} // end of gameRender()
 	
 	private void paintScreen(){	// actively render the buffer image to the screen
@@ -288,9 +264,10 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 	
 	@Override
 	public void keyTyped(KeyEvent e){
-		if(e.getExtendedKeyCode() == KeyEvent.VK_SPACE) {
+		/*if(e.getExtendedKeyCode() == KeyEvent.VK_A) {
+			System.out.println("SPACCCEEEES");
 			Juanito.getInstance().getJuanitoStateContext().getCurrent().moveJump();
-		}	
+		}*/	
 	}
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -298,6 +275,9 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 			Juanito.getInstance().getJuanitoStateContext().getCurrent().moveRight();
 		if(e.getExtendedKeyCode() == KeyEvent.VK_LEFT)
 			Juanito.getInstance().getJuanitoStateContext().getCurrent().moveLeft();
+		if(e.getExtendedKeyCode() == KeyEvent.VK_SPACE) {
+			Juanito.getInstance().getJuanitoStateContext().getCurrent().moveJump();
+		}	
 
 	    Juanito.getInstance().setPuntaje(100); /*Esto era para sumar 1 pto a cada paso y testear el HUD*/
 	}
@@ -307,21 +287,4 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 			Juanito.getInstance().getJuanitoStateContext().getCurrent().stop();
 	}
 	
-	//setters & getters
-	public boolean isPlaynivel1() {
-		return playnivel1;
-	}
-
-	public void setPlaynivel1(boolean playnivel1) {
-		this.playnivel1 = playnivel1;
-	}
-
-	public boolean isPlaynivel2() {
-		return playnivel2;
-	}
-
-	public void setPlaynivel2(boolean playnivel2) {
-		this.playnivel2 = playnivel2;
-	}	
-
 }

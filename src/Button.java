@@ -38,7 +38,7 @@ public class Button extends Shape {
 	
 	
 	// checks if mouse is over rounded rectangle
-	public boolean contains(int xmouse, int ymouse) {
+	public boolean contains(double xmouse, double ymouse) {
 		if((x<=xmouse && xmouse<=x+width) && (y<=ymouse && ymouse<=y+height)) {
 			return true;
 		}
