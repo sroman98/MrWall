@@ -1,8 +1,6 @@
 
-
-
 public class JuanitoStateContext {
-	private JuanitoState estados[]= new JuanitoState[5];
+	private JuanitoState estados[]= new JuanitoState[6];
 	private JuanitoStateProperties propiedades;
 	private JuanitoState current;
 
@@ -12,6 +10,7 @@ public class JuanitoStateContext {
 		estados[1] = JuanitoStateFactory.getInstance().getJuanitoState(propiedades.getClase(1), this); //JuanitoMovingState
 		estados[2] = JuanitoStateFactory.getInstance().getJuanitoState(propiedades.getClase(2), this); //JuanitoInjuredState
 		estados[3] = JuanitoStateFactory.getInstance().getJuanitoState(propiedades.getClase(3), this); //JuanitoDeadState
+		estados[4] = JuanitoStateFactory.getInstance().getJuanitoState(propiedades.getClase(4), this); //JuanitoPausedState
 		current = estados[0]; //Initial State: JuanitoStaticState
 	}
 	public void setCurrent(JuanitoState js) {current= js;}
@@ -20,4 +19,5 @@ public class JuanitoStateContext {
 	public JuanitoMovingState getMovingState() {return (JuanitoMovingState) estados[1];}
 	public JuanitoInjuredState getInjuredState() {return (JuanitoInjuredState) estados[2];}
 	public JuanitoDeadState getDeadState() {return (JuanitoDeadState) estados[3];}
+	public JuanitoPausedState getPausedState() {return (JuanitoPausedState) estados[4];}
 }

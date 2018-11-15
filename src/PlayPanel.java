@@ -30,6 +30,7 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 
 	private boolean gameOver = false; // for game termination
 	private boolean isPaused = false;
+	
 	// global variables for off-screen rendering
 	private Graphics dbg;
 	private Image dbImage = null;
@@ -114,14 +115,14 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 			 gamestatecontext.setCurrent(gamestatecontext.getGamePausedState());
 			 currentstatebutton = gamestatecontext.getCurrent().getButton();
 			 currentstatebackground = gamestatecontext.getCurrent().getBackground();
-			 isPaused=true; //PERO CONSIDERAR QUE BOTON DEJA DE FUNCIONAR ENEMIGOS SE SEGUIRIAN MOVIENDO 
+			 Juanito.getInstance().getJuanitoStateContext().setCurrent(Juanito.getInstance().getJuanitoStateContext().getPausedState());
 		 }
 		 
 		 else if(currentstatebutton.contains(p.getX(),p.getY()) && gamestatecontext.getCurrent()==gamestatecontext.getGamePausedState()) {
 			 gamestatecontext.setCurrent(gamestatecontext.getGameActiveState());
 			 currentstatebutton = gamestatecontext.getCurrent().getButton();
 			 currentstatebackground = gamestatecontext.getCurrent().getBackground();
-			 isPaused=false; //PERO CONSIDERAR QUE BOTON DEJA DE FUNCIONAR ENEMIGOS SE SEGUIRIAN MOVIENDO 
+			 Juanito.getInstance().getJuanitoStateContext().setCurrent(Juanito.getInstance().getJuanitoStateContext().getStaticState());
 		 }
 	}
 

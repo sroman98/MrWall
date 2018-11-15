@@ -8,7 +8,8 @@ public class JuanitoStateFactory {
 	public static synchronized JuanitoStateFactory getInstance() {//singleton pattern
 		if(instance == null) {instance = new JuanitoStateFactory();}
 		return instance;
-	}													// el context no lo debo que pasar as�
+	}		// el context no lo debo que pasar as�
+	
 	public JuanitoState getJuanitoState(String tipo, JuanitoStateContext jsc) {
 		JuanitoState js= null;
 		try {

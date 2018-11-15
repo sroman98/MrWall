@@ -37,12 +37,18 @@ public class JuanitoStaticState implements JuanitoState {
 		
 	}
 	@Override
-	public void moveJump() {
-		if(Juanito.getInstance().getMygif() == Juanito.getInstance().getJstillder())
-			Juanito.getInstance().setMygif(Juanito.getInstance().getJsaltader());
-		else
-			Juanito.getInstance().setMygif(Juanito.getInstance().getJsaltaizq());
-		jc.setCurrent(jc.getMovingState());
-		Juanito.getInstance().setVely(-25);
+	public synchronized void moveJump() {
+		System.out.println(Juanito.getInstance().getY());
+		if(Juanito.getInstance().getY()>=600){
+			
+			if(Juanito.getInstance().getMygif() == Juanito.getInstance().getJstillder()) {
+				Juanito.getInstance().setMygif(Juanito.getInstance().getJsaltader());
+			}
+			else {
+				Juanito.getInstance().setMygif(Juanito.getInstance().getJsaltaizq());
+				jc.setCurrent(jc.getMovingState());
+				Juanito.getInstance().setVely(-25);
+			}
+		}
 	}
 }

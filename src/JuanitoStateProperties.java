@@ -20,6 +20,9 @@ public class JuanitoStateProperties {
 			case 3:
 				stringClase= "JuanitoDeadState";
 				return stringClase;
+			case 4:
+				stringClase= "JuanitoPausedState";
+				return stringClase;
 			default:
 				stringClase= "JuanitoStaticState";
 				return stringClase;
