@@ -14,10 +14,30 @@ public class JuanitoHUD {
 	
 	private int puntos=0;
 	private int vidas=5;
-	private int nivel=1;
+	private int nivel=0;
+	private Color mycolor;
+	private BufferedImage heart;
+	private BufferedImage noheart;
+	private BufferedImage current;
+	
+	public JuanitoHUD() {
+		File srcFile = new File("img/heart.png");
+	  	try {
+	  		heart = ImageIO.read(srcFile);
+	  	}catch (IOException e){e.printStackTrace();}
+	  	
+	  	srcFile = new File("img/invisiblejuanito.png");
+	  	try {
+	  		noheart = ImageIO.read(srcFile);
+	  	}catch (IOException e){e.printStackTrace();}
+	  	current=noheart;
+	  	setVisible(true);
+	}
+	
 	
 	public static synchronized JuanitoHUD getInstance() {
 		if(hud==null) {
+			
 			return hud = new JuanitoHUD();
 		}return hud;
 	}
@@ -29,9 +49,7 @@ public class JuanitoHUD {
 	} /*getNivel(), getPuntos(), getVidas()*/
 		
 	public void draw(Graphics g) {
-		BufferedImage img;
-		
-		g.setColor(Color.WHITE);
+		g.setColor(this.mycolor);
 		g.setFont(new Font("Pixeled",Font.BOLD,15));
 		g.drawString("Level: "+nivel, 20, 26);
 		g.drawString(" "+vidas, 1020, 26);
@@ -46,10 +64,18 @@ public class JuanitoHUD {
 		else if(puntos<100_000_000){g.drawString("0"+puntos, 460, 30);}
 		else {                      g.drawString(""+puntos, 460, 30);}
 		
-		File srcFile = new File("img/heart.png");
-	  	try {
-	  		img = ImageIO.read(srcFile);
-	  		g.drawImage(img, 1000, 7, 20, 20, null);
-	  	}catch (IOException e){e.printStackTrace();}
+		g.drawImage(current, 1000, 7, 20, 20, null);
+	}
+	
+	public void setVisible(boolean visible) {
+		if(visible) {
+			this.mycolor=Color.WHITE;
+			current=heart;
+		}
+		else {
+			int alpha = 0; // 50% transparent
+			this.mycolor = new Color(255, 0, 0, alpha);
+			current = noheart;
+		}
 	}
 }

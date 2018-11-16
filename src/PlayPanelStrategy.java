@@ -16,6 +16,10 @@ public interface PlayPanelStrategy {
 	public Obstaculos getObstaculos();
 
 	public void setObstaculos(Obstaculos obstaculos);
+	
+	public Buttons getButtons();
+
+	public void setButtons(Buttons buttons);
 
 	public PlayPanelStrategyContext getContext();
 

@@ -13,6 +13,7 @@ public class Button extends Shape {
 	private String label;
 	private int sizefont;
 	private String hexcode;
+	private Font font;
 	
 	public Button(int x, int y, int width, int height, Color c, String label, int sizefont, String hexcode){
 		super(x, y, 80, 80, c);// super reference to inherit the Shape Constructor
@@ -22,6 +23,7 @@ public class Button extends Shape {
 		this.label=label;
 		this.sizefont=sizefont;
 		this.hexcode=hexcode;
+		this.font=new Font("Pixeled", Font.BOLD, sizefont);
 	}
 	
 	public void setColor(String hexcode) {
@@ -32,7 +34,7 @@ public class Button extends Shape {
 		g.setColor(Color.decode(hexcode));
 		g.fillRoundRect(x, y, width, height, 15, 15);
 	    g.setColor(Color.white);
-	    g.setFont(new Font("Pixeled",Font.BOLD, sizefont));
+	    g.setFont(font);
         g.drawString(label, this.x+15+sizefont, this.y+(this.height/2)+10);
 	}
 	
@@ -44,6 +46,10 @@ public class Button extends Shape {
 		}
 		
 		return false;
+	}
+	
+	public String getLabel() {
+		return label;
 	}
 
 	public int getAddX() {
@@ -60,6 +66,10 @@ public class Button extends Shape {
 
 	public void setAddY(int addY) {
 		this.addY = addY;
+	}
+	
+	public int getFontSize() {
+		return sizefont;
 	}
 	
 }

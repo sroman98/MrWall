@@ -38,6 +38,7 @@ public class Juanito {
 	private ImageIcon jstillder;
 	private ImageIcon jsaltader;
 	private ImageIcon jsaltaizq;
+	private ImageIcon jinvisible;
 	
 	//Constructor
 	public Juanito(int x, int y, int w, int h) {
@@ -56,7 +57,7 @@ public class Juanito {
 		rectangulo = new Rectangle();
 		referencia = this.getY();
 		puntaje = 0;
-		nivel = 1;
+		nivel = 0;
 		
 		jmoveder= new ImageIcon("img/jmoveder.gif");
 		jmoveizq= new ImageIcon("img/jmoveizq.gif");
@@ -64,6 +65,7 @@ public class Juanito {
 		jstillizq= new ImageIcon("img/jstillizq.png");
 		jsaltader= new ImageIcon("img/jsaltader.png");
 		jsaltaizq= new ImageIcon("img/jsaltaizq.png");
+		jinvisible=new ImageIcon("img/juanitoinvisible");
 		
 	}
 	
@@ -226,6 +228,14 @@ public class Juanito {
 		public void setJsaltaizq(ImageIcon jsaltaizq) {
 			this.jsaltaizq = jsaltaizq;
 		}
+		
+		public void setJinvisible(ImageIcon jinvisible) {
+			this.jinvisible = jinvisible;
+		}
+
+		public ImageIcon getJinvisible() {
+			return jinvisible;
+		}
 
 		public int getX() {
 			return x;
@@ -289,5 +299,14 @@ public class Juanito {
 
 		public void setMygif(ImageIcon mygif) {
 			this.mygif = mygif;
+		}
+		
+		public void setVisible(boolean visible) {
+			if(visible) {
+				this.setMygif(this.jstillder);
+			}
+			else {
+				this.setMygif(this.getJinvisible());
+			}
 		}
 }

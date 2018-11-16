@@ -8,9 +8,12 @@ public class PlayPanelStrategyProperties {
 	public String getClase(int n) {
 		switch(n) {
 			case 0:
-				stringClase= "Nivel1";
+				stringClase = "NivelMenu";
 				return stringClase;
 			case 1:
+				stringClase= "Nivel1";
+				return stringClase;
+			case 2:
 				stringClase= "Nivel2";
 				return stringClase;
 			default:

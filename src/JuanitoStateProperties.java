@@ -4,8 +4,9 @@
 public class JuanitoStateProperties {
 	private String stringClase;
 	JuanitoStateProperties(){
-		stringClase= "JuanitoStaticState";
+		stringClase= "JuanitoPausedState";
 	}	
+	
 	public String getClase(int n) {
 		switch(n) {
 			case 0:

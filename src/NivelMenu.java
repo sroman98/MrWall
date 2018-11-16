@@ -1,6 +1,10 @@
+import java.awt.Color;
+import java.util.ArrayList;
+import java.awt.color.*;
+import java.awt.*;
 
-public class Nivel1 implements PlayPanelStrategy{
-	
+public class NivelMenu implements PlayPanelStrategy{
+
 	private Background background;
 	private Background foreground;
 	private Background middleground;
@@ -9,19 +13,16 @@ public class Nivel1 implements PlayPanelStrategy{
 	
 	PlayPanelStrategyContext context;
 
-	public Nivel1(PlayPanelStrategyContext context){
+	public NivelMenu(PlayPanelStrategyContext context){
 		this.context=context;
-		foreground = new Background(0,0,"img/foreground1.png");
-		middleground = new Background(0,0,"img/middleground1.png");
-		background = new Background(0,0,"img/background1.png");
+		foreground = new Background(0,0,"img/menubackground.png");
+		middleground = new Background(0,0,"img/menubackground.png");
+		background = new Background(0,0,"img/menubackground.png");
 		obstaculos = new Obstaculos();
 		buttons = new Buttons();
-	
-		obstaculos.addObstaculo(930 , 635, 100, 48, "img/obs1.png");
-		obstaculos.addObstaculo(1400, 635, 100, 48, "img/obs1.png");
-		obstaculos.addObstaculo(1510, 635, 100, 48, "img/obs1.png");
-		obstaculos.addObstaculo(1990, 635, 100, 48, "img/obs1.png");
-		obstaculos.addObstaculo(3110, 635, 100, 48, "img/obs1.png");
+		buttons.addButton(700,100,240,70,Color.CYAN,"play",30, "#4372e8");
+		buttons.addButton(700,180,240,70,Color.CYAN,"rules",30, "#4372e8");
+		System.out.println(buttons.getButton("play").getFontSize());
 	}
 	//getters & setters
 	public Background getBackground() {
@@ -63,15 +64,12 @@ public class Nivel1 implements PlayPanelStrategy{
 	public void setContext(PlayPanelStrategyContext context) {
 		this.context = context;
 	}
-	@Override
-	public Buttons getButtons() {
-		// TODO Auto-generated method stub
-		return buttons;
-	}
-	@Override
+	
 	public void setButtons(Buttons buttons) {
-		// TODO Auto-generated method stub
-		
+		this.buttons=buttons;
 	}
-		
+	
+	public Buttons getButtons() {
+		return this.buttons;
+	}
 }

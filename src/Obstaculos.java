@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.ListIterator;
@@ -10,19 +11,14 @@ public class Obstaculos {
 	private Obstaculo obs4;
 	private Obstaculo obs5;
 	
-	Obstaculos(){
-		obstaculos = new ArrayList<Obstaculo>(5);
-		obs1 = new Obstaculo(930 , 635, 100, 48, "img/obs1.png");
-		obs2 = new Obstaculo(1400, 635, 100, 48, "img/obs1.png");
-		obs3 = new Obstaculo(1510, 635, 100, 48, "img/obs1.png");
-		obs4 = new Obstaculo(1990, 635, 100, 48, "img/obs1.png");
-		obs5 = new Obstaculo(3110, 635, 100, 48, "img/obs1.png");
-		obstaculos.add(obs1);
-		obstaculos.add(obs2);
-		obstaculos.add(obs3);
-		obstaculos.add(obs4);
-		obstaculos.add(obs5);
+	public Obstaculos(){
+		obstaculos = new ArrayList<Obstaculo>();
 	}
+	
+	public void addObstaculo(int x, int y, int width, int height, String path){
+		obstaculos.add(new Obstaculo(x, y, width, height, path));
+	}
+	
 	public void draw(Graphics g) {
 		ListIterator<Obstaculo> apt = obstaculos.listIterator(); 
 		while(apt.hasNext()) {

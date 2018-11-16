@@ -45,6 +45,7 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 	private JuanitoHUD hud;
 	
 	private Button currentstatebutton;
+	private Buttons currentbuttons;
 
 	public PlayPanel() {
 		setBackground(Color.white); //white background
@@ -64,15 +65,21 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 		currentstatebackground = gamestatecontext.getCurrent().getBackground();
 		
 		currentobstaculos = playpanelstatecontext.getCurrent().getObstaculos();
+		currentbuttons = playpanelstatecontext.getCurrent().getButtons();
+		
 		hud = JuanitoHUD.getInstance();
+		hud.setVisible(false);
+		Juanito.getInstance().getJuanitoStateContext().setCurrent(Juanito.getInstance().getJuanitoStateContext().getPausedState());
 		addKeyListener(this);
 		
 		currentstatebutton = gamestatecontext.getCurrent().getButton();
+		Juanito.getInstance().setVisible(false);
 		
 		addMouseMotionListener( new MouseAdapter(){ 
 			public void mouseMoved(MouseEvent e) {
 				Point p = new Point(e.getX(),e.getY());
 				checkButtonState(p, currentstatebutton);
+				checkButtonArrayState(p, currentbuttons);
 			}
 		});
 		
@@ -80,6 +87,7 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 			public void mouseClicked(MouseEvent e) {
 				Point p = new Point(e.getX(),e.getY());
 				checkGameState(p);
+				checkMenuClick(p);
 			}
 		});
 		
@@ -91,12 +99,18 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 	}
 	
 	public void checkLevelChange(){
+		/////////////////////////////////////REVISAR PORQUE EL HUD MARCA NIVEL 2///////////////7
 		if(Juanito.getInstance().getX()>=980 && Juanito.getInstance().getNivel()==1) {
 			playpanelstatecontext.setCurrent(playpanelstatecontext.getNivel2());
+			currentforeground = playpanelstatecontext.getCurrent().getForeground();
+			currentmiddleground = playpanelstatecontext.getCurrent().getMiddleground();
+			currentbackground = playpanelstatecontext.getCurrent().getBackground();
+			currentobstaculos = playpanelstatecontext.getCurrent().getObstaculos();
+			currentbuttons = playpanelstatecontext.getCurrent().getButtons();
 			currentbackground.setX(0);
 			currentmiddleground.setX(0);
 			currentforeground.setX(0);
-			Juanito.getInstance().setX(100);
+			Juanito.getInstance().setX(10);
 			Juanito.getInstance().setNivel(2);
 		}
 	}
@@ -108,6 +122,38 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 		 else {
 			 b.setColor("#4372e8");
 		 }
+	}
+	
+	public void checkButtonArrayState(Point p, Buttons b) {
+		for(int i=0; i<b.getSize();i++) {
+			if(b.getButton(i).contains(p.getX(),p.getY())) {
+				 b.getButton(i).setColor("#385fc1");
+			 }
+			 else {
+				 b.getButton(i).setColor("#4372e8");
+			 }
+		} 
+	}
+	
+	public void checkMenuClick(Point p){
+		for(int i=0; i<currentbuttons.getSize();i++) {
+		if(currentbuttons.getButton(0).contains(p.getX(),p.getY())) {
+			playpanelstatecontext.setCurrent(playpanelstatecontext.getNivel1());
+			currentforeground = playpanelstatecontext.getCurrent().getForeground();
+			currentmiddleground = playpanelstatecontext.getCurrent().getMiddleground();
+			currentbackground = playpanelstatecontext.getCurrent().getBackground();
+			currentobstaculos = playpanelstatecontext.getCurrent().getObstaculos();
+			currentbuttons = playpanelstatecontext.getCurrent().getButtons();
+			currentbackground.setX(0);
+			currentmiddleground.setX(0);
+			currentforeground.setX(0);
+			Juanito.getInstance().getJuanitoStateContext().setCurrent(Juanito.getInstance().getJuanitoStateContext().getStaticState());
+			Juanito.getInstance().setX(10);
+			Juanito.getInstance().setNivel(1);
+			Juanito.getInstance().setVisible(true);
+			hud.setVisible(true);
+			}
+		}
 	}
 	
 	public void checkGameState(Point p) {
@@ -251,7 +297,12 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 		hud.draw(dbg);
 		
 		currentstatebackground.draw(dbg);
-		currentstatebutton.draw(dbg);
+		
+		if(playpanelstatecontext.getCurrent()==playpanelstatecontext.getNivel1() || playpanelstatecontext.getCurrent()==playpanelstatecontext.getNivel2()) {
+			currentstatebutton.draw(dbg);
+		}
+		
+		currentbuttons.draw(dbg);
 	} // end of gameRender()
 	
 	private void paintScreen(){	// actively render the buffer image to the screen
