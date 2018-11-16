@@ -7,7 +7,7 @@ public class GamePausedState implements GameState {
 	private Button button;
 
 	public GamePausedState(GameStateContext nc) {
-		con = nc;
+		setCon(nc);
 		background = new Background(0,0, "img/pausedbackground.png");
 		button = new Button(460,350,160,40,Color.CYAN, "resume",15, "#4372e8");
 	}
@@ -16,7 +16,7 @@ public class GamePausedState implements GameState {
 	public void paused() {}
 	
 	public void setBackground(Background bg) {
-		this.background=background;
+		this.background = bg;
 	}
 	
 	public Background getBackground() {
@@ -29,5 +29,13 @@ public class GamePausedState implements GameState {
 	
 	public Button getButton() {
 		return button;
+	}
+
+	public GameStateContext getCon() {
+		return con;
+	}
+
+	public void setCon(GameStateContext con) {
+		this.con = con;
 	}
 }

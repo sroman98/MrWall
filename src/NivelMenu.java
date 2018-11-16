@@ -1,7 +1,4 @@
 import java.awt.Color;
-import java.util.ArrayList;
-import java.awt.color.*;
-import java.awt.*;
 
 public class NivelMenu implements PlayPanelStrategy{
 
