@@ -10,8 +10,8 @@ public class Obstaculo {
 	private int height;
 	private int vida;
 	private String path;
-	protected ImageIcon image;
-	protected Rectangle rectangulo;
+	private ImageIcon image;
+	private Rectangle rectangulo;
 	
 	Obstaculo(int x, int y, int width, int height, String path){
 		this.x=x;
@@ -21,22 +21,101 @@ public class Obstaculo {
 		vida=1;
 		this.path=path;
 		image = new ImageIcon(path);
-		rectangulo = new Rectangle();
+		rectangulo = new Rectangle(x,y,width,height);
 	}	
-	public void setX(int x){this.x=x;}
-	public int getX() {return this.x;}
-	public void setY(int y) {this.y=y;}
-	public int getY() {return this.y;}
-	public void setWidth(int w) {this.width=w;}
-	public int getWidth() {return this.width;}
-	public void setHieght(int h) {this.height=h;}
-	public int getHeight() {return this.height;}
-	public void setVida(int vida) {this.vida=vida;}
-	public int getVida() {return this.vida;}
-	public void setPath(String path) {this.path=path;}
-	public String getPath() {return this.path;}
+	
+	//Collision methods
+	public boolean isColliding() {
+		if(rectangulo.intersects(Juanito.getInstance().getRectangulo())) {
+			return true;
+		}
+		return false;
+	}
+	
+	public void setCollisions() {
+        if(Juanito.getInstance().getX() <= x+width && Juanito.getInstance().getX() >= x)
+    		Juanito.getInstance().setCl(true);
+        if(Juanito.getInstance().getX()+Juanito.getInstance().getWidth() >= x && Juanito.getInstance().getX()+Juanito.getInstance().getWidth() <= x+width)
+    		Juanito.getInstance().setCr(true);
+        if(Juanito.getInstance().getY()+Juanito.getInstance().getHeight() >= y && Juanito.getInstance().getY()+Juanito.getInstance().getHeight() <= y+height) {
+    		Juanito.getInstance().setCd(true); 
+    		Juanito.getInstance().setCl(false);
+    		Juanito.getInstance().setCr(false);
+        }
+	}
+	
+	
+	//Drawing method
 	public void draw(Graphics g) {
 		image.paintIcon(null, g, this.x, this.y);
 		g.drawRect(x, y, width, height);
 	}
+	
+	//Getter & setters
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+		rectangulo.setLocation(this.x, this.y);
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+		rectangulo.setLocation(x, y);
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+	public int getVida() {
+		return vida;
+	}
+
+	public void setVida(int vida) {
+		this.vida = vida;
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+	public ImageIcon getImage() {
+		return image;
+	}
+
+	public void setImage(ImageIcon image) {
+		this.image = image;
+	}
+
+	public Rectangle getRectangulo() {
+		return rectangulo;
+	}
+	
+	public void setRectangulo(Rectangle rectangulo) {
+		this.rectangulo = rectangulo;
+	}
+	
 }

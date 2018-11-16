@@ -1,9 +1,10 @@
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.util.Observable;
 
 import javax.swing.ImageIcon;
 
-public class Juanito {
+public class Juanito extends Observable {
 	//Singleton
 	private static Juanito instance;
 	public static synchronized Juanito getInstance() {
@@ -19,19 +20,21 @@ public class Juanito {
 	
 	private float dt;
 	
-	protected int x;
-	protected int y;
-	protected int width;
-	protected int height;
-	protected int vida;
-	protected int velx;
-	protected int vely;
+	private int x;
+	private int y;
+	private int width;
+	private int height;
+	private int vida;
+	private int velx;
+	private int vely;
 	private int gravity;
 	private int referencia;
 	private int puntaje;
 	private int nivel;
 	
-	protected ImageIcon mygif;
+	private boolean cr, cl, cd;
+	
+	private ImageIcon mygif;
 	private ImageIcon jmoveizq;
 	private ImageIcon jmoveder;
 	private ImageIcon jstillizq;
@@ -51,10 +54,12 @@ public class Juanito {
 		this.vely = 0;
 		mygif = new ImageIcon("img/jstillder.png");
 		
+		cr = cl = cd = false;
+		
 		dt = (float) 0.666;
 		gravity = 2;	
 		juanitoStateContext = new JuanitoStateContext();
-		rectangulo = new Rectangle();
+		rectangulo = new Rectangle(x,y,width,height);
 		referencia = this.getY();
 		puntaje = 0;
 		nivel = 0;
@@ -72,48 +77,65 @@ public class Juanito {
 	//Moving methods
 	public void move(Background fg, Background mg, Background bg, Obstaculos obs) {
 		if(velx>0) { //moving right
-			if(x<480 || (fg.getX()<=-3240 && x+width<=1070)) {
-				x += velx;
-			} else {
-				fg.setX(-velx);
-				if(fg.getX()!=-3240) {obs.avanzar(-velx);}
-				if(fg.getX()>-3240) {
-					mg.setX(-velx+1);
-					bg.setX(-velx+2);
+			if(!cr) {
+				this.setChanged();
+				if(x<480 || (fg.getX()<=-3240 && x+width<=1070)) {
+					x += velx;
+				} else {
+					fg.setX(-velx);
+					if(fg.getX()!=-3240) {obs.avanzar(-velx);}
+					if(fg.getX()>-3240) {
+						mg.setX(-velx+1);
+						bg.setX(-velx+2);
+					}
 				}
 			}
 		}
-			
 		else if(velx<0) { //moving left
-			if(x>480 || (fg.getX()>=0 && x>0)) {
-				x += velx;
+			if(!cl) {
+				this.setChanged();
+				if(x>480 || (fg.getX()>=0 && x>0)) {
+					x += velx;
+				}
+				else {
+					fg.setX(-velx);
+					if(fg.getX()!=0) {obs.avanzar(-velx);}
+					if(fg.getX()>-3240) { 
+						mg.setX(-velx-1);
+						bg.setX(-velx-2);
+					}
+				}
 			}
-			else {
-				   fg.setX(-velx);
-				   if(fg.getX()!=0) {obs.avanzar(-velx);}
-				   if(fg.getX()>-3240) { 
-					   mg.setX(-velx-1);
-					   bg.setX(-velx-2);
-				   }
-			   }
 		}
+		rectangulo.setLocation(x, y);
+		if(this.hasChanged())
+			notifyObservers(this);
 	}
 	public void jump() {
 		if(y < 600 || vely < 0) {
-			y = (int)(y + vely*dt);
-			vely = (int)(vely + gravity*dt);
+			if(!cd) {
+				y = (int)(y + vely*dt);
+				vely = (int)(vely + gravity*dt);
+				this.setChanged();
+			}
+			else {
+				vely = 0;
+				y = 635-height-1;
+			}
 		}
 		else {
 			vely = 0;
 			y = 600;
-			if(velx>0)
+			if(velx>0 && !cr)
 				juanitoStateContext.getCurrent().moveRight();
-			else if(velx<0)
+			else if(velx<0 && !cl)
 				juanitoStateContext.getCurrent().moveLeft();
 			else
 				juanitoStateContext.getCurrent().stop();
 		}
-			
+		rectangulo.setLocation(x, y);
+		if(this.hasChanged())
+			notifyObservers(this);
 	}
 	
 	
@@ -301,6 +323,30 @@ public class Juanito {
 			this.mygif = mygif;
 		}
 		
+		public boolean isCr() {
+			return cr;
+		}
+
+		public void setCr(boolean cr) {
+			this.cr = cr;
+		}
+
+		public boolean isCl() {
+			return cl;
+		}
+
+		public void setCl(boolean cl) {
+			this.cl = cl;
+		}
+
+		public boolean isCd() {
+			return cd;
+		}
+
+		public void setCd(boolean cd) {
+			this.cd = cd;
+		}
+
 		public void setVisible(boolean visible) {
 			if(visible) {
 				this.setMygif(this.jstillder);

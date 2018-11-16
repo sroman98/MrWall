@@ -43,6 +43,8 @@ public class JuanitoStaticState implements JuanitoState {
 			
 			if(Juanito.getInstance().getMygif() == Juanito.getInstance().getJstillder()) {
 				Juanito.getInstance().setMygif(Juanito.getInstance().getJsaltader());
+				jc.setCurrent(jc.getMovingState());
+				Juanito.getInstance().setVely(-25);
 			}
 			else {
 				Juanito.getInstance().setMygif(Juanito.getInstance().getJsaltaizq());

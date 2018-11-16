@@ -9,6 +9,7 @@ public class JuanitoMovingState implements JuanitoState {
 	public void shoot() {
 		System.out.println("Im shooting & moving");
 	}/*no cambia de estado*/
+	
 	public void stop() {
 		if(Juanito.getInstance().getMygif() == Juanito.getInstance().getJmoveder() || Juanito.getInstance().getMygif() == Juanito.getInstance().getJsaltader())
 			Juanito.getInstance().setMygif(Juanito.getInstance().getJstillder());
