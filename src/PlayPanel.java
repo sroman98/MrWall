@@ -331,7 +331,7 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 			Juanito.getInstance().getJuanitoStateContext().getCurrent().moveJump();
 		}	
 
-	    Juanito.getInstance().setPuntaje(100); /*Esto era para sumar 1 pto a cada paso y testear el HUD*/
+	    Juanito.getInstance().setPuntaje(Juanito.getInstance().getPuntaje()+1); /*Esto era para sumar 1 pto a cada paso y testear el HUD*/
 	}
 	@Override
 	public void keyReleased(KeyEvent e) {

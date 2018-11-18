@@ -28,25 +28,28 @@ public class JuanitoStaticState implements JuanitoState {
 		Juanito.getInstance().setMygif(Juanito.getInstance().getJmoveder());
 		jc.setCurrent(jc.getMovingState());
 		Juanito.getInstance().setVelx(3);
+		Juanito.getInstance().setPerfilDer(true);
+		Juanito.getInstance().setPerfilIzq(false);
 	}
 	@Override
 	public void moveLeft() {
 		Juanito.getInstance().setMygif(Juanito.getInstance().getJmoveizq());
 		jc.setCurrent(jc.getMovingState());
 		Juanito.getInstance().setVelx(-3);
-		
+		Juanito.getInstance().setPerfilDer(false);
+		Juanito.getInstance().setPerfilIzq(true);
 	}
 	@Override
 	public synchronized void moveJump() {
 		System.out.println(Juanito.getInstance().getY());
-		if(Juanito.getInstance().getY()>=600){
+		if(Juanito.getInstance().getY()>=500){//Aquí estaba en 600
 			
-			if(Juanito.getInstance().getMygif() == Juanito.getInstance().getJstillder()) {
+			if(Juanito.getInstance().getPerfilDer()) { //Juanito.getInstance().getMygif() == Juanito.getInstance().getJstillder() && 
 				Juanito.getInstance().setMygif(Juanito.getInstance().getJsaltader());
 				jc.setCurrent(jc.getMovingState());
 				Juanito.getInstance().setVely(-25);
 			}
-			else {
+			else{
 				Juanito.getInstance().setMygif(Juanito.getInstance().getJsaltaizq());
 				jc.setCurrent(jc.getMovingState());
 				Juanito.getInstance().setVely(-25);

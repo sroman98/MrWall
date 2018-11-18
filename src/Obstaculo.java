@@ -116,6 +116,5 @@ public class Obstaculo {
 	
 	public void setRectangulo(Rectangle rectangulo) {
 		this.rectangulo = rectangulo;
-	}
-	
+	}	
 }

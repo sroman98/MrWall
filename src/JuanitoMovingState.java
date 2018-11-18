@@ -35,6 +35,9 @@ public class JuanitoMovingState implements JuanitoState {
 			Juanito.getInstance().setMygif(Juanito.getInstance().getJmoveder());
 		if(Juanito.getInstance().getVelx() < 3)
 			Juanito.getInstance().setVelx(3);
+		
+		Juanito.getInstance().setPerfilDer(true);
+		Juanito.getInstance().setPerfilIzq(false);
 	}
 	@Override
 	public void moveLeft() {
@@ -43,10 +46,13 @@ public class JuanitoMovingState implements JuanitoState {
 		if(Juanito.getInstance().getVelx()> -3)
 			Juanito.getInstance().setVelx(-3);
 		
+		
+		Juanito.getInstance().setPerfilDer(false);
+		Juanito.getInstance().setPerfilIzq(true);
 	}
 	@Override
 	public void moveJump() {
-		if(Juanito.getInstance().getVelx() > 0)
+		if(Juanito.getInstance().getPerfilDer()) //Juanito.getInstance().getVelx() >= 0 && 
 			Juanito.getInstance().setMygif(Juanito.getInstance().getJsaltader());
 		else
 			Juanito.getInstance().setMygif(Juanito.getInstance().getJsaltaizq());

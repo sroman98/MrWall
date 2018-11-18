@@ -9,10 +9,10 @@ public class Juanito extends Observable {
 	private static Juanito instance;
 	public static synchronized Juanito getInstance() {
 	    if(instance == null) {
-	      instance = new Juanito(0, 600, 90, 90);
+	      instance = new Juanito(0, 600, 65, 90);
 	    }
 	    return instance;
-	 }
+	}
 	//Variables	
 	private JuanitoStateContext juanitoStateContext;
 
@@ -31,6 +31,9 @@ public class Juanito extends Observable {
 	private int referencia;
 	private int puntaje;
 	private int nivel;
+	
+	private boolean der;
+	private boolean izq;
 	
 	private boolean cr, cl, cd;
 	
@@ -55,6 +58,9 @@ public class Juanito extends Observable {
 		mygif = new ImageIcon("img/jstillder.png");
 		
 		cr = cl = cd = false;
+		
+		der=true;
+		izq=false;
 		
 		dt = (float) 0.666;
 		gravity = 2;	
@@ -112,23 +118,30 @@ public class Juanito extends Observable {
 			notifyObservers(this);
 	}
 	public void jump() {
-		if(y < 600 || vely < 0) {
+		if(y <= 600 || vely < 0) {
 			if(!cd) {
 				y = (int)(y + vely*dt);
 				vely = (int)(vely + gravity*dt);
 				this.setChanged();
-			}
-			else {
+			}else {
 				vely = 0;
 				y = 635-height-1;
+				//y = (int)(y + vely*dt);
+				//vely = (int)(vely + gravity*dt);
+				this.setChanged();
+				if(velx>0 && !cr && Juanito.getInstance().getPerfilDer())
+					juanitoStateContext.getCurrent().moveRight();
+				else if(velx<0 && !cl && Juanito.getInstance().getPerfilIzq())
+					juanitoStateContext.getCurrent().moveLeft();
+				else
+					juanitoStateContext.getCurrent().stop();
 			}
-		}
-		else {
+		}else {
 			vely = 0;
 			y = 600;
-			if(velx>0 && !cr)
+			if(velx>0 && !cr && Juanito.getInstance().getPerfilDer())
 				juanitoStateContext.getCurrent().moveRight();
-			else if(velx<0 && !cl)
+			else if(velx<0 && !cl && Juanito.getInstance().getPerfilIzq())
 				juanitoStateContext.getCurrent().moveLeft();
 			else
 				juanitoStateContext.getCurrent().stop();
@@ -137,8 +150,6 @@ public class Juanito extends Observable {
 		if(this.hasChanged())
 			notifyObservers(this);
 	}
-	
-	
 	
 	//Drawing methods
 	public void draw(Graphics g) {
@@ -346,7 +357,21 @@ public class Juanito extends Observable {
 		public void setCd(boolean cd) {
 			this.cd = cd;
 		}
-
+		
+		public void setPerfilIzq(Boolean b) {
+			this.izq=b;
+		}
+		public boolean getPerfilIzq() {
+			return this.izq;
+		}
+		
+		public void setPerfilDer(Boolean b) {
+			this.der=b;
+		}
+		public boolean getPerfilDer() {
+			return this.der;
+		}
+		
 		public void setVisible(boolean visible) {
 			if(visible) {
 				this.setMygif(this.jstillder);
