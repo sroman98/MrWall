@@ -7,7 +7,14 @@ public class JuanitoStaticState implements JuanitoState {
 	}
 	
 	public void shoot() {
-		jc.setCurrent(jc.getMovingState());
+		if(Juanito.getInstance().getPerfilDer()) { 
+			Juanito.getInstance().getMychancla().setRight(true);
+			Juanito.getInstance().getMychancla().setVelx(50);
+		}
+		else {
+			Juanito.getInstance().getMychancla().setRight(false);
+			Juanito.getInstance().getMychancla().setVelx(-50);
+		}
 	}
 	public void stop() {
 		//NADA

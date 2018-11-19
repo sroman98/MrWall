@@ -7,7 +7,14 @@ public class JuanitoMovingState implements JuanitoState {
 	}
 	
 	public void shoot() {
-		System.out.println("Im shooting & moving");
+		if(Juanito.getInstance().getPerfilDer()) { 
+			Juanito.getInstance().getMychancla().setRight(true);
+			Juanito.getInstance().getMychancla().setVelx(50);
+		}
+		else {
+			Juanito.getInstance().getMychancla().setRight(false);
+			Juanito.getInstance().getMychancla().setVelx(-50);
+		}
 	}/*no cambia de estado*/
 	
 	public void stop() {

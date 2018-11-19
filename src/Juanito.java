@@ -10,6 +10,7 @@ public class Juanito extends Observable {
 	public static synchronized Juanito getInstance() {
 	    if(instance == null) {
 	      instance = new Juanito(0, 600, 90, 90);
+	      mychancla = new Chancla();
 	    }
 	    return instance;
 	}
@@ -34,8 +35,9 @@ public class Juanito extends Observable {
 	
 	private boolean der;
 	private boolean izq;
-	
 	private boolean cr, cl, cd;
+	
+	private static Chancla mychancla;
 	
 	private ImageIcon mygif;
 	private ImageIcon jmoveizq;
@@ -58,7 +60,6 @@ public class Juanito extends Observable {
 		mygif = new ImageIcon("img/jstillder.png");
 		
 		cr = cl = cd = false;
-		
 		der=true;
 		izq=false;
 		
@@ -114,6 +115,7 @@ public class Juanito extends Observable {
 			}
 		}
 		rectangulo.setLocation(x+25, y);
+		mychancla.throwChancla();
 		if(this.hasChanged())
 			notifyObservers(this);
 	}
@@ -153,6 +155,7 @@ public class Juanito extends Observable {
 	public void draw(Graphics g) {
 		mygif.paintIcon(null,g, x, y);
 		g.drawRect(rectangulo.x,rectangulo.y,rectangulo.width,rectangulo.height);
+		mychancla.draw(g);
 	}
 	
 	//setters and getters
@@ -377,5 +380,9 @@ public class Juanito extends Observable {
 			else {
 				this.setMygif(this.getJinvisible());
 			}
+		}
+
+		public Chancla getMychancla() {
+			return mychancla;
 		}
 }

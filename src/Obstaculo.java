@@ -13,7 +13,7 @@ public class Obstaculo {
 	private ImageIcon image;
 	private Rectangle rectangulo;
 	
-	Obstaculo(int x, int y, int width, int height, String path){
+	public Obstaculo(int x, int y, int width, int height, String path){
 		this.x=x;
 		this.y=y;
 		this.width=width;
