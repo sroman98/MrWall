@@ -33,11 +33,11 @@ public class Obstaculo {
 	}
 	
 	public void setCollisions() {
-        if(Juanito.getInstance().getX() <= x+width && Juanito.getInstance().getX() >= x)
+        if(Juanito.getInstance().getRectangulo().getX() <= x+width && Juanito.getInstance().getRectangulo().getX() >= x)
     		Juanito.getInstance().setCl(true);
-        if(Juanito.getInstance().getX()+Juanito.getInstance().getWidth() >= x && Juanito.getInstance().getX()+Juanito.getInstance().getWidth() <= x+width)
+        if(Juanito.getInstance().getRectangulo().getX()+Juanito.getInstance().getRectangulo().getWidth() >= x && Juanito.getInstance().getRectangulo().getX()+Juanito.getInstance().getRectangulo().getWidth() <= x+width)
     		Juanito.getInstance().setCr(true);
-        if(Juanito.getInstance().getY()+Juanito.getInstance().getHeight() >= y && Juanito.getInstance().getY()+Juanito.getInstance().getHeight() <= y+height) {
+        if(Juanito.getInstance().getRectangulo().getY()+Juanito.getInstance().getRectangulo().getHeight() >= y && Juanito.getInstance().getRectangulo().getY()+Juanito.getInstance().getRectangulo().getHeight() <= y+height) {
     		Juanito.getInstance().setCd(true); 
     		Juanito.getInstance().setCl(false);
     		Juanito.getInstance().setCr(false);

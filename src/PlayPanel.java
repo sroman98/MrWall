@@ -316,20 +316,16 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 	
 	@Override
 	public void keyTyped(KeyEvent e){
-		/*if(e.getExtendedKeyCode() == KeyEvent.VK_A) {
-			System.out.println("SPACCCEEEES");
+		if(e.getExtendedKeyCode() == KeyEvent.VK_SPACE) {
 			Juanito.getInstance().getJuanitoStateContext().getCurrent().moveJump();
-		}*/	
+		}
 	}
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if(e.getExtendedKeyCode() == KeyEvent.VK_RIGHT)
 			Juanito.getInstance().getJuanitoStateContext().getCurrent().moveRight();
 		if(e.getExtendedKeyCode() == KeyEvent.VK_LEFT)
-			Juanito.getInstance().getJuanitoStateContext().getCurrent().moveLeft();
-		if(e.getExtendedKeyCode() == KeyEvent.VK_SPACE) {
-			Juanito.getInstance().getJuanitoStateContext().getCurrent().moveJump();
-		}	
+			Juanito.getInstance().getJuanitoStateContext().getCurrent().moveLeft();	
 
 	    Juanito.getInstance().setPuntaje(Juanito.getInstance().getPuntaje()+1); /*Esto era para sumar 1 pto a cada paso y testear el HUD*/
 	}

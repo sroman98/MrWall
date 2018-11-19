@@ -56,6 +56,7 @@ public class JuanitoMovingState implements JuanitoState {
 			Juanito.getInstance().setMygif(Juanito.getInstance().getJsaltader());
 		else
 			Juanito.getInstance().setMygif(Juanito.getInstance().getJsaltaizq());
-		Juanito.getInstance().setVely(-25);
+		if(Juanito.getInstance().getY()==600 || Juanito.getInstance().isCd())
+			Juanito.getInstance().setVely(-25);
 	}
 }

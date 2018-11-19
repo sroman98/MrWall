@@ -9,7 +9,7 @@ public class Juanito extends Observable {
 	private static Juanito instance;
 	public static synchronized Juanito getInstance() {
 	    if(instance == null) {
-	      instance = new Juanito(0, 600, 65, 90);
+	      instance = new Juanito(0, 600, 90, 90);
 	    }
 	    return instance;
 	}
@@ -65,7 +65,7 @@ public class Juanito extends Observable {
 		dt = (float) 0.666;
 		gravity = 2;	
 		juanitoStateContext = new JuanitoStateContext();
-		rectangulo = new Rectangle(x,y,width,height);
+		rectangulo = new Rectangle(x+25,y,width-40,height);
 		referencia = this.getY();
 		puntaje = 0;
 		nivel = 0;
@@ -113,40 +113,38 @@ public class Juanito extends Observable {
 				}
 			}
 		}
-		rectangulo.setLocation(x, y);
+		rectangulo.setLocation(x+25, y);
 		if(this.hasChanged())
 			notifyObservers(this);
 	}
 	public void jump() {
-		if(y <= 600 || vely < 0) {
+		if(y < 600 || vely < 0) {
 			if(!cd) {
+				this.setChanged();
 				y = (int)(y + vely*dt);
 				vely = (int)(vely + gravity*dt);
-				this.setChanged();
-			}else {
+			} else {
 				vely = 0;
-				y = 635-height-1;
-				//y = (int)(y + vely*dt);
-				//vely = (int)(vely + gravity*dt);
-				this.setChanged();
-				if(velx>0 && !cr && Juanito.getInstance().getPerfilDer())
+				y = 635-height;
+				if(velx>0 && !cr)
 					juanitoStateContext.getCurrent().moveRight();
-				else if(velx<0 && !cl && Juanito.getInstance().getPerfilIzq())
+				else if(velx<0 && !cl)
 					juanitoStateContext.getCurrent().moveLeft();
 				else
 					juanitoStateContext.getCurrent().stop();
 			}
-		}else {
+		}
+		else {
 			vely = 0;
 			y = 600;
-			if(velx>0 && !cr && Juanito.getInstance().getPerfilDer())
+			if(velx>0 && !cr)
 				juanitoStateContext.getCurrent().moveRight();
-			else if(velx<0 && !cl && Juanito.getInstance().getPerfilIzq())
+			else if(velx<0 && !cl)
 				juanitoStateContext.getCurrent().moveLeft();
 			else
 				juanitoStateContext.getCurrent().stop();
 		}
-		rectangulo.setLocation(x, y);
+		rectangulo.setLocation(x+25, y);
 		if(this.hasChanged())
 			notifyObservers(this);
 	}
@@ -154,7 +152,7 @@ public class Juanito extends Observable {
 	//Drawing methods
 	public void draw(Graphics g) {
 		mygif.paintIcon(null,g, x, y);
-		g.drawRect(x, y, this.width, this.height);
+		g.drawRect(rectangulo.x,rectangulo.y,rectangulo.width,rectangulo.height);
 	}
 	
 	//setters and getters
