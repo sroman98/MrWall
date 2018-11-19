@@ -66,7 +66,7 @@ public class Juanito extends Observable {
 		dt = (float) 0.666;
 		gravity = 2;	
 		juanitoStateContext = new JuanitoStateContext();
-		rectangulo = new Rectangle(x+25,y,width-40,height);
+		rectangulo = new Rectangle(x+25,y,width-40,height-5);
 		referencia = this.getY();
 		puntaje = 0;
 		nivel = 0;
@@ -77,8 +77,7 @@ public class Juanito extends Observable {
 		jstillizq= new ImageIcon("img/jstillizq.png");
 		jsaltader= new ImageIcon("img/jsaltader.png");
 		jsaltaizq= new ImageIcon("img/jsaltaizq.png");
-		jinvisible=new ImageIcon("img/juanitoinvisible");
-		
+		jinvisible=new ImageIcon("img/juanitoinvisible");	
 	}
 	
 	//Moving methods
@@ -126,8 +125,9 @@ public class Juanito extends Observable {
 				y = (int)(y + vely*dt);
 				vely = (int)(vely + gravity*dt);
 			} else {
+				
 				vely = 0;
-				y = 635-height;
+				y = 640-height;
 				if(velx>0 && !cr)
 					juanitoStateContext.getCurrent().moveRight();
 				else if(velx<0 && !cl)
@@ -135,6 +135,7 @@ public class Juanito extends Observable {
 				else
 					juanitoStateContext.getCurrent().stop();
 			}
+			System.out.println(this.y);
 		}
 		else {
 			vely = 0;

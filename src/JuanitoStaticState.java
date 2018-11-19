@@ -1,4 +1,3 @@
-
 public class JuanitoStaticState implements JuanitoState {
 	JuanitoStateContext jc;
 
@@ -48,7 +47,7 @@ public class JuanitoStaticState implements JuanitoState {
 	}
 	@Override
 	public synchronized void moveJump() {
-		if(Juanito.getInstance().getY() == 600){
+		if(Juanito.getInstance().getY() ==600){ //==600
 			
 			if(Juanito.getInstance().getPerfilDer()) {
 				Juanito.getInstance().setMygif(Juanito.getInstance().getJsaltader());
@@ -58,7 +57,10 @@ public class JuanitoStaticState implements JuanitoState {
 				Juanito.getInstance().setMygif(Juanito.getInstance().getJsaltaizq());
 				jc.setCurrent(jc.getMovingState());
 			}
-			if(Juanito.getInstance().getY()==600 || Juanito.getInstance().isCd())
+			if(Juanito.getInstance().getY()==600 || Juanito.getInstance().isCd()) //==600
+				Juanito.getInstance().setVely(-25);
+			
+			if(Juanito.getInstance().getY()==550 || Juanito.getInstance().isCd()) //==600
 				Juanito.getInstance().setVely(-25);
 		}
 	}
