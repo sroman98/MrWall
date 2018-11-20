@@ -23,20 +23,11 @@ public class Nivel1 implements PlayPanelStrategy{
 
 		Random r = new Random();
 		
-<<<<<<< HEAD
-		enemigos = new Enemigos();
-		enemigos.addEnemigo(500, 600, 70, 85);
-		enemigos.addEnemigo(1000, 600, 70, 85);
-		enemigos.addEnemigo(1500, 600, 70, 85);
-		enemigos.addEnemigo(2000, 600, 70, 85);
-		enemigos.addEnemigo(2500, 600, 70, 85);
-		enemigos.addEnemigo(3000, 600, 70, 85);
-=======
+
 		for(int i=0; i<6; i++) {
 			enemigos.addEnemigo(r.nextInt(3620)+400, 600, 70, 85);
 			obstaculos.addObstaculo(r.nextInt(3720)+300 , 635, 95, 48, "img/obs1.png");
 		}
->>>>>>> 2a4b29887d5acf46733734d3c1b9bdbeb66dc7fa
 	}
 	//getters & setters
 	public Background getBackground() {

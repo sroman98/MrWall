@@ -16,6 +16,9 @@ public class Chancla extends Observable {
 	private String path;
 	private ImageIcon image;
 	private Rectangle rectangulo;
+	private Explosion explosion;
+	private boolean collision=false;
+
 	
 	public Chancla(){
 		dt = (float) 0.666;
@@ -29,6 +32,7 @@ public class Chancla extends Observable {
 		path = "img/chancla.png";
 		image = new ImageIcon(path);
 		rectangulo = new Rectangle(x,y,width,height);
+		explosion= new Explosion(0,0);
 	}
 	
 	public void throwChancla() {
@@ -45,9 +49,12 @@ public class Chancla extends Observable {
 	public boolean colliding(Rectangle rect) {
 		if(rectangulo.intersects(rect)) {
 			velx = -velx;
+			collision=true;
 			return true;
 		}
+		collision=false;
 		return false;
+		
 	}
 	
 	public void throwChanclaRight() {
@@ -79,6 +86,11 @@ public class Chancla extends Observable {
 	public void draw(Graphics g) {
 		image.paintIcon(null, g, this.x, this.y);
 		g.drawRect(x, y, width, height);
+		if(collision) {
+			explosion.setX(Juanito.getInstance().getMychancla().getX());
+			explosion.setY(Juanito.getInstance().getMychancla().getY());
+			explosion.draw(g);
+		}
 	}
 	
 	//Setters & getters

@@ -38,7 +38,7 @@ public class Enemigos implements Observer {
 			ListIterator<Enemigo> itr = enemigos.listIterator();
 			while(itr.hasNext()) {
 				Enemigo en = itr.next();
-				if(Juanito.getInstance().getMychancla().colliding(en.getRectangulo())) {
+				if(Juanito.getInstance().getMychancla().colliding(en.getRectangulo())){
 					en.setVida(en.getVida()-1);
 					if(en.getVida()==0)
 						itr.remove();
