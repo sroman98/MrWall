@@ -3,8 +3,6 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.Observable;
 
-import javax.swing.ImageIcon;
-
 public class Chancla extends Observable {
 	private float dt;
 	private boolean right;
@@ -16,7 +14,10 @@ public class Chancla extends Observable {
 	private int height;
 	private String path;
 	private Sprite chanclasprite;
-	private ImageIcon image;
+
+	private Explosion explosion;
+	private boolean collision=false;
+
 	
 	public Chancla(){
 		dt = (float) 0.666;
@@ -34,9 +35,8 @@ public class Chancla extends Observable {
 	    chanclasprite.frameDelay = 0;
 	    chanclasprite.totalFrames = 1;
 	    chanclasprite.rotationRate = 1.0;
-		
-	    path = "img/chancla.png";
-		image = new ImageIcon(path);
+
+		explosion= new Explosion(0,0);
 	}
 	
 	public void throwChancla() {
@@ -54,9 +54,13 @@ public class Chancla extends Observable {
 		if(chanclasprite.getBounds().intersects(rect)) {
 			velx = -velx;
 			chanclasprite.animationDirection = -chanclasprite.animationDirection;
+
+			collision=true;
 			return true;
 		}
+		collision=false;
 		return false;
+		
 	}
 	
 	public void throwChanclaRight() {
@@ -98,6 +102,12 @@ public class Chancla extends Observable {
 	public void draw(Graphics g) {
 		chanclasprite.draw(g);
 		//g.drawRect(x, y, width, height);
+
+		if(collision) {
+			explosion.setX(x);
+			explosion.setY(y);
+			explosion.draw(g);
+		}
 	}
 	
 	//Setters & getters
@@ -148,14 +158,6 @@ public class Chancla extends Observable {
 
 	public void setPath(String path) {
 		this.path = path;
-	}
-
-	public ImageIcon getImage() {
-		return image;
-	}
-
-	public void setImage(ImageIcon image) {
-		this.image = image;
 	}
 
 	public float getDt() {

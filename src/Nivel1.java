@@ -23,6 +23,7 @@ public class Nivel1 implements PlayPanelStrategy{
 
 		Random r = new Random();
 		
+
 		for(int i=0; i<6; i++) {
 			enemigos.addEnemigo(r.nextInt(3620)+400, 600, 70, 85);
 			obstaculos.addObstaculo(r.nextInt(3720)+300 , 635, 95, 48, "img/obs1.png");
