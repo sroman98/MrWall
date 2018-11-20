@@ -1,7 +1,13 @@
 import java.awt.Graphics;
+import java.util.Timer;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.temporal.Temporal;
 import java.util.Observable;
+
+import javax.swing.ImageIcon;
 
 public class Chancla extends Observable {
 	private float dt;
@@ -16,8 +22,9 @@ public class Chancla extends Observable {
 	private Sprite chanclasprite;
 	private Sprite invisiblechancla;
 	private Sprite current;
+	private ImageIcon explosion;
 
-	private Explosion explosion;
+
 	private boolean collision=false;
 
 	
@@ -46,8 +53,7 @@ public class Chancla extends Observable {
 	    invisiblechancla.rotationRate = 1.0;
 	    
 	    current = invisiblechancla;
-
-		explosion= new Explosion(0,0);
+	    explosion = new ImageIcon("img/explosion.gif");
 	}
 	
 	public void throwChancla() {
@@ -112,13 +118,11 @@ public class Chancla extends Observable {
 	
 	public void draw(Graphics g) {
 		current.draw(g);
-		//g.drawRect(x, y, width, height);
-
-		if(collision) {
-			explosion.setX(x);
-			explosion.setY(y);
-			explosion.draw(g);
+		if(collision){
+			///Como la colision tarda muy poco no se alcanza a mostrar la explosion
+				explosion.paintIcon(null, g, x-110, y-100);
 		}
+		//g.drawRect(x, y, width, height);
 	}
 	
 	//Setters & getters
@@ -193,7 +197,6 @@ public class Chancla extends Observable {
 		}
 		else {
 			current=invisiblechancla;
-			System.out.println("INVISIBLE CHANCLA");
 		}
 			
 	}

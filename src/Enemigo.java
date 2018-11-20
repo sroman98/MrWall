@@ -20,6 +20,7 @@ public class Enemigo {
 	private boolean perfilder;
 	private boolean perfilizq;
 	private boolean juanitocercano;
+	//private ImageIcon edieizq;
 	
 	
 	public Enemigo(int x, int y, int width, int height){
@@ -33,7 +34,8 @@ public class Enemigo {
 		emoveizq= new ImageIcon("img/emoveizq.gif");
 		estillder= new ImageIcon("img/estillder.png");
 		estillizq= new ImageIcon("img/estillizq.png");
-		einvisible=new ImageIcon("img/juanitoinvisible");	
+		einvisible=new ImageIcon("img/juanitoinvisible");
+		
 		currentimage=estillizq;
 		juanitocercano=false;
 		perfilizq=true;
@@ -224,6 +226,11 @@ public class Enemigo {
 
 	public void setJuanitocercano(boolean juanitocercano) {
 		this.juanitocercano = juanitocercano;
+	}
+	
+	public void die() {
+		ImageIcon edieizq= new ImageIcon("img/edieizq.png");
+		setCurrentImage(edieizq);
 	}
 	
 }

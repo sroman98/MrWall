@@ -56,7 +56,7 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 		requestFocus(); //JPanel now receives keyEvents;
 		//we create our objects here
 		
-		soundloader=new SoundLoader("/jean.wav");
+		soundloader=new SoundLoader("/jean.wav", "/daño.wav");
 		
 		playpanelstatecontext = new PlayPanelStrategyContext();
 		gamestatecontext = new GameStateContext();

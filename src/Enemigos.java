@@ -4,14 +4,18 @@ import java.util.ListIterator;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.ImageIcon;
+
 public class Enemigos implements Observer {
 
 	private ArrayList<Enemigo> enemigos;
+	private ImageIcon explosion;
 
 	public Enemigos() {
 		enemigos = new ArrayList<Enemigo>();
 		Juanito.getInstance().addObserver(this);
 		Juanito.getInstance().getMychancla().addObserver(this);
+		explosion = new ImageIcon("img/explosion1.gif");
 	}
 	
 	
@@ -39,6 +43,7 @@ public class Enemigos implements Observer {
 			while(itr.hasNext()) {
 				Enemigo en = itr.next();
 				if(Juanito.getInstance().getMychancla().colliding(en.getRectangulo())){
+					SoundLoader.getInstance().playSound("/daño.wav");
 					en.setVida(en.getVida()-1);
 					if(en.getVida()==0)
 						itr.remove();
@@ -52,8 +57,21 @@ public class Enemigos implements Observer {
 		ListIterator<Enemigo> apt = enemigos.listIterator(); 
 		while(apt.hasNext()) {
 			Enemigo en = apt.next();
+			
+			if(en.getVida()==0) {
+				en.die();
+			}
+			
 			en.draw(g);
+			
+			/*if(en.getVida()==0) {
+				explosion.paintIcon(null, g, en.getX()-110, en.getY()-100);
+				explosion = new ImageIcon("img/explosion1.gif");
+			}*/
+			
 		}//While
+		
+		
 	}
 	public void move() {
 		ListIterator<Enemigo> apt = enemigos.listIterator(); 

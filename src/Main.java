@@ -10,10 +10,9 @@ public class Main {
 	
 	
 	public static void main(String args[]) {
-				ImageIcon ico = new ImageIcon("img/icon.png");
+				ImageIcon ico = new ImageIcon("img/ico.png");
                 JFrame frame = new JFrame();
                 PlayPanel p = new PlayPanel();
-                
                 frame.setSize(1080, 710);
                 frame.setResizable(false);
                 frame.setLocationRelativeTo(null);
