@@ -11,7 +11,7 @@ public class SoundLoader implements Runnable {
 	
 	public static synchronized SoundLoader getInstance() {
 	    if(instance == null) {
-	      instance = new SoundLoader("/jean.wav", "/daño.wav");
+	      instance = new SoundLoader("/mariachi.wav", "/daño2.wav");
 	    }
 	    return instance;
 	}
@@ -34,7 +34,7 @@ public class SoundLoader implements Runnable {
 			if(filename == "/mariachi.wav")
 				clip.loop(Clip.LOOP_CONTINUOUSLY);
 			FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-			gainControl.setValue(-10);
+			gainControl.setValue(-2);
 			
 			clip.start();
 			

@@ -14,7 +14,6 @@ public class Obstaculos implements Observer {
 	
 	public void addObstaculo(int x, int y, int width, int height, String path){
 		obstaculos.add(new Obstaculo(x, y, width, height, path));
-		Juanito.getInstance().addObserver(this);
 	}
 	
 	@Override

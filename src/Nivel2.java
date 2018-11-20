@@ -19,7 +19,9 @@ public class Nivel2 implements PlayPanelStrategy {
 		obstaculos = new Obstaculos();
 		buttons = new Buttons();
 		enemigos = new Enemigos();		
-		
+	}
+	
+	public void createStuff() {
 		Random r = new Random();
 		
 		for(int i=0; i<10; i++) {

@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Random;
 
 import javax.swing.JPanel;
 
@@ -41,7 +42,7 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 	private Background currentstatebackground;
 	
 	private Obstaculos currentobstaculos;
-	private SoundLoader soundloader;
+	//private SoundLoader soundloader;
 	private JuanitoHUD hud;
 	
 	private Button currentstatebutton;
@@ -56,7 +57,7 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 		requestFocus(); //JPanel now receives keyEvents;
 		//we create our objects here
 		
-		soundloader=new SoundLoader("/mariachi.wav", "/daño.wav");
+		SoundLoader.getInstance();
 		
 		playpanelstatecontext = new PlayPanelStrategyContext();
 		gamestatecontext = new GameStateContext();
@@ -116,6 +117,7 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 			currentforeground.setX(0);
 			Juanito.getInstance().setX(10);
 			Juanito.getInstance().setNivel(2);
+			playpanelstatecontext.getNivel2().createStuff();
 		}
 	}
 	
@@ -186,7 +188,8 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 		if (animator==null || !running) {
 			animator = new Thread(this);
 			animator.start();
-		}soundloader.startMusic();
+		}
+		SoundLoader.getInstance().startMusic();
 	} //end of startGame()
 	
 	public void stopGame() {/* called by the user to stop execution*/

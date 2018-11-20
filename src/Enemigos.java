@@ -43,7 +43,7 @@ public class Enemigos implements Observer {
 			while(itr.hasNext()) {
 				Enemigo en = itr.next();
 				if(Juanito.getInstance().getMychancla().colliding(en.getRectangulo())){
-					SoundLoader.getInstance().playSound("/daño.wav");
+					SoundLoader.getInstance().playSound("/daño2.wav");
 					en.setVida(en.getVida()-1);
 					if(en.getVida()==0)
 						itr.remove();
