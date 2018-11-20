@@ -268,6 +268,7 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 			
 			Juanito.getInstance().move(currentforeground, currentmiddleground, currentbackground, currentobstaculos, currentenemigos);
 			Juanito.getInstance().jump();
+			currentenemigos.move();
 
 			hud.update(Juanito.getInstance());
 			

@@ -3,7 +3,7 @@ import java.awt.Rectangle;
 
 import javax.swing.ImageIcon;
 
-public class Enemigo implements Runnable{
+public class Enemigo {
 
 	private int x;
 	private int y;
@@ -20,8 +20,6 @@ public class Enemigo implements Runnable{
 	private boolean perfilder;
 	private boolean perfilizq;
 	private boolean juanitocercano;
-	private Thread enemythread; // for the animation
-	private boolean running=false;
 	
 	
 	public Enemigo(int x, int y, int width, int height){
@@ -29,8 +27,8 @@ public class Enemigo implements Runnable{
 		this.y=y;
 		this.width=width;
 		this.height=height;
-		vida=3;
-		rectangulo = new Rectangle(x,y,width,height);
+		vida=2;
+		rectangulo = new Rectangle(x+25,y,width-20,height);
 		emoveder= new ImageIcon("img/emoveder.gif");
 		emoveizq= new ImageIcon("img/emoveizq.gif");
 		estillder= new ImageIcon("img/estillder.png");
@@ -40,23 +38,14 @@ public class Enemigo implements Runnable{
 		juanitocercano=true;
 		perfilizq=true;
 		perfilder=true;
-		startEnemigo();
-		running =true;
 	}	
 	
-	
-	public void startEnemigo() {// initialize and start the thread
-		if (enemythread==null || !running) {
-			enemythread = new Thread(this);
-			enemythread.start();
-		}
-	} //end of startGame()
-	
 	public void move() {
-		if(Juanito.getInstance().getX()+200>=this.getX()) {
+		if(Juanito.getInstance().getX()+200 >= this.x) {
 			perfilizq=true;
-			this.setX(this.getX()-1);
+			setX(x-1);
 			System.out.println("THERE IS A JUANITO AT THE DISTANCE");
+			rectangulo.setLocation(x+25, y);
 		}
 	}
 	
@@ -68,23 +57,16 @@ public class Enemigo implements Runnable{
 		return false;
 	}
 	
-	public void setCollisions() {
-        if(Juanito.getInstance().getRectangulo().getX() <= x+width && Juanito.getInstance().getRectangulo().getX() >= x)
-    		Juanito.getInstance().setCl(true);
-        if(Juanito.getInstance().getRectangulo().getX()+Juanito.getInstance().getRectangulo().getWidth() >= x && Juanito.getInstance().getRectangulo().getX()+Juanito.getInstance().getRectangulo().getWidth() <= x+width)
-    		Juanito.getInstance().setCr(true);
-        if(Juanito.getInstance().getRectangulo().getY()+Juanito.getInstance().getRectangulo().getHeight() >= y && Juanito.getInstance().getRectangulo().getY()+Juanito.getInstance().getRectangulo().getHeight() <= y+height) {
-    		Juanito.getInstance().setCd(true); 
-    		Juanito.getInstance().setCl(false);
-    		Juanito.getInstance().setCr(false);
-        }
+	public void updateImage() {
+		if(Juanito.getInstance().getX()<this.getX()) {
+
+		}
 	}
-	
 	
 	//Drawing method
 	public void draw(Graphics g) {
 		currentimage.paintIcon(null, g, this.x, this.y);
-		g.drawRect(x, y, width, height);
+		g.drawRect(rectangulo.x, rectangulo.y, rectangulo.width, rectangulo.height);
 	}
 	
 	//Getter & setters
@@ -94,7 +76,7 @@ public class Enemigo implements Runnable{
 
 	public void setX(int x) {
 		this.x = x;
-		rectangulo.setLocation(this.x, this.y);
+		rectangulo.setLocation(x+25, y);
 	}
 
 	public int getY() {
@@ -103,7 +85,7 @@ public class Enemigo implements Runnable{
 
 	public void setY(int y) {
 		this.y = y;
-		rectangulo.setLocation(x, y);
+		rectangulo.setLocation(x+25, y);
 	}
 
 	public int getWidth() {
@@ -186,22 +168,43 @@ public class Enemigo implements Runnable{
 		return einvisible;
 	}
 	
-	public void updateImage() {
-		if(Juanito.getInstance().getX()<this.getX()) {
-
-		}
+	public ImageIcon getCurrentimage() {
+		return currentimage;
 	}
 
-	@Override
-	public void run() {
-		while(running) {
-			try {
-				enemythread.sleep(20);
-				move();
-				updateImage();
-			}catch(InterruptedException ex){}
-			
-		}
+
+	public void setCurrentimage(ImageIcon currentimage) {
+		this.currentimage = currentimage;
+	}
+
+
+	public boolean isPerfilder() {
+		return perfilder;
+	}
+
+
+	public void setPerfilder(boolean perfilder) {
+		this.perfilder = perfilder;
+	}
+
+
+	public boolean isPerfilizq() {
+		return perfilizq;
+	}
+
+
+	public void setPerfilizq(boolean perfilizq) {
+		this.perfilizq = perfilizq;
+	}
+
+
+	public boolean isJuanitocercano() {
+		return juanitocercano;
+	}
+
+
+	public void setJuanitocercano(boolean juanitocercano) {
+		this.juanitocercano = juanitocercano;
 	}
 	
 }

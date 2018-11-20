@@ -4,18 +4,18 @@ import java.util.ListIterator;
 import java.util.Observable;
 import java.util.Observer;
 
-public class Enemigos implements Observer{
+public class Enemigos implements Observer {
 
-private ArrayList<Enemigo> enemigos;
-	
+	private ArrayList<Enemigo> enemigos;
+
 	public Enemigos() {
 		enemigos = new ArrayList<Enemigo>();
 		Juanito.getInstance().addObserver(this);
 	}
 	
+	
 	public void addEnemigo(int x, int y, int width, int height){
 		enemigos.add(new Enemigo(x, y, width, height));
-		Juanito.getInstance().addObserver(this);
 	}
 	
 	@Override
@@ -25,12 +25,9 @@ private ArrayList<Enemigo> enemigos;
 			while(itr.hasNext()) {
 				Enemigo en = itr.next();
 				if(en.isColliding()) {
-					en.setCollisions();
+					//en.setCollisions();
 					return;
 				}
-				Juanito.getInstance().setCr(false);
-				Juanito.getInstance().setCl(false);
-				Juanito.getInstance().setCd(false);
 			}
 		}	
 	}
@@ -42,6 +39,15 @@ private ArrayList<Enemigo> enemigos;
 			en.draw(g);
 		}//While
 	}
+	public void move() {
+		ListIterator<Enemigo> apt = enemigos.listIterator(); 
+		
+		while(apt.hasNext()) {
+			Enemigo en = apt.next();
+			en.move();
+		}//While		
+	}
+	
 	public void avanzar(int n) {
 		ListIterator<Enemigo> apt = enemigos.listIterator(); 
 		
@@ -50,6 +56,7 @@ private ArrayList<Enemigo> enemigos;
 			en.setX(en.getX()+n);
 		}//While		
 	}
+	
 	public void eliminar (int index) {
 		ListIterator<Enemigo> apt = enemigos.listIterator(); 
 		while(apt.hasNext()) {
