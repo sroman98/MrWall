@@ -1,4 +1,3 @@
-
 public class JuanitoStaticState implements JuanitoState {
 	JuanitoStateContext jc;
 
@@ -7,7 +6,14 @@ public class JuanitoStaticState implements JuanitoState {
 	}
 	
 	public void shoot() {
-		jc.setCurrent(jc.getMovingState());
+		if(Juanito.getInstance().getPerfilDer()) { 
+			Juanito.getInstance().getMychancla().setRight(true);
+			Juanito.getInstance().getMychancla().setVelx(50);
+		}
+		else {
+			Juanito.getInstance().getMychancla().setRight(false);
+			Juanito.getInstance().getMychancla().setVelx(-50);
+		}
 	}
 	public void stop() {
 		//NADA
@@ -41,19 +47,21 @@ public class JuanitoStaticState implements JuanitoState {
 	}
 	@Override
 	public synchronized void moveJump() {
-		System.out.println(Juanito.getInstance().getY());
-		if(Juanito.getInstance().getY()>=500){//Aquí estaba en 600
+		if(Juanito.getInstance().getY() ==600){ //==600
 			
-			if(Juanito.getInstance().getPerfilDer()) { //Juanito.getInstance().getMygif() == Juanito.getInstance().getJstillder() && 
+			if(Juanito.getInstance().getPerfilDer()) {
 				Juanito.getInstance().setMygif(Juanito.getInstance().getJsaltader());
 				jc.setCurrent(jc.getMovingState());
-				Juanito.getInstance().setVely(-25);
 			}
 			else{
 				Juanito.getInstance().setMygif(Juanito.getInstance().getJsaltaizq());
 				jc.setCurrent(jc.getMovingState());
-				Juanito.getInstance().setVely(-25);
 			}
+			if(Juanito.getInstance().getY()==600 || Juanito.getInstance().isCd()) //==600
+				Juanito.getInstance().setVely(-25);
+			
+			if(Juanito.getInstance().getY()==550 || Juanito.getInstance().isCd()) //==600
+				Juanito.getInstance().setVely(-25);
 		}
 	}
 }

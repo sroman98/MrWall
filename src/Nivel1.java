@@ -17,11 +17,11 @@ public class Nivel1 implements PlayPanelStrategy{
 		obstaculos = new Obstaculos();
 		buttons = new Buttons();
 	
-		obstaculos.addObstaculo(930 , 635, 100, 48, "img/obs1.png");
-		obstaculos.addObstaculo(1400, 635, 100, 48, "img/obs1.png");
-		obstaculos.addObstaculo(1510, 635, 100, 48, "img/obs1.png");
-		obstaculos.addObstaculo(1990, 635, 100, 48, "img/obs1.png");
-		obstaculos.addObstaculo(3110, 635, 100, 48, "img/obs1.png");
+		obstaculos.addObstaculo(930 , 635, 95, 48, "img/obs1.png");
+		obstaculos.addObstaculo(1400, 635, 95, 48, "img/obs1.png");
+		obstaculos.addObstaculo(1510, 635, 95, 48, "img/obs1.png");
+		obstaculos.addObstaculo(1990, 635, 95, 48, "img/obs1.png");
+		obstaculos.addObstaculo(3110, 635, 95, 48, "img/obs1.png");
 	}
 	//getters & setters
 	public Background getBackground() {
