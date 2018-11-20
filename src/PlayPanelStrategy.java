@@ -20,6 +20,10 @@ public interface PlayPanelStrategy {
 	public Buttons getButtons();
 
 	public void setButtons(Buttons buttons);
+	
+	public Enemigos getEnemigos();
+
+	public void setEnemigos(Enemigos enemigos);
 
 	public PlayPanelStrategyContext getContext();
 

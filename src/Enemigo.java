@@ -3,7 +3,7 @@ import java.awt.Rectangle;
 
 import javax.swing.ImageIcon;
 
-public class Enemigo{
+public class Enemigo implements Runnable{
 
 	private int x;
 	private int y;
@@ -19,6 +19,9 @@ public class Enemigo{
 	private ImageIcon einvisible;
 	private boolean perfilder;
 	private boolean perfilizq;
+	private boolean juanitocercano;
+	private Thread enemythread; // for the animation
+	private boolean running=false;
 	
 	
 	public Enemigo(int x, int y, int width, int height){
@@ -34,10 +37,27 @@ public class Enemigo{
 		estillizq= new ImageIcon("img/estillizq.png");
 		einvisible=new ImageIcon("img/juanitoinvisible");	
 		currentimage=estillizq;
+		juanitocercano=true;
+		perfilizq=true;
+		perfilder=true;
+		startEnemigo();
+		running =true;
 	}	
 	
+	
+	public void startEnemigo() {// initialize and start the thread
+		if (enemythread==null || !running) {
+			enemythread = new Thread(this);
+			enemythread.start();
+		}
+	} //end of startGame()
+	
 	public void move() {
-		
+		if(Juanito.getInstance().getX()+200>=this.getX()) {
+			perfilizq=true;
+			this.setX(this.getX()-1);
+			System.out.println("THERE IS A JUANITO AT THE DISTANCE");
+		}
 	}
 	
 	//Collision methods
@@ -164,6 +184,24 @@ public class Enemigo{
 
 	public ImageIcon getEinvisible() {
 		return einvisible;
+	}
+	
+	public void updateImage() {
+		if(Juanito.getInstance().getX()<this.getX()) {
+
+		}
+	}
+
+	@Override
+	public void run() {
+		while(running) {
+			try {
+				enemythread.sleep(20);
+				move();
+				updateImage();
+			}catch(InterruptedException ex){}
+			
+		}
 	}
 	
 }

@@ -46,6 +46,8 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 	
 	private Button currentstatebutton;
 	private Buttons currentbuttons;
+	
+	private Enemigos currentenemigos;
 
 	public PlayPanel() {
 		setBackground(Color.white); //white background
@@ -66,6 +68,7 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 		
 		currentobstaculos = playpanelstatecontext.getCurrent().getObstaculos();
 		currentbuttons = playpanelstatecontext.getCurrent().getButtons();
+		currentenemigos = playpanelstatecontext.getCurrent().getEnemigos();
 		
 		hud = JuanitoHUD.getInstance();
 		hud.setVisible(false);
@@ -99,7 +102,6 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 	}
 	
 	public void checkLevelChange(){
-		/////////////////////////////////////REVISAR PORQUE EL HUD MARCA NIVEL 2///////////////7
 		if(Juanito.getInstance().getX()>=980 && Juanito.getInstance().getNivel()==1) {
 			playpanelstatecontext.setCurrent(playpanelstatecontext.getNivel2());
 			playpanelstatecontext.getNivel1().getObstaculos().eliminarTodos();
@@ -108,6 +110,7 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 			currentbackground = playpanelstatecontext.getCurrent().getBackground();
 			currentobstaculos = playpanelstatecontext.getCurrent().getObstaculos();
 			currentbuttons = playpanelstatecontext.getCurrent().getButtons();
+			currentenemigos = playpanelstatecontext.getCurrent().getEnemigos();
 			currentbackground.setX(0);
 			currentmiddleground.setX(0);
 			currentforeground.setX(0);
@@ -145,6 +148,7 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 				currentbackground = playpanelstatecontext.getCurrent().getBackground();
 				currentobstaculos = playpanelstatecontext.getCurrent().getObstaculos();
 				currentbuttons = playpanelstatecontext.getCurrent().getButtons();
+				currentenemigos = playpanelstatecontext.getCurrent().getEnemigos();
 				currentbackground.setX(0);
 				currentmiddleground.setX(0);
 				currentforeground.setX(0);
@@ -262,7 +266,7 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 		if(!gameOver) {
 			checkLevelChange();
 			
-			Juanito.getInstance().move(currentforeground, currentmiddleground, currentbackground, currentobstaculos);
+			Juanito.getInstance().move(currentforeground, currentmiddleground, currentbackground, currentobstaculos, currentenemigos);
 			Juanito.getInstance().jump();
 
 			hud.update(Juanito.getInstance());
@@ -295,6 +299,7 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 		Juanito.getInstance().draw(dbg);
 		
 		currentobstaculos.draw(dbg);
+		currentenemigos.draw(dbg);
 		hud.draw(dbg);
 		
 		currentstatebackground.draw(dbg);

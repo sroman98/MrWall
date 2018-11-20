@@ -81,7 +81,7 @@ public class Juanito extends Observable {
 	}
 	
 	//Moving methods
-	public void move(Background fg, Background mg, Background bg, Obstaculos obs) {
+	public void move(Background fg, Background mg, Background bg, Obstaculos obs, Enemigos ens) {
 		if(velx>0) { //moving right
 			if(!cr) {
 				this.setChanged();
@@ -89,7 +89,7 @@ public class Juanito extends Observable {
 					x += velx;
 				} else {
 					fg.setX(-velx);
-					if(fg.getX()!=-3240) {obs.avanzar(-velx);}
+					if(fg.getX()!=-3240) {obs.avanzar(-velx); ens.avanzar(-velx);}
 					if(fg.getX()>-3240) {
 						mg.setX(-velx+1);
 						bg.setX(-velx+2);
@@ -105,7 +105,7 @@ public class Juanito extends Observable {
 				}
 				else {
 					fg.setX(-velx);
-					if(fg.getX()!=0) {obs.avanzar(-velx);}
+					if(fg.getX()!=0) {obs.avanzar(-velx); ens.avanzar(-velx);}
 					if(fg.getX()>-3240) { 
 						mg.setX(-velx-1);
 						bg.setX(-velx-2);

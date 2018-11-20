@@ -7,6 +7,7 @@ public class NivelMenu implements PlayPanelStrategy{
 	private Background middleground;
 	private Obstaculos obstaculos;
 	private Buttons buttons;
+	private Enemigos enemigos;
 	
 	PlayPanelStrategyContext context;
 
@@ -19,7 +20,7 @@ public class NivelMenu implements PlayPanelStrategy{
 		buttons = new Buttons();
 		buttons.addButton(700,100,240,70,Color.CYAN,"play",30, "#4372e8");
 		buttons.addButton(700,180,240,70,Color.CYAN,"rules",30, "#4372e8");
-		System.out.println(buttons.getButton("play").getFontSize());
+		enemigos = new Enemigos();
 	}
 	//getters & setters
 	public Background getBackground() {
@@ -48,6 +49,14 @@ public class NivelMenu implements PlayPanelStrategy{
 
 	public Obstaculos getObstaculos() {
 		return obstaculos;
+	}
+	
+	public Enemigos getEnemigos() {
+		return enemigos;
+	}
+
+	public void setEnemigos(Enemigos enemigos) {
+		this.enemigos=enemigos;
 	}
 
 	public void setObstaculos(Obstaculos obstaculos) {

@@ -69,8 +69,4 @@ public class Obstaculos implements Observer {
 	public void setObstaculos(ArrayList<Obstaculo> obstaculos) {
 		this.obstaculos = obstaculos;
 	}
-<<<<<<< HEAD
-
-=======
->>>>>>> 290a7c1fbe81f9d9f7cfc0be342b504417152d42
 }
