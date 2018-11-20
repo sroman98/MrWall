@@ -42,6 +42,14 @@ public class Chancla extends Observable {
 			notifyObservers(this);
 	}
 	
+	public boolean colliding(Rectangle rect) {
+		if(rectangulo.intersects(rect)) {
+			velx = -velx;
+			return true;
+		}
+		return false;
+	}
+	
 	public void throwChanclaRight() {
 		if(x >  Juanito.getInstance().getX()+(int)(Juanito.getInstance().getWidth()/2)|| velx > 0) {
 			this.setChanged();

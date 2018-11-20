@@ -11,6 +11,7 @@ public class Enemigos implements Observer {
 	public Enemigos() {
 		enemigos = new ArrayList<Enemigo>();
 		Juanito.getInstance().addObserver(this);
+		Juanito.getInstance().getMychancla().addObserver(this);
 	}
 	
 	
@@ -29,7 +30,19 @@ public class Enemigos implements Observer {
 					return;
 				}
 			}
-		}	
+		}
+		else if(o == Juanito.getInstance().getMychancla()) {
+			ListIterator<Enemigo> itr = enemigos.listIterator();
+			while(itr.hasNext()) {
+				Enemigo en = itr.next();
+				if(Juanito.getInstance().getMychancla().colliding(en.getRectangulo())) {
+					en.setVida(en.getVida()-1);
+					if(en.getVida()==0)
+						itr.remove();
+					return;
+				}
+			}
+		}
 	}
 	
 	public void draw(Graphics g) {

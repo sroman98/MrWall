@@ -44,8 +44,6 @@ public class Enemigo {
 		if(Juanito.getInstance().getX()+200 >= this.x) {
 			perfilizq=true;
 			setX(x-1);
-			System.out.println("THERE IS A JUANITO AT THE DISTANCE");
-			rectangulo.setLocation(x+25, y);
 		}
 	}
 	
