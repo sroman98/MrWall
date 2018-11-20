@@ -20,7 +20,7 @@ public class Nivel1 implements PlayPanelStrategy{
 		obstaculos = new Obstaculos();
 		enemigos = new Enemigos();
 		buttons = new Buttons();
-		
+
 		Random r = new Random();
 		
 		for(int i=0; i<6; i++) {
@@ -78,12 +78,11 @@ public class Nivel1 implements PlayPanelStrategy{
 	}
 	@Override
 	public Buttons getButtons() {
-		// TODO Auto-generated method stub
 		return buttons;
 	}
 	@Override
 	public void setButtons(Buttons buttons) {
-		// TODO Auto-generated method stub
+		this.buttons = buttons;
 		
 	}
 		
