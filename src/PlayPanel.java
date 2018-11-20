@@ -56,7 +56,7 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 		requestFocus(); //JPanel now receives keyEvents;
 		//we create our objects here
 		
-		soundloader=new SoundLoader("/jean.wav", "/daño.wav");
+		soundloader=new SoundLoader("/mariachi.wav", "/daño.wav");
 		
 		playpanelstatecontext = new PlayPanelStrategyContext();
 		gamestatecontext = new GameStateContext();
@@ -304,6 +304,12 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 		hud.draw(dbg);
 		
 		currentstatebackground.draw(dbg);
+		
+		if(playpanelstatecontext.getNivel2().getEnemigos().getEnemigos().size()==0) {
+			dbg.drawString("YOU WON", 400, 300);
+		}
+		
+		
 		
 		if(playpanelstatecontext.getCurrent()==playpanelstatecontext.getNivel1() || playpanelstatecontext.getCurrent()==playpanelstatecontext.getNivel2()) {
 			currentstatebutton.draw(dbg);

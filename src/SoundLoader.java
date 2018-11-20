@@ -31,7 +31,7 @@ public class SoundLoader implements Runnable {
 			DataLine.Info info = new DataLine.Info(Clip.class, format);
 			Clip clip = (Clip) AudioSystem.getLine(info);
 			clip.open(ais);
-			if(filename == "/jean.wav")
+			if(filename == "/mariachi.wav")
 				clip.loop(Clip.LOOP_CONTINUOUSLY);
 			FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
 			gainControl.setValue(-10);
