@@ -102,6 +102,7 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 		/////////////////////////////////////REVISAR PORQUE EL HUD MARCA NIVEL 2///////////////7
 		if(Juanito.getInstance().getX()>=980 && Juanito.getInstance().getNivel()==1) {
 			playpanelstatecontext.setCurrent(playpanelstatecontext.getNivel2());
+			playpanelstatecontext.getNivel1().getObstaculos().eliminarTodos();
 			currentforeground = playpanelstatecontext.getCurrent().getForeground();
 			currentmiddleground = playpanelstatecontext.getCurrent().getMiddleground();
 			currentbackground = playpanelstatecontext.getCurrent().getBackground();
@@ -137,21 +138,21 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 	
 	public void checkMenuClick(Point p){
 		for(int i=0; i<currentbuttons.getSize();i++) {
-		if(currentbuttons.getButton(0).contains(p.getX(),p.getY())) {
-			playpanelstatecontext.setCurrent(playpanelstatecontext.getNivel1());
-			currentforeground = playpanelstatecontext.getCurrent().getForeground();
-			currentmiddleground = playpanelstatecontext.getCurrent().getMiddleground();
-			currentbackground = playpanelstatecontext.getCurrent().getBackground();
-			currentobstaculos = playpanelstatecontext.getCurrent().getObstaculos();
-			currentbuttons = playpanelstatecontext.getCurrent().getButtons();
-			currentbackground.setX(0);
-			currentmiddleground.setX(0);
-			currentforeground.setX(0);
-			Juanito.getInstance().getJuanitoStateContext().setCurrent(Juanito.getInstance().getJuanitoStateContext().getStaticState());
-			Juanito.getInstance().setX(10);
-			Juanito.getInstance().setNivel(1);
-			Juanito.getInstance().setVisible(true);
-			hud.setVisible(true);
+			if(currentbuttons.getButton(0).contains(p.getX(),p.getY())) {
+				playpanelstatecontext.setCurrent(playpanelstatecontext.getNivel1());
+				currentforeground = playpanelstatecontext.getCurrent().getForeground();
+				currentmiddleground = playpanelstatecontext.getCurrent().getMiddleground();
+				currentbackground = playpanelstatecontext.getCurrent().getBackground();
+				currentobstaculos = playpanelstatecontext.getCurrent().getObstaculos();
+				currentbuttons = playpanelstatecontext.getCurrent().getButtons();
+				currentbackground.setX(0);
+				currentmiddleground.setX(0);
+				currentforeground.setX(0);
+				Juanito.getInstance().getJuanitoStateContext().setCurrent(Juanito.getInstance().getJuanitoStateContext().getStaticState());
+				Juanito.getInstance().setX(10);
+				Juanito.getInstance().setNivel(1);
+				Juanito.getInstance().setVisible(true);
+				hud.setVisible(true);
 			}
 		}
 	}
@@ -316,9 +317,6 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 	
 	@Override
 	public void keyTyped(KeyEvent e){
-		if(e.getExtendedKeyCode() == KeyEvent.VK_SPACE) {
-			Juanito.getInstance().getJuanitoStateContext().getCurrent().shoot();
-		}
 	}
 	@Override
 	public void keyPressed(KeyEvent e) {
