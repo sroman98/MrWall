@@ -14,7 +14,6 @@ public class Obstaculos implements Observer {
 	
 	public Obstaculos() {
 		obstaculos = new ArrayList<Obstaculo>();
-		
 		Juanito.getInstance().addObserver(this);
 	}
 	

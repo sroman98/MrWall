@@ -118,7 +118,7 @@ public class Juanito extends Observable {
 			notifyObservers(this);
 	}
 	public void jump() {
-		if(y <= 600 || vely < 0) {
+		if(y < 600 || vely < 0) {
 			if(!cd) {
 				y = (int)(y + vely*dt);
 				vely = (int)(vely + gravity*dt);
