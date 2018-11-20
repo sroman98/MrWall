@@ -376,9 +376,11 @@ public class Juanito extends Observable {
 		public void setVisible(boolean visible) {
 			if(visible) {
 				this.setMygif(this.jstillder);
+				mychancla.setVisible(true);
 			}
 			else {
 				this.setMygif(this.getJinvisible());
+				mychancla.setVisible(false);
 			}
 		}
 

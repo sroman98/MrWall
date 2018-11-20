@@ -14,6 +14,8 @@ public class Chancla extends Observable {
 	private int height;
 	private String path;
 	private Sprite chanclasprite;
+	private Sprite invisiblechancla;
+	private Sprite current;
 
 	private Explosion explosion;
 	private boolean collision=false;
@@ -35,6 +37,15 @@ public class Chancla extends Observable {
 	    chanclasprite.frameDelay = 0;
 	    chanclasprite.totalFrames = 1;
 	    chanclasprite.rotationRate = 1.0;
+	    
+	    invisiblechancla = new Sprite();
+	    invisiblechancla.load("/invisiblejuanito.png", 3, 4, 38, 37);
+	    invisiblechancla.position = new Point(x,y);
+	    invisiblechancla.frameDelay = 0;
+	    invisiblechancla.totalFrames = 1;
+	    invisiblechancla.rotationRate = 1.0;
+	    
+	    current = invisiblechancla;
 
 		explosion= new Explosion(0,0);
 	}
@@ -100,7 +111,7 @@ public class Chancla extends Observable {
 	}
 	
 	public void draw(Graphics g) {
-		chanclasprite.draw(g);
+		current.draw(g);
 		//g.drawRect(x, y, width, height);
 
 		if(collision) {
@@ -175,4 +186,15 @@ public class Chancla extends Observable {
 	public void setRight(boolean right) {
 		this.right = right;
 	}	
+	
+	public void setVisible(boolean visible) {
+		if(visible) {
+			current=chanclasprite;
+		}
+		else {
+			current=invisiblechancla;
+			System.out.println("INVISIBLE CHANCLA");
+		}
+			
+	}
 }
