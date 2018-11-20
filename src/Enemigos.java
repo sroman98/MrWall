@@ -26,7 +26,10 @@ public class Enemigos implements Observer {
 			while(itr.hasNext()) {
 				Enemigo en = itr.next();
 				if(en.isColliding()) {
-					//en.setCollisions();
+					itr.remove();
+					Juanito.getInstance().setVida(Juanito.getInstance().getVida()-1);
+					if(Juanito.getInstance().getVida()==0)
+						Juanito.getInstance().getJuanitoStateContext().getCurrent().die();
 					return;
 				}
 			}

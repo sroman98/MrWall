@@ -1,3 +1,4 @@
+import java.util.Random;
 
 public class Nivel1 implements PlayPanelStrategy{
 	
@@ -15,15 +16,14 @@ public class Nivel1 implements PlayPanelStrategy{
 		foreground = new Background(0,0,"img/foreground1.png");
 		middleground = new Background(0,0,"img/middleground1.png");
 		background = new Background(0,0,"img/background1.png");
-		obstaculos = new Obstaculos();
-		buttons = new Buttons();
-	
-		obstaculos.addObstaculo(930 , 635, 95, 48, "img/obs1.png");
-		obstaculos.addObstaculo(1400, 635, 95, 48, "img/obs1.png");
-		obstaculos.addObstaculo(1510, 635, 95, 48, "img/obs1.png");
-		obstaculos.addObstaculo(1990, 635, 95, 48, "img/obs1.png");
-		obstaculos.addObstaculo(3110, 635, 95, 48, "img/obs1.png");
 		
+		obstaculos = new Obstaculos();
+		enemigos = new Enemigos();
+		buttons = new Buttons();
+
+		Random r = new Random();
+		
+<<<<<<< HEAD
 		enemigos = new Enemigos();
 		enemigos.addEnemigo(500, 600, 70, 85);
 		enemigos.addEnemigo(1000, 600, 70, 85);
@@ -31,6 +31,12 @@ public class Nivel1 implements PlayPanelStrategy{
 		enemigos.addEnemigo(2000, 600, 70, 85);
 		enemigos.addEnemigo(2500, 600, 70, 85);
 		enemigos.addEnemigo(3000, 600, 70, 85);
+=======
+		for(int i=0; i<6; i++) {
+			enemigos.addEnemigo(r.nextInt(3620)+400, 600, 70, 85);
+			obstaculos.addObstaculo(r.nextInt(3720)+300 , 635, 95, 48, "img/obs1.png");
+		}
+>>>>>>> 2a4b29887d5acf46733734d3c1b9bdbeb66dc7fa
 	}
 	//getters & setters
 	public Background getBackground() {
@@ -82,12 +88,11 @@ public class Nivel1 implements PlayPanelStrategy{
 	}
 	@Override
 	public Buttons getButtons() {
-		// TODO Auto-generated method stub
 		return buttons;
 	}
 	@Override
 	public void setButtons(Buttons buttons) {
-		// TODO Auto-generated method stub
+		this.buttons = buttons;
 		
 	}
 		

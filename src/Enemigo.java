@@ -63,8 +63,9 @@ public class Enemigo {
 				currentimage=emoveizq;
 			}
 		}
-		
-		
+
+		if(rectangulo.getCenterX()==Juanito.getInstance().getRectangulo().getCenterX())
+			Juanito.getInstance().setVida(Juanito.getInstance().getVida()-1);
 	}
 	
 	//Collision methods
