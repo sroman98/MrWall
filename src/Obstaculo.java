@@ -26,7 +26,7 @@ public class Obstaculo {
 	
 	//Collision methods
 	public boolean isColliding() {
-		if(rectangulo.intersects(Juanito.getInstance().getRectangulo())) {
+		if(rectangulo.intersects(Juanito.getInstance().getRectangulo())) {			
 			return true;
 		}
 		return false;
@@ -35,13 +35,19 @@ public class Obstaculo {
 	public void setCollisions() {
         if(Juanito.getInstance().getRectangulo().getX() <= x+width && Juanito.getInstance().getRectangulo().getX() >= x)
     		Juanito.getInstance().setCl(true);
+        else
+        	Juanito.getInstance().setCl(false);
         if(Juanito.getInstance().getRectangulo().getX()+Juanito.getInstance().getRectangulo().getWidth() >= x && Juanito.getInstance().getRectangulo().getX()+Juanito.getInstance().getRectangulo().getWidth() <= x+width)
     		Juanito.getInstance().setCr(true);
+        else
+        	Juanito.getInstance().setCr(false);
         if(Juanito.getInstance().getRectangulo().getY()+Juanito.getInstance().getRectangulo().getHeight() >= y && Juanito.getInstance().getRectangulo().getY()+Juanito.getInstance().getRectangulo().getHeight() <= y+height) {
     		Juanito.getInstance().setCd(true); 
     		Juanito.getInstance().setCl(false);
     		Juanito.getInstance().setCr(false);
         }
+        else
+        	Juanito.getInstance().setCd(false);
 	}
 	
 	

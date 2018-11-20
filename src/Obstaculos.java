@@ -57,6 +57,10 @@ public class Obstaculos implements Observer {
 		}//While
 	}
 	
+	public void eliminarTodos () {
+		obstaculos.clear();
+	}
+	
 	//Getters & setters
 	public ArrayList<Obstaculo> getObstaculos() {
 		return obstaculos;
@@ -65,5 +69,8 @@ public class Obstaculos implements Observer {
 	public void setObstaculos(ArrayList<Obstaculo> obstaculos) {
 		this.obstaculos = obstaculos;
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> 290a7c1fbe81f9d9f7cfc0be342b504417152d42
 }

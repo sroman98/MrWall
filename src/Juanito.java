@@ -135,7 +135,6 @@ public class Juanito extends Observable {
 				else
 					juanitoStateContext.getCurrent().stop();
 			}
-			System.out.println(this.y);
 		}
 		else {
 			vely = 0;
