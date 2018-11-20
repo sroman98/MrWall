@@ -54,7 +54,7 @@ public class Obstaculo {
 	//Drawing method
 	public void draw(Graphics g) {
 		image.paintIcon(null, g, this.x, this.y);
-		g.drawRect(x, y, width, height);
+		//g.drawRect(x, y, width, height);
 	}
 	
 	//Getter & setters

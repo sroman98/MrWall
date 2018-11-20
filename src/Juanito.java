@@ -154,7 +154,7 @@ public class Juanito extends Observable {
 	//Drawing methods
 	public void draw(Graphics g) {
 		mygif.paintIcon(null,g, x, y);
-		g.drawRect(rectangulo.x,rectangulo.y,rectangulo.width,rectangulo.height);
+		//g.drawRect(rectangulo.x,rectangulo.y,rectangulo.width,rectangulo.height);
 		mychancla.draw(g);
 	}
 	

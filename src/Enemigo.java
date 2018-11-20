@@ -27,7 +27,7 @@ public class Enemigo {
 		this.y=y;
 		this.width=width;
 		this.height=height;
-		vida=2;
+		vida=3;
 		rectangulo = new Rectangle(x+25,y,width-20,height);
 		emoveder= new ImageIcon("img/emoveder.gif");
 		emoveizq= new ImageIcon("img/emoveizq.gif");
@@ -85,7 +85,7 @@ public class Enemigo {
 	//Drawing method
 	public void draw(Graphics g) {
 		currentimage.paintIcon(null, g, this.x, this.y);
-		g.drawRect(rectangulo.x, rectangulo.y, rectangulo.width, rectangulo.height);
+		//g.drawRect(rectangulo.x, rectangulo.y, rectangulo.width, rectangulo.height);
 	}
 	
 	//Getter & setters
