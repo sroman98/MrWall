@@ -6,6 +6,7 @@ public class Nivel1 implements PlayPanelStrategy{
 	private Background middleground;
 	private Obstaculos obstaculos;
 	private Buttons buttons;
+	private Enemigo enemy;
 	
 	PlayPanelStrategyContext context;
 
@@ -22,6 +23,9 @@ public class Nivel1 implements PlayPanelStrategy{
 		obstaculos.addObstaculo(1510, 635, 95, 48, "img/obs1.png");
 		obstaculos.addObstaculo(1990, 635, 95, 48, "img/obs1.png");
 		obstaculos.addObstaculo(3110, 635, 95, 48, "img/obs1.png");
+		
+		enemy = new Enemigo(100,635,100,100);
+		enemy = new Enemigo(200,635,100,100);
 	}
 	//getters & setters
 	public Background getBackground() {
