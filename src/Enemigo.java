@@ -35,16 +35,36 @@ public class Enemigo {
 		estillizq= new ImageIcon("img/estillizq.png");
 		einvisible=new ImageIcon("img/juanitoinvisible");	
 		currentimage=estillizq;
-		juanitocercano=true;
+		juanitocercano=false;
 		perfilizq=true;
-		perfilder=true;
+		perfilder=false;
 	}	
 	
 	public void move() {
-		if(Juanito.getInstance().getX()+200 >= this.x) {
-			perfilizq=true;
-			setX(x-1);
+		if(Juanito.getInstance().getX()>=this.x-200) { // si Juanito está a la izquierda del enemigo
+			
 		}
+		
+		if(Juanito.getInstance().getX()>this.getX()){ // Si Juanito está a derecha del enemigo
+			perfilizq=false;
+			perfilder=true; 
+			currentimage=estillder;
+			if( (this.getX()+400 > Juanito.getInstance().getX()) && (Juanito.getInstance().getX() > this.getX())) {
+				setX(x+2);
+				currentimage=emoveder;
+			}
+		}
+		else {
+			perfilizq=true;
+			perfilder=false;
+			currentimage=estillizq;
+			if( (this.getX()-400 < Juanito.getInstance().getX()) && (Juanito.getInstance().getX() < this.getX())) {
+				setX(x-2);
+				currentimage=emoveizq;
+			}
+		}
+		
+		
 	}
 	
 	//Collision methods

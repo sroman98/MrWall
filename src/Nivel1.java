@@ -26,7 +26,7 @@ public class Nivel1 implements PlayPanelStrategy{
 		
 		enemigos = new Enemigos();
 		enemigos.addEnemigo(500, 600, 70, 85);
-		enemigos.addEnemigo(600, 600, 70, 85);
+		enemigos.addEnemigo(1000, 600, 70, 85);
 	}
 	//getters & setters
 	public Background getBackground() {
