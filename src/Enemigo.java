@@ -45,6 +45,8 @@ public class Enemigo {
 			perfilizq=true;
 			setX(x-1);
 		}
+		if(rectangulo.getCenterX()==Juanito.getInstance().getRectangulo().getCenterX())
+			Juanito.getInstance().setVida(Juanito.getInstance().getVida()-1);
 	}
 	
 	//Collision methods

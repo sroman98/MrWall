@@ -1,3 +1,4 @@
+import java.util.Random;
 
 public class Nivel1 implements PlayPanelStrategy{
 	
@@ -15,18 +16,17 @@ public class Nivel1 implements PlayPanelStrategy{
 		foreground = new Background(0,0,"img/foreground1.png");
 		middleground = new Background(0,0,"img/middleground1.png");
 		background = new Background(0,0,"img/background1.png");
-		obstaculos = new Obstaculos();
-		buttons = new Buttons();
-	
-		obstaculos.addObstaculo(930 , 635, 95, 48, "img/obs1.png");
-		obstaculos.addObstaculo(1400, 635, 95, 48, "img/obs1.png");
-		obstaculos.addObstaculo(1510, 635, 95, 48, "img/obs1.png");
-		obstaculos.addObstaculo(1990, 635, 95, 48, "img/obs1.png");
-		obstaculos.addObstaculo(3110, 635, 95, 48, "img/obs1.png");
 		
+		obstaculos = new Obstaculos();
 		enemigos = new Enemigos();
-		enemigos.addEnemigo(500, 600, 70, 85);
-		enemigos.addEnemigo(600, 600, 70, 85);
+		buttons = new Buttons();
+		
+		Random r = new Random();
+		
+		for(int i=0; i<6; i++) {
+			enemigos.addEnemigo(r.nextInt(3620)+400, 600, 70, 85);
+			obstaculos.addObstaculo(r.nextInt(3720)+300 , 635, 95, 48, "img/obs1.png");
+		}
 	}
 	//getters & setters
 	public Background getBackground() {
