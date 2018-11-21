@@ -41,7 +41,9 @@ public class Enemigos implements Observer {
 				if(Juanito.getInstance().getMychancla().colliding(en.getRectangulo())){
 					SoundLoader.getInstance().playSound("/daño.wav");
 					en.setVida(en.getVida()-1);
+					Juanito.getInstance().setPuntaje(Juanito.getInstance().getPuntaje()+100);
 					if(en.getVida()==0) {
+						Juanito.getInstance().setPuntaje(Juanito.getInstance().getPuntaje()+500);
 						itr.remove();
 					}
 					return;

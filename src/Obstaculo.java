@@ -137,6 +137,7 @@ public class Obstaculo implements Observer {
 			if(Juanito.getInstance().getMychancla().colliding(rectangulo)) {
 				y+=30;
 				vida--;	
+				Juanito.getInstance().setPuntaje(Juanito.getInstance().getPuntaje()+500);
 				rectangulo.setLocation(x, y);
 			}
 		}
