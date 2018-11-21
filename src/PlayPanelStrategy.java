@@ -31,4 +31,5 @@ public interface PlayPanelStrategy {
 	
 	public void createStuff();
 	
+	public void reset();
 }

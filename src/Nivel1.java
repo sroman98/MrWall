@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.util.Random;
 
 public class Nivel1 implements PlayPanelStrategy{
@@ -20,6 +21,8 @@ public class Nivel1 implements PlayPanelStrategy{
 		obstaculos = new Obstaculos();
 		enemigos = new Enemigos();
 		buttons = new Buttons();
+		
+		buttons.addButton(730,5,140,40,Color.CYAN, "menu",15, "#4372e8");
 
 		createStuff();		
 	}
@@ -92,6 +95,16 @@ public class Nivel1 implements PlayPanelStrategy{
 	public void setButtons(Buttons buttons) {
 		this.buttons = buttons;
 		
+	}
+	
+	public void reset() {
+		enemigos.getEnemigos().clear();
+		obstaculos.getObstaculos().clear();
+		background.setX(0);
+		middleground.setX(0);
+		foreground.setX(0);
+		Juanito.getInstance().setX(10);
+		createStuff();
 	}
 		
 }

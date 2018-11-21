@@ -77,4 +77,14 @@ public class JuanitoHUD {
 			current = noheart;
 		}
 	}
+	
+	public void reset() {
+		hud.puntos=0;
+		hud.vidas=5;
+		hud.nivel=0;
+	}
+	
+	public void setPuntos(int puntos) {
+		hud.puntos=puntos;
+	}
 }

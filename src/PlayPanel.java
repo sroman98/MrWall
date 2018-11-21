@@ -152,25 +152,59 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener, ActionLi
 	
 	public void checkMenuClick(Point p){
 		for(int i=0; i<currentbuttons.getSize();i++) {
-			if(currentbuttons.getButton(0).contains(p.getX(),p.getY())) {
-				playpanelstatecontext.setCurrent(playpanelstatecontext.getNivel1());
-				currentforeground = playpanelstatecontext.getCurrent().getForeground();
-				currentmiddleground = playpanelstatecontext.getCurrent().getMiddleground();
-				currentbackground = playpanelstatecontext.getCurrent().getBackground();
-				currentobstaculos = playpanelstatecontext.getCurrent().getObstaculos();
-				currentbuttons = playpanelstatecontext.getCurrent().getButtons();
-				currentenemigos = playpanelstatecontext.getCurrent().getEnemigos();
-				currentbackground.setX(0);
-				currentmiddleground.setX(0);
-				currentforeground.setX(0);
-				Juanito.getInstance().getJuanitoStateContext().setCurrent(Juanito.getInstance().getJuanitoStateContext().getStaticState());
-				Juanito.getInstance().setX(10);
-				Juanito.getInstance().setNivel(1);
-				Juanito.getInstance().setVisible(true);
-				Juanito.getInstance().setActive(true);
-				hud.setVisible(true);
+			if(currentbuttons.getButton(i).contains(p.getX(),p.getY())) {
+				
+				if(currentbuttons.getButton(i).getLabel()=="play"){
+					playpanelstatecontext.setCurrent(playpanelstatecontext.getNivel1());
+					updateLevel();
+					Juanito.getInstance().getJuanitoStateContext().setCurrent(Juanito.getInstance().getJuanitoStateContext().getStaticState());
+					Juanito.getInstance().setX(10);
+					Juanito.getInstance().setNivel(1);
+					Juanito.getInstance().setVisible(true);
+					Juanito.getInstance().setActive(true);
+					hud.setVisible(true);
+					hud.getInstance().setPuntos(0);
+				}
+				else {
+					if(currentbuttons.getButton(i).getLabel()=="menu"){
+						playpanelstatecontext.getNivel1().reset();
+						playpanelstatecontext.getNivel2().reset();
+						playpanelstatecontext.setCurrent(playpanelstatecontext.getNivelMenu());	
+						gamestatecontext.setCurrent(gamestatecontext.getGameActiveState());	
+						currentstatebutton = gamestatecontext.getCurrent().getButton();
+						currentstatebackground = gamestatecontext.getCurrent().getBackground();
+						updateLevel();
+						Juanito.getInstance().getJuanitoStateContext().setCurrent(Juanito.getInstance().getJuanitoStateContext().getPausedState());
+						Juanito.getInstance().setX(10);
+						Juanito.getInstance().setNivel(1);
+						Juanito.getInstance().setVisible(false);
+						Juanito.getInstance().setActive(false);
+						hud.setVisible(false);
+						hud.getInstance().reset();
+						hud.getInstance().setPuntos(0);
+					}
+				
+					if(currentbuttons.getButton(i).getLabel()=="rules") {
+						playpanelstatecontext.setCurrent(playpanelstatecontext.getNivelRules());
+						updateLevel();
+						
+					}
+				}
+				
 			}
 		}
+	}
+	
+	public void updateLevel() {
+		currentforeground = playpanelstatecontext.getCurrent().getForeground();
+		currentmiddleground = playpanelstatecontext.getCurrent().getMiddleground();
+		currentbackground = playpanelstatecontext.getCurrent().getBackground();
+		currentobstaculos = playpanelstatecontext.getCurrent().getObstaculos();
+		currentbuttons = playpanelstatecontext.getCurrent().getButtons();
+		currentenemigos = playpanelstatecontext.getCurrent().getEnemigos();
+		currentbackground.setX(0);
+		currentmiddleground.setX(0);
+		currentforeground.setX(0);
 	}
 	
 	public void checkGameState(Point p) {
@@ -180,6 +214,7 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener, ActionLi
 			 currentstatebackground = gamestatecontext.getCurrent().getBackground();
 			 Juanito.getInstance().getJuanitoStateContext().setCurrent(Juanito.getInstance().getJuanitoStateContext().getPausedState());
 			 Juanito.getInstance().setActive(false);
+			 playpanelstatecontext.getCurrent().getEnemigos().pauseEnemigos(true);
 		 }
 		 
 		 else if(currentstatebutton.contains(p.getX(),p.getY()) && gamestatecontext.getCurrent()==gamestatecontext.getGamePausedState()) {
@@ -188,6 +223,7 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener, ActionLi
 			 currentstatebackground = gamestatecontext.getCurrent().getBackground();
 			 Juanito.getInstance().getJuanitoStateContext().setCurrent(Juanito.getInstance().getJuanitoStateContext().getStaticState());
 			 Juanito.getInstance().setActive(true);
+			 playpanelstatecontext.getCurrent().getEnemigos().pauseEnemigos(false);
 		 }
 	}
 
@@ -317,15 +353,21 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener, ActionLi
 		hud.draw(dbg);
 		
 		Juanito.getInstance().draw(dbg);
+		currentenemigos.draw(dbg);
 		
 		currentstatebackground.draw(dbg);
 		
 
 		if(playpanelstatecontext.getCurrent()==playpanelstatecontext.getNivel2() && playpanelstatecontext.getNivel2().getObstaculos().level2done()) {
-			dbg.drawString("YOU WON", 400, 300);
+			dbg.drawString("YOU WON!", 400, 300);
 			ImageIcon explosion = createImageIcon("/explosion.gif");
-			explosion.paintIcon(null, dbg, 400, 250);
+			explosion.paintIcon(null, dbg, 400, 140);
 			Juanito.getInstance().setActive(false);
+		}
+		
+		////////Checar lo de ready for next level/////////////
+		if(playpanelstatecontext.getCurrent()==playpanelstatecontext.getNivel1() && playpanelstatecontext.getNivel1().getEnemigos().getEnemigos().size()==0) {
+			dbg.drawString("READY FOR THE NEXT LEVEL? CONTINUE WALKING...", 200, 300);
 		}
 		
 		
@@ -337,7 +379,7 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener, ActionLi
 		
 		currentbuttons.draw(dbg);
 		
-		currentenemigos.draw(dbg);
+		
 		if(currentenemigos.getAtrapado()){
 			ImageIcon deportedgif = createImageIcon("/pausedbackground.png");
 			deportedgif.paintIcon(null, dbg, 0, 0);

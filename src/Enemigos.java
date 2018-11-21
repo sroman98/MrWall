@@ -8,6 +8,7 @@ public class Enemigos implements Observer {
 
 	private ArrayList<Enemigo> enemigos;
 	private boolean atrapado=false;
+	private boolean pausados=false;
 
 	public Enemigos() {
 		enemigos = new ArrayList<Enemigo>();
@@ -74,7 +75,9 @@ public class Enemigos implements Observer {
 				apt.remove();
 			}
 			else {
-				en.move();
+				if(!pausados) {
+					en.move();
+				}
 			}
 		}//While		
 	}
@@ -113,5 +116,16 @@ public class Enemigos implements Observer {
 	}
 	public void emptyEnemigos() {
 		enemigos.clear();
+	}
+	
+	public void pauseEnemigos(boolean pause) {
+		pausados=pause;
+		if(pausados) {
+			ListIterator<Enemigo> apt = enemigos.listIterator(); 
+			while(apt.hasNext()) {
+				Enemigo en = apt.next();
+				en.setCurrentimage(en.getEstillizq());
+			}
+		}
 	}
 }

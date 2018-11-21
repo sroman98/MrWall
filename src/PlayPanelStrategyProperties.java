@@ -16,6 +16,9 @@ public class PlayPanelStrategyProperties {
 			case 2:
 				stringClase= "Nivel2";
 				return stringClase;
+			case 3:
+				stringClase="NivelRules";
+				return stringClase;
 			default:
 				stringClase= "Nivel1";
 				return stringClase;
