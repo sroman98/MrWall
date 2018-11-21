@@ -1,8 +1,11 @@
+<<<<<<< HEAD
 /*
  * This class is a strategy of the Play Panel. It models the second level with its corresponding buttons, enemies and obstacles
  */
 
 import java.awt.Color;
+=======
+>>>>>>> fdee285dcd04d0ac0666dadf987ada6499003891
 import java.util.Random;
 
 public class Nivel2 implements PlayPanelStrategy {
