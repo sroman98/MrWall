@@ -309,12 +309,8 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 		
 		currentstatebackground.draw(dbg);
 		
-<<<<<<< HEAD
-		
-		if(playpanelstatecontext.getCurrent()==playpanelstatecontext.getNivel2()&&Juanito.getInstance().getX()>=500) {
-=======
+
 		if(playpanelstatecontext.getCurrent()==playpanelstatecontext.getNivel2() && playpanelstatecontext.getNivel2().getObstaculos().level2done()) {
->>>>>>> b2d98b910b65ebbe054e181c516776a40c4db51d
 			dbg.drawString("YOU WON", 400, 300);
 			ImageIcon explosion = new ImageIcon("img/explosion.gif");
 			explosion.paintIcon(null, dbg, 400, 250);
