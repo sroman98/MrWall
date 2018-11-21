@@ -11,7 +11,7 @@ public class SoundLoader implements Runnable {
 	
 	public static synchronized SoundLoader getInstance() {
 	    if(instance == null) {
-	      instance = new SoundLoader("/mariachi.wav", "/daño2.wav");
+	      instance = new SoundLoader("/mariachi.wav", "/daño2.wav", "/throw.wav", "/jump.wav");
 	    }
 	    return instance;
 	}
@@ -52,10 +52,8 @@ public class SoundLoader implements Runnable {
 				playSound(soundList.get(currentSongIndex));
 				flagplay0=false;
 			}
-			System.out.println(currentSongIndex);
 			
 			if(currentSongIndex==1) {
-				System.out.println("NOT BILLIE JEAN");
 				playSound(soundList.get(currentSongIndex));
 			}
 		}
@@ -63,7 +61,6 @@ public class SoundLoader implements Runnable {
 	
 	public void setCurrentIndex(int i){
 		this.currentSongIndex=i;
-		System.out.println(currentSongIndex);
 	}
 	
 	public void startMusic() {// initialize and start the thread

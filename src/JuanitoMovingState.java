@@ -10,10 +10,12 @@ public class JuanitoMovingState implements JuanitoState {
 		if(Juanito.getInstance().getPerfilDer()) { 
 			Juanito.getInstance().getMychancla().setRight(true);
 			Juanito.getInstance().getMychancla().setVelx(50);
+			SoundLoader.getInstance().playSound("/throw.wav");
 		}
 		else {
 			Juanito.getInstance().getMychancla().setRight(false);
 			Juanito.getInstance().getMychancla().setVelx(-50);
+			SoundLoader.getInstance().playSound("/throw.wav");
 		}
 	}/*no cambia de estado*/
 	
@@ -62,10 +64,14 @@ public class JuanitoMovingState implements JuanitoState {
 			Juanito.getInstance().setMygif(Juanito.getInstance().getJsaltader());
 		else
 			Juanito.getInstance().setMygif(Juanito.getInstance().getJsaltaizq());
-		if(Juanito.getInstance().getY()==600 || Juanito.getInstance().isCd())
+		if(Juanito.getInstance().getY()==600 || Juanito.getInstance().isCd()) {
 			Juanito.getInstance().setVely(-25);
+			SoundLoader.getInstance().playSound("/jump.wav");
+		}
 		
-		if(Juanito.getInstance().getY()==550 || Juanito.getInstance().isCd()) //==600
+		if(Juanito.getInstance().getY()==550 || Juanito.getInstance().isCd()) { //==600
 			Juanito.getInstance().setVely(-25);
+			SoundLoader.getInstance().playSound("/jump.wav");
+		}
 	}
 }
