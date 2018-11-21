@@ -1,3 +1,7 @@
+/*
+ * The Juanito HUD is a singleton is it used by different entities in the game. Also the synchronized word is used for safely accessing the getInstance method by the thread
+ */
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;

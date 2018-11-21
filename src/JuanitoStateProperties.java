@@ -1,5 +1,7 @@
-
-
+/*
+ * This class is "extra" for better handling of the Juanito States, you can get the Juanito States by knowing their name
+ * This class is only used internally by the JuanitoStateContext
+ */
 
 public class JuanitoStateProperties {
 	private String stringClase;

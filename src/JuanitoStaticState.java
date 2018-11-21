@@ -1,3 +1,7 @@
+/*
+ * This State models what Juanito can and cannot do when he is static. For example the gifs used are the ones portraying a standing Juanito
+ */
+
 public class JuanitoStaticState implements JuanitoState {
 	JuanitoStateContext jc;
 

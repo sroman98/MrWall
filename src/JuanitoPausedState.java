@@ -1,3 +1,6 @@
+/*
+ * This State models what Juanito can and cannot do when he is paused. For example, he cannot do any action 
+ */
 
 public class JuanitoPausedState implements JuanitoState {
 	JuanitoStateContext jc;

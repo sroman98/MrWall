@@ -1,3 +1,8 @@
+/*
+ * This class is the Game Paused State so the player cannot continue playing or moving, the enemies also stop.
+ * It implements Game State to implements the methods
+ */
+
 import java.awt.Color;
 
 public class GamePausedState implements GameState {

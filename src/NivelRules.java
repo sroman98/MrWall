@@ -1,3 +1,8 @@
+
+/*
+ * This class is a strategy of the Play Panel. It models the rules menu with its corresponding buttons and images
+ */
+
 import java.awt.Color;
 
 public class NivelRules implements PlayPanelStrategy {

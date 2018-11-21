@@ -1,3 +1,7 @@
+/*
+ * This class is a strategy of the Play Panel. It models the second level with its corresponding buttons, enemies and obstacles
+ */
+
 import java.awt.Color;
 import java.util.Random;
 

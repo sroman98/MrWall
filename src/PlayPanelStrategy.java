@@ -1,4 +1,6 @@
-
+/*
+ * This class is the interface implemented by the different Strategies (levels) of the Play Panel
+ */
 public interface PlayPanelStrategy {
 
 	public Background getBackground();

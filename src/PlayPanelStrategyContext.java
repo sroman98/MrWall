@@ -1,3 +1,7 @@
+/*
+ * This class is the PlayPanel Strategy Context that permits direct communication between the PlayPanel and its Strategies
+ * You can get the current Strategy used (level) and change or obtain the other startegies (levels)
+ */
 
 public class PlayPanelStrategyContext {
 	private PlayPanelStrategy niveles[]= new PlayPanelStrategy[4];

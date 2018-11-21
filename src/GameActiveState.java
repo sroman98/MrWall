@@ -1,3 +1,9 @@
+/*
+ * This class is the Game Active State so the player can continue playing and everything continues moving and drawing
+ * It implements Game State to implements the methods
+ */
+
+
 import java.awt.Color;
 
 public class GameActiveState implements GameState {

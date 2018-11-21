@@ -1,4 +1,6 @@
-
+/*
+ * This class is the factory that creates the Game States
+ */
 public class GameStateFactory {
 
 	// estructura de datos que albergue los constructores

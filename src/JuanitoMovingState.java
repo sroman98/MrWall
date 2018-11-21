@@ -1,3 +1,7 @@
+/*
+ * This State models what Juanito can and cannot do when he is moving. For example the gifs used are the ones portraying a moving Juanito
+ */
+
 public class JuanitoMovingState implements JuanitoState {
 	JuanitoStateContext jc;
 

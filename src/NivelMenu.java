@@ -1,3 +1,8 @@
+
+/*
+ * This class is a strategy of the Play Panel. It models the menu with its corresponding buttons.
+ */
+
 import java.awt.Color;
 
 public class NivelMenu implements PlayPanelStrategy{

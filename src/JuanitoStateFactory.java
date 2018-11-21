@@ -1,6 +1,6 @@
-
-
-
+/*
+ * This class is the factory that creates the Juanito States
+ */
 public class JuanitoStateFactory {
 	// estructura de datos que albergue los constructores
 	private static JuanitoStateFactory instance;

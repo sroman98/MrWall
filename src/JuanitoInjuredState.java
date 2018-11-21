@@ -1,4 +1,6 @@
-
+/*
+ * This State models what Juanito can and cannot do when he is injured
+ */
 
 
 public class JuanitoInjuredState implements JuanitoState{

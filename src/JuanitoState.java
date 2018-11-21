@@ -1,4 +1,6 @@
-
+/*
+ * This class is the interface implemented by the different Juanito States
+ */
 
 
 interface JuanitoState {

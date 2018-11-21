@@ -1,4 +1,7 @@
-
+/*
+ * This class is the Game State Context that permits direct communication between the PlayPanel and the Juanito tates
+ * You can get the current state of Juanito as well as the States created for him
+ */
 public class JuanitoStateContext {
 	private JuanitoState estados[]= new JuanitoState[6];
 	private JuanitoStateProperties propiedades;

@@ -1,4 +1,7 @@
-
+/*
+ * This class is "extra" for better handling of the Play Panel Strategies, you can get the Strategy by knowing their name
+ * This class is only used internally by the PlayPanelStrategyContext
+ */
 public class PlayPanelStrategyProperties {
 	
 	private String stringClase;

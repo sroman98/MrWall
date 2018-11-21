@@ -1,4 +1,6 @@
-
+/*
+ * This class is the interface implemented by the different Game States
+ */
 public interface GameState {
 
 	public void active();

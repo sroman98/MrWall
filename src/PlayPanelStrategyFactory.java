@@ -1,3 +1,6 @@
+/*
+ * This class is the factory that creates the PlayPanel Strategies
+ */
 
 public class PlayPanelStrategyFactory {
 

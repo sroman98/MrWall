@@ -1,4 +1,7 @@
-
+/*
+ * This class is the Game State Context that permits direct communication between the PlayPanel and the GameStates
+ * You can get the current state the game is in as well as the States created for the Game
+ */
 public class GameStateContext {
 	private GameState estados[]= new GameState[2];
 	private GameStateProperties propiedades;
