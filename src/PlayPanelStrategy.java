@@ -29,4 +29,6 @@ public interface PlayPanelStrategy {
 
 	public void setContext(PlayPanelStrategyContext context);
 	
+	public void createStuff();
+	
 }

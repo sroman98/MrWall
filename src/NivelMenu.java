@@ -78,4 +78,9 @@ public class NivelMenu implements PlayPanelStrategy{
 	public Buttons getButtons() {
 		return this.buttons;
 	}
+	@Override
+	public void createStuff() {
+		// TODO Auto-generated method stub
+		
+	}
 }

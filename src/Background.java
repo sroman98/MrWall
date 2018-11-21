@@ -39,4 +39,8 @@ public class Background {
    public int getY() {return y;}
    public String getPath() {return path;}
    public void draw(Graphics g) {g.drawImage(img, x, y, null);}
+   
+   public void restart() {
+	   x=0;
+   }
 }

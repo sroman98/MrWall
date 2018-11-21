@@ -3,9 +3,6 @@ import java.util.ArrayList;
 import java.util.ListIterator;
 import java.util.Observable;
 import java.util.Observer;
-import java.awt.Font;
-
-import javax.swing.ImageIcon;
 
 public class Enemigos implements Observer {
 
@@ -117,7 +114,9 @@ public class Enemigos implements Observer {
 	public boolean getAtrapado() {
 		return atrapado;
 	}
-	
+	public void setAtrapado(boolean s) {
+		atrapado = s;
+	}
 	public void emptyEnemigos() {
 		enemigos.clear();
 	}

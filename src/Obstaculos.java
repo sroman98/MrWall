@@ -65,7 +65,7 @@ public class Obstaculos implements Observer {
 			wall = apt.next();
 		}
 		
-		if(wall.getVida()==0) {
+		if(wall!=null && wall.getVida()==0) {
 			wall.setY(800);
 			return true;
 		}

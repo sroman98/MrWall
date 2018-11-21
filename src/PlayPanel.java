@@ -3,6 +3,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
@@ -10,8 +12,9 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
-public class PlayPanel extends JPanel implements Runnable, KeyListener {
+public class PlayPanel extends JPanel implements Runnable, KeyListener, ActionListener {
 	
 	private PlayPanelStrategyContext playpanelstatecontext;
 	private GameStateContext gamestatecontext;
@@ -49,6 +52,8 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 	private Buttons currentbuttons;
 	
 	private Enemigos currentenemigos;
+	
+	private Timer t;
 
 	public PlayPanel() {
 		setBackground(Color.white); //white background
@@ -75,6 +80,8 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 		hud.setVisible(false);
 		Juanito.getInstance().getJuanitoStateContext().setCurrent(Juanito.getInstance().getJuanitoStateContext().getPausedState());
 		addKeyListener(this);
+		
+		t = new Timer(3000,this);
 		
 		currentstatebutton = gamestatecontext.getCurrent().getButton();
 		Juanito.getInstance().setVisible(false);
@@ -330,16 +337,19 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 			ImageIcon deportedgif = new ImageIcon("img/pausedbackground.png");
 			deportedgif.paintIcon(null, dbg, 0, 0);
 			dbg.drawString("YOU HAVE BEEN DEPORTED!", 340, 300);
-			endGame();
+			if(!t.isRunning())
+				deport();
 		}
 		
 		
 	} // end of gameRender()
 	
-	public void endGame() {
+	public void deport() {
 		Juanito.getInstance().getJuanitoStateContext().setCurrent(Juanito.getInstance().getJuanitoStateContext().getPausedState());
 		Juanito.getInstance().setVisible(false);
-		playpanelstatecontext.getCurrent().getEnemigos().emptyEnemigos();
+		playpanelstatecontext.getCurrent().getEnemigos().eliminarTodos();
+		playpanelstatecontext.getCurrent().getObstaculos().eliminarTodos();
+		t.start();
 	}
 	
 	private void paintScreen(){	// actively render the buffer image to the screen
@@ -371,6 +381,24 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 	public void keyReleased(KeyEvent e) {
 		if(e.getExtendedKeyCode() == KeyEvent.VK_RIGHT || e.getExtendedKeyCode() == KeyEvent.VK_LEFT)
 			Juanito.getInstance().getJuanitoStateContext().getCurrent().stop();
+	}
+
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==t) {
+			playpanelstatecontext.getCurrent().createStuff();
+			currentbackground.restart();
+			currentmiddleground.restart();
+			currentforeground.restart();
+			Juanito.getInstance().setX(10);
+			Juanito.getInstance().getMychancla().chanclaToJuanito();
+			Juanito.getInstance().getJuanitoStateContext().setCurrent(Juanito.getInstance().getJuanitoStateContext().getStaticState());
+			Juanito.getInstance().setVisible(true);
+			currentenemigos.setAtrapado(false);
+			t.stop();
+		}
+		
 	}
 	
 }
