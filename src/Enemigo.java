@@ -27,7 +27,7 @@ public class Enemigo {
 		this.y=y;
 		this.width=width;
 		this.height=height;
-		vida=3;
+		vida = 3;
 		rectangulo = new Rectangle(x+25,y,width-20,height);
 		emoveder= new ImageIcon("img/emoveder.gif");
 		emoveizq= new ImageIcon("img/emoveizq.gif");
@@ -50,7 +50,7 @@ public class Enemigo {
 			perfilizq=false;
 			perfilder=true; 
 			currentimage=estillder;
-			if( (this.getX()+400 > Juanito.getInstance().getX()) && (Juanito.getInstance().getX() > this.getX())) {
+			if( (this.getX()+600 > Juanito.getInstance().getX()) && (Juanito.getInstance().getX() > this.getX())) {
 				setX(x+2);
 				currentimage=emoveder;
 			}
@@ -59,7 +59,7 @@ public class Enemigo {
 			perfilizq=true;
 			perfilder=false;
 			currentimage=estillizq;
-			if( (this.getX()-400 < Juanito.getInstance().getX()) && (Juanito.getInstance().getX() < this.getX())) {
+			if( (this.getX()-600 < Juanito.getInstance().getX()) && (Juanito.getInstance().getX() < this.getX())) {
 				setX(x-2);
 				currentimage=emoveizq;
 			}

@@ -29,7 +29,7 @@ public class Nivel2 implements PlayPanelStrategy {
 			obstaculos.addObstaculo(r.nextInt(3720)+300 , 635, 95, 48, "img/obs1.png");
 		}
 		
-		obstaculos.addObstaculo(3720, 0, 630, 1060, "img/wall.png");
+		obstaculos.addObstaculo(4180, 375, 139, 311, "img/wall2.png");
 	}
 	//getters & setters
 	public Background getBackground() {

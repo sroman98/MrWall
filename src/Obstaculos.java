@@ -56,6 +56,23 @@ public class Obstaculos implements Observer {
 		}//While
 	}
 	
+	public boolean level2done() {
+		ListIterator<Obstaculo> apt = obstaculos.listIterator(); 
+		
+		Obstaculo wall = null;
+		
+		while(apt.hasNext()) {
+			wall = apt.next();
+		}
+		
+		if(wall.getVida()==0) {
+			wall.setY(800);
+			return true;
+		}
+		return false;
+		
+	}
+	
 	public void eliminarTodos () {
 		obstaculos.clear();
 	}
