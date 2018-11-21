@@ -36,6 +36,7 @@ public class Juanito extends Observable {
 	private boolean der;
 	private boolean izq;
 	private boolean cr, cl, cd;
+	private boolean active;
 	
 	private static Chancla mychancla;
 	
@@ -62,6 +63,8 @@ public class Juanito extends Observable {
 		cr = cl = cd = false;
 		der=true;
 		izq=false;
+		
+		active = false;
 		
 		dt = (float) 0.666;
 		gravity = 2;	
@@ -204,7 +207,8 @@ public class Juanito extends Observable {
 		}
 		
 		public void setPuntaje(int puntaje) {
-			this.puntaje = puntaje;
+			if(active)
+				this.puntaje = puntaje;
 		}
 		
 		public int getNivel() {
@@ -387,5 +391,13 @@ public class Juanito extends Observable {
 
 		public Chancla getMychancla() {
 			return mychancla;
+		}
+		
+		public boolean isActive() {
+			return active;
+		}
+
+		public void setActive(boolean a) {
+			this.active = a;
 		}
 }

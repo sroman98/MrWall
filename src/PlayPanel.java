@@ -166,6 +166,7 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener, ActionLi
 				Juanito.getInstance().setX(10);
 				Juanito.getInstance().setNivel(1);
 				Juanito.getInstance().setVisible(true);
+				Juanito.getInstance().setActive(true);
 				hud.setVisible(true);
 			}
 		}
@@ -177,6 +178,7 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener, ActionLi
 			 currentstatebutton = gamestatecontext.getCurrent().getButton();
 			 currentstatebackground = gamestatecontext.getCurrent().getBackground();
 			 Juanito.getInstance().getJuanitoStateContext().setCurrent(Juanito.getInstance().getJuanitoStateContext().getPausedState());
+			 Juanito.getInstance().setActive(false);
 		 }
 		 
 		 else if(currentstatebutton.contains(p.getX(),p.getY()) && gamestatecontext.getCurrent()==gamestatecontext.getGamePausedState()) {
@@ -184,6 +186,7 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener, ActionLi
 			 currentstatebutton = gamestatecontext.getCurrent().getButton();
 			 currentstatebackground = gamestatecontext.getCurrent().getBackground();
 			 Juanito.getInstance().getJuanitoStateContext().setCurrent(Juanito.getInstance().getJuanitoStateContext().getStaticState());
+			 Juanito.getInstance().setActive(true);
 		 }
 	}
 
@@ -321,6 +324,7 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener, ActionLi
 			dbg.drawString("YOU WON", 400, 300);
 			ImageIcon explosion = new ImageIcon("img/explosion.gif");
 			explosion.paintIcon(null, dbg, 400, 250);
+			Juanito.getInstance().setActive(false);
 		}
 		
 		
