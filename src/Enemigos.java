@@ -49,7 +49,9 @@ public class Enemigos implements Observer {
 			}
 		}
 	}
-	
+	public void eliminarTodos () {
+		enemigos.clear();
+	}
 	public void draw(Graphics g) {
 		
 		ListIterator<Enemigo> apt = enemigos.listIterator(); 

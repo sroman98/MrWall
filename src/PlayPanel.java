@@ -105,7 +105,7 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 	public void checkLevelChange(){
 		if(Juanito.getInstance().getX()>=980 && Juanito.getInstance().getNivel()==1) {
 			playpanelstatecontext.setCurrent(playpanelstatecontext.getNivel2());
-			playpanelstatecontext.getNivel1().getObstaculos().eliminarTodos();
+			playpanelstatecontext.getNivel1().deleteStuff();
 			currentforeground = playpanelstatecontext.getCurrent().getForeground();
 			currentmiddleground = playpanelstatecontext.getCurrent().getMiddleground();
 			currentbackground = playpanelstatecontext.getCurrent().getBackground();
