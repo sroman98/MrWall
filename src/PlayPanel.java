@@ -302,14 +302,19 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 		currentforeground.draw(dbg);
 		
 		currentobstaculos.draw(dbg);
-		currentenemigos.draw(dbg);
+		
 		hud.draw(dbg);
 		
 		Juanito.getInstance().draw(dbg);
 		
 		currentstatebackground.draw(dbg);
 		
+<<<<<<< HEAD
+		
+		if(playpanelstatecontext.getCurrent()==playpanelstatecontext.getNivel2()&&Juanito.getInstance().getX()>=500) {
+=======
 		if(playpanelstatecontext.getCurrent()==playpanelstatecontext.getNivel2() && playpanelstatecontext.getNivel2().getObstaculos().level2done()) {
+>>>>>>> b2d98b910b65ebbe054e181c516776a40c4db51d
 			dbg.drawString("YOU WON", 400, 300);
 			ImageIcon explosion = new ImageIcon("img/explosion.gif");
 			explosion.paintIcon(null, dbg, 400, 250);
@@ -321,8 +326,25 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 			currentstatebutton.draw(dbg);
 		}
 		
+		
 		currentbuttons.draw(dbg);
+		
+		currentenemigos.draw(dbg);
+		if(currentenemigos.getAtrapado()){
+			ImageIcon deportedgif = new ImageIcon("img/pausedbackground.png");
+			deportedgif.paintIcon(null, dbg, 0, 0);
+			dbg.drawString("YOU HAVE BEEN DEPORTED!", 340, 300);
+			endGame();
+		}
+		
+		
 	} // end of gameRender()
+	
+	public void endGame() {
+		Juanito.getInstance().getJuanitoStateContext().setCurrent(Juanito.getInstance().getJuanitoStateContext().getPausedState());
+		Juanito.getInstance().setVisible(false);
+		playpanelstatecontext.getCurrent().getEnemigos().emptyEnemigos();
+	}
 	
 	private void paintScreen(){	// actively render the buffer image to the screen
 		Graphics g;

@@ -3,10 +3,14 @@ import java.util.ArrayList;
 import java.util.ListIterator;
 import java.util.Observable;
 import java.util.Observer;
+import java.awt.Font;
+
+import javax.swing.ImageIcon;
 
 public class Enemigos implements Observer {
 
 	private ArrayList<Enemigo> enemigos;
+	private boolean atrapado=false;
 
 	public Enemigos() {
 		enemigos = new ArrayList<Enemigo>();
@@ -58,16 +62,29 @@ public class Enemigos implements Observer {
 		
 		ListIterator<Enemigo> apt = enemigos.listIterator(); 
 		while(apt.hasNext()) {
-			Enemigo en = apt.next();			
+			Enemigo en = apt.next();
 			en.draw(g);
-		}//While		
+			
+			if(en.getAtrapoJuanito()){
+				atrapado=true;
+			}
+		}//While	
+		
+		
 	}
 	public void move() {
 		ListIterator<Enemigo> apt = enemigos.listIterator(); 
 		
 		while(apt.hasNext()) {
 			Enemigo en = apt.next();
-			en.move();
+			if(en.getAtrapoJuanito()){
+				SoundLoader.getInstance().playSound("/daño2.wav");
+				apt.remove();
+				
+			}
+			else {
+				en.move();
+			}
 		}//While		
 	}
 	
@@ -95,5 +112,13 @@ public class Enemigos implements Observer {
 
 	public void setEnemigos(ArrayList<Enemigo> enemigos) {
 		this.enemigos = enemigos;
+	}
+	
+	public boolean getAtrapado() {
+		return atrapado;
+	}
+	
+	public void emptyEnemigos() {
+		enemigos.clear();
 	}
 }
