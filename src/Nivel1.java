@@ -22,7 +22,7 @@ public class Nivel1 implements PlayPanelStrategy{
 		enemigos = new Enemigos();
 		buttons = new Buttons();
 		
-		buttons.addButton(730,5,140,40,Color.CYAN, "menu",15, "#4372e8");
+		//buttons.addButton(730,5,140,40,Color.CYAN, "menu",15, "#4372e8");
 
 		createStuff();		
 	}

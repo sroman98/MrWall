@@ -20,7 +20,7 @@ public class Nivel2 implements PlayPanelStrategy {
 		obstaculos = new Obstaculos();
 		buttons = new Buttons();
 		enemigos = new Enemigos();		
-		buttons.addButton(730,5,140,40,Color.CYAN, "menu",15, "#4372e8");
+		//buttons.addButton(730,5,140,40,Color.CYAN, "menu",15, "#4372e8");
 	}
 	
 	public void createStuff() {
