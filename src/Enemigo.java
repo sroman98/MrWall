@@ -20,6 +20,7 @@ public class Enemigo {
 	private boolean perfilder;
 	private boolean perfilizq;
 	private boolean juanitocercano;
+	private boolean atrapojuanito;
 	
 	
 	public Enemigo(int x, int y, int width, int height){
@@ -39,6 +40,7 @@ public class Enemigo {
 		juanitocercano=false;
 		perfilizq=true;
 		perfilder=false;
+		atrapojuanito=false;
 	}	
 	
 	public void move() {
@@ -65,8 +67,15 @@ public class Enemigo {
 			}
 		}
 
-		if(rectangulo.getCenterX()==Juanito.getInstance().getRectangulo().getCenterX())
+		if(rectangulo.getCenterX()-30<=Juanito.getInstance().getRectangulo().getCenterX()+30) {
+			atrapojuanito=true;
 			Juanito.getInstance().setVida(Juanito.getInstance().getVida()-1);
+		}
+		if(rectangulo.getCenterX()+30<=Juanito.getInstance().getRectangulo().getCenterX()-30) {
+			atrapojuanito=true;
+			Juanito.getInstance().setVida(Juanito.getInstance().getVida()-1);
+		}
+			
 	}
 	
 	//Collision methods
@@ -230,6 +239,10 @@ public class Enemigo {
 	public void die() {
 		ImageIcon edieizq= new ImageIcon("img/edieizq.png");
 		setCurrentImage(edieizq);
+	}
+	
+	public boolean getAtrapoJuanito() {
+		return atrapojuanito;
 	}
 	
 }

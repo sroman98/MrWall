@@ -308,6 +308,7 @@ public class Juanito extends Observable {
 		}
 
 		public void setVida(int vida) {
+			if(vida>=0)
 			this.vida = vida;
 		}
 
