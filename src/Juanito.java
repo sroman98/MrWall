@@ -208,9 +208,11 @@ public class Juanito extends Observable {
 			return puntaje;
 		}
 		
-		public void setPuntaje(int puntaje) {
+		public void setPuntaje(int p) {
 			if(active)
-				this.puntaje = puntaje;
+				puntaje = p;
+			if(puntaje<0)
+				puntaje=0;
 		}
 		
 		public int getNivel() {

@@ -350,11 +350,17 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener, ActionLi
 	} // end of gameRender()
 	
 	public void deport() {
+		Juanito.getInstance().getJuanitoStateContext().getCurrent().stop();
 		Juanito.getInstance().getJuanitoStateContext().setCurrent(Juanito.getInstance().getJuanitoStateContext().getPausedState());
 		Juanito.getInstance().setVisible(false);
 		playpanelstatecontext.getCurrent().getEnemigos().eliminarTodos();
 		playpanelstatecontext.getCurrent().getObstaculos().eliminarTodos();
 		t.start();
+		currentbackground.restart();
+		currentmiddleground.restart();
+		currentforeground.restart();
+		Juanito.getInstance().setX(10);
+		Juanito.getInstance().getMychancla().chanclaToJuanito();
 	}
 	
 	private void paintScreen(){	// actively render the buffer image to the screen
@@ -392,14 +398,10 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener, ActionLi
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==t) {
-			playpanelstatecontext.getCurrent().createStuff();
-			currentbackground.restart();
-			currentmiddleground.restart();
-			currentforeground.restart();
-			Juanito.getInstance().setX(10);
-			Juanito.getInstance().getMychancla().chanclaToJuanito();
+			Juanito.getInstance().setPuntaje(Juanito.getInstance().getPuntaje()-500);
 			Juanito.getInstance().getJuanitoStateContext().setCurrent(Juanito.getInstance().getJuanitoStateContext().getStaticState());
 			Juanito.getInstance().setVisible(true);
+			playpanelstatecontext.getCurrent().createStuff();
 			currentenemigos.setAtrapado(false);
 			t.stop();
 		}
