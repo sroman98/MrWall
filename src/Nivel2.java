@@ -1,4 +1,3 @@
-import java.awt.Color;
 import java.util.Random;
 
 public class Nivel2 implements PlayPanelStrategy {

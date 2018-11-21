@@ -46,9 +46,7 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener, ActionLi
 	private Background currentstatebackground;
 	
 	private Obstaculos currentobstaculos;
-	//private SoundLoader soundloader;
-	private JuanitoHUD hud;
-	
+	//private SoundLoader soundloader;	
 	private Button currentstatebutton;
 	private Buttons currentbuttons;
 	
@@ -77,8 +75,7 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener, ActionLi
 		currentbuttons = playpanelstatecontext.getCurrent().getButtons();
 		currentenemigos = playpanelstatecontext.getCurrent().getEnemigos();
 		
-		hud = JuanitoHUD.getInstance();
-		hud.setVisible(false);
+		JuanitoHUD.getInstance().setVisible(false);
 		Juanito.getInstance().getJuanitoStateContext().setCurrent(Juanito.getInstance().getJuanitoStateContext().getPausedState());
 		addKeyListener(this);
 		
@@ -162,8 +159,8 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener, ActionLi
 					Juanito.getInstance().setNivel(1);
 					Juanito.getInstance().setVisible(true);
 					Juanito.getInstance().setActive(true);
-					hud.setVisible(true);
-					hud.getInstance().setPuntos(0);
+					JuanitoHUD.getInstance().setVisible(true);
+					JuanitoHUD.getInstance().setPuntos(0);
 				}
 				else {
 					if(currentbuttons.getButton(i).getLabel()=="menu"){
@@ -179,9 +176,9 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener, ActionLi
 						Juanito.getInstance().setNivel(1);
 						Juanito.getInstance().setVisible(false);
 						Juanito.getInstance().setActive(false);
-						hud.setVisible(false);
-						hud.getInstance().reset();
-						hud.getInstance().setPuntos(0);
+						JuanitoHUD.getInstance().setVisible(false);
+						JuanitoHUD.getInstance().reset();
+						JuanitoHUD.getInstance().setPuntos(0);
 					}
 				
 					if(currentbuttons.getButton(i).getLabel()=="rules") {
@@ -321,7 +318,7 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener, ActionLi
 			Juanito.getInstance().jump();
 			currentenemigos.move();
 
-			hud.update(Juanito.getInstance());
+			JuanitoHUD.getInstance().update(Juanito.getInstance());
 			
 			if(playpanelstatecontext.getCurrent()==playpanelstatecontext.getNivel2()) {
 				currentbackground= playpanelstatecontext.getCurrent().getBackground();
@@ -350,7 +347,7 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener, ActionLi
 		
 		currentobstaculos.draw(dbg);
 		
-		hud.draw(dbg);
+		JuanitoHUD.getInstance().draw(dbg);
 		
 		Juanito.getInstance().draw(dbg);
 		currentenemigos.draw(dbg);
