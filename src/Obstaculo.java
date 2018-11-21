@@ -1,9 +1,11 @@
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.ImageIcon;
 
-public class Obstaculo {
+public class Obstaculo implements Observer {
 	private int x;
 	private int y;
 	private int width;
@@ -18,10 +20,13 @@ public class Obstaculo {
 		this.y=y;
 		this.width=width;
 		this.height=height;
-		vida=1;
+		vida=10;
 		this.path=path;
 		image = new ImageIcon(path);
 		rectangulo = new Rectangle(x,y,width,height);
+		
+		if(path=="img/wall2.png")
+			Juanito.getInstance().getMychancla().addObserver(this);
 	}	
 	
 	//Collision methods
@@ -41,13 +46,15 @@ public class Obstaculo {
     		Juanito.getInstance().setCr(true);
         else
         	Juanito.getInstance().setCr(false);
-        if(Juanito.getInstance().getRectangulo().getY()+Juanito.getInstance().getRectangulo().getHeight() >= y && Juanito.getInstance().getRectangulo().getY()+Juanito.getInstance().getRectangulo().getHeight() <= y+height) {
-    		Juanito.getInstance().setCd(true); 
-    		Juanito.getInstance().setCl(false);
-    		Juanito.getInstance().setCr(false);
+        if(path!="img/wall2.png") {
+        	if(Juanito.getInstance().getRectangulo().getY()+Juanito.getInstance().getRectangulo().getHeight() >= y && Juanito.getInstance().getRectangulo().getY()+Juanito.getInstance().getRectangulo().getHeight() <= y+height) {
+        		Juanito.getInstance().setCd(true); 
+        		Juanito.getInstance().setCl(false);
+        		Juanito.getInstance().setCr(false);
+            }
+            else
+            	Juanito.getInstance().setCd(false);
         }
-        else
-        	Juanito.getInstance().setCd(false);
 	}
 	
 	
@@ -122,5 +129,17 @@ public class Obstaculo {
 	
 	public void setRectangulo(Rectangle rectangulo) {
 		this.rectangulo = rectangulo;
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		if(o==Juanito.getInstance().getMychancla()) {
+			if(Juanito.getInstance().getMychancla().colliding(rectangulo)) {
+				y+=30;
+				vida--;	
+				rectangulo.setLocation(x, y);
+			}
+		}
+		
 	}	
 }

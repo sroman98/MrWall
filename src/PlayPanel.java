@@ -105,7 +105,7 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 	public void checkLevelChange(){
 		if(Juanito.getInstance().getX()>=980 && Juanito.getInstance().getNivel()==1) {
 			playpanelstatecontext.setCurrent(playpanelstatecontext.getNivel2());
-			playpanelstatecontext.getNivel1().getObstaculos().eliminarTodos();
+			playpanelstatecontext.getNivel1().deleteStuff();
 			currentforeground = playpanelstatecontext.getCurrent().getForeground();
 			currentmiddleground = playpanelstatecontext.getCurrent().getMiddleground();
 			currentbackground = playpanelstatecontext.getCurrent().getBackground();
@@ -309,8 +309,12 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 		
 		currentstatebackground.draw(dbg);
 		
+<<<<<<< HEAD
 		
 		if(playpanelstatecontext.getCurrent()==playpanelstatecontext.getNivel2()&&Juanito.getInstance().getX()>=500) {
+=======
+		if(playpanelstatecontext.getCurrent()==playpanelstatecontext.getNivel2() && playpanelstatecontext.getNivel2().getObstaculos().level2done()) {
+>>>>>>> b2d98b910b65ebbe054e181c516776a40c4db51d
 			dbg.drawString("YOU WON", 400, 300);
 			ImageIcon explosion = new ImageIcon("img/explosion.gif");
 			explosion.paintIcon(null, dbg, 400, 250);

@@ -29,6 +29,11 @@ public class Nivel1 implements PlayPanelStrategy{
 			obstaculos.addObstaculo(r.nextInt(3720)+300 , 635, 95, 48, "img/obs1.png");
 		}
 	}
+	
+	public void deleteStuff() {
+		obstaculos.eliminarTodos();
+		enemigos.eliminarTodos();
+	}
 	//getters & setters
 	public Background getBackground() {
 		return background;
