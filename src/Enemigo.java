@@ -20,7 +20,6 @@ public class Enemigo {
 	private boolean perfilder;
 	private boolean perfilizq;
 	private boolean juanitocercano;
-	private boolean atrapojuanito;
 	
 	
 	public Enemigo(int x, int y, int width, int height){
@@ -40,7 +39,6 @@ public class Enemigo {
 		juanitocercano=false;
 		perfilizq=true;
 		perfilder=false;
-		atrapojuanito=false;
 	}	
 	
 	public void move() {
@@ -67,15 +65,20 @@ public class Enemigo {
 			}
 		}
 
+		
+			
+	}
+	
+	public boolean atrapoJuanito() {
 		if(rectangulo.getCenterX()-30<=Juanito.getInstance().getRectangulo().getCenterX()+30) {
-			atrapojuanito=true;
 			Juanito.getInstance().setVida(Juanito.getInstance().getVida()-1);
+			return true;
 		}
 		if(rectangulo.getCenterX()+30<=Juanito.getInstance().getRectangulo().getCenterX()-30) {
-			atrapojuanito=true;
 			Juanito.getInstance().setVida(Juanito.getInstance().getVida()-1);
+			return true;
 		}
-			
+		return false;
 	}
 	
 	//Collision methods
@@ -95,7 +98,7 @@ public class Enemigo {
 	//Drawing method
 	public void draw(Graphics g) {
 		currentimage.paintIcon(null, g, this.x, this.y);
-		g.drawRect(rectangulo.x, rectangulo.y, rectangulo.width, rectangulo.height);	
+		//g.drawRect(rectangulo.x, rectangulo.y, rectangulo.width, rectangulo.height);	
 	}
 	
 	//Getter & setters
@@ -239,10 +242,5 @@ public class Enemigo {
 	public void die() {
 		ImageIcon edieizq= new ImageIcon("img/edieizq.png");
 		setCurrentImage(edieizq);
-	}
-	
-	public boolean getAtrapoJuanito() {
-		return atrapojuanito;
-	}
-	
+	}	
 }

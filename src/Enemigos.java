@@ -61,23 +61,17 @@ public class Enemigos implements Observer {
 		while(apt.hasNext()) {
 			Enemigo en = apt.next();
 			en.draw(g);
-			
-			if(en.getAtrapoJuanito()){
-				atrapado=true;
-			}
-		}//While	
-		
-		
+		}//While		
 	}
+	
 	public void move() {
 		ListIterator<Enemigo> apt = enemigos.listIterator(); 
-		
 		while(apt.hasNext()) {
 			Enemigo en = apt.next();
-			if(en.getAtrapoJuanito()){
-				SoundLoader.getInstance().playSound("/daño2.wav");
+			if(en.atrapoJuanito()){
+				SoundLoader.getInstance().playSound("/daño.wav");
+				atrapado = true;
 				apt.remove();
-				
 			}
 			else {
 				en.move();
