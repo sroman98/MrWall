@@ -1,13 +1,7 @@
 import java.awt.Graphics;
-import java.util.Timer;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.time.Duration;
-import java.time.Instant;
-import java.time.temporal.Temporal;
 import java.util.Observable;
-
-import javax.swing.ImageIcon;
 
 public class Chancla extends Observable {
 	private float dt;
@@ -20,13 +14,8 @@ public class Chancla extends Observable {
 	private int height;
 	private String path;
 	private Sprite chanclasprite;
-	private Sprite invisiblechancla;
-	private Sprite current;
-	private ImageIcon explosion;
-
-
-	private boolean collision=false;
-
+	private boolean visible;
+	private Rectangle rect;
 	
 	public Chancla(){
 		dt = (float) 0.666;
@@ -34,30 +23,21 @@ public class Chancla extends Observable {
 		
 		x = Juanito.getInstance().getX()+(int)(Juanito.getInstance().getWidth()/2);
 		y = Juanito.getInstance().getY()+(int)(Juanito.getInstance().getHeight()/2)-6;
-		setVelx(0);
+		velx = 0;
 		width = 20;
 		height = 20;
+		
+		rect = new Rectangle(x,y,width,height);
 		
 		chanclasprite = new Sprite();
 		chanclasprite.load("/chanclasheet.png", 3, 4, 38, 37);
 		chanclasprite.position = new Point(x,y);
 	    chanclasprite.frameDelay = 0;
 	    chanclasprite.totalFrames = 1;
-	    chanclasprite.rotationRate = 1.0;
-	    
-	    invisiblechancla = new Sprite();
-	    invisiblechancla.load("/invisiblejuanito.png", 3, 4, 38, 37);
-	    invisiblechancla.position = new Point(x,y);
-	    invisiblechancla.frameDelay = 0;
-	    invisiblechancla.totalFrames = 1;
-	    invisiblechancla.rotationRate = 1.0;
-	    
-	    current = invisiblechancla;
-	    explosion = new ImageIcon("img/explosion.gif");
+	    //chanclasprite.rotationRate = 1.0;
 	}
 	
 	public void throwChancla() {
-		chanclasprite.totalFrames = 10;
 		if(right)
 			throwChanclaRight();
 		else
@@ -67,17 +47,13 @@ public class Chancla extends Observable {
 			notifyObservers(this);
 	}
 	
-	public boolean colliding(Rectangle rect) {
-		if(chanclasprite.getBounds().intersects(rect)) {
+	public boolean colliding(Rectangle _rect) {
+		if(rect.intersects(_rect)) {
 			velx = -velx;
 			chanclasprite.animationDirection = -chanclasprite.animationDirection;
-
-			collision=true;
 			return true;
 		}
-		collision=false;
 		return false;
-		
 	}
 	
 	public void throwChanclaRight() {
@@ -89,14 +65,9 @@ public class Chancla extends Observable {
 			chanclasprite.velocity = new Point(velx,0);
 		}
 		else {
-			chanclasprite.totalFrames = 1;
-			velx = 0;
-			chanclasprite.velocity = new Point(velx,0);
-			x = Juanito.getInstance().getX()+(int)(Juanito.getInstance().getWidth()/2);
-			y = Juanito.getInstance().getY()+(int)(Juanito.getInstance().getHeight()/2)-6;
-			chanclasprite.position = new Point(x,y);
+			chanclaToJuanito();
 		}
-		
+		rect.setLocation(x, y);
 	}
 	public void throwChanclaLeft() {
 		if(x <  Juanito.getInstance().getX()+(int)(Juanito.getInstance().getWidth()/2)|| velx < 0) {
@@ -107,22 +78,24 @@ public class Chancla extends Observable {
 			chanclasprite.velocity = new Point(velx,0);
 		}
 		else {
-			chanclasprite.totalFrames = 1;
-			velx = 0;
-			chanclasprite.velocity = new Point(velx,0);
-			x = Juanito.getInstance().getX()+(int)(Juanito.getInstance().getWidth()/2);
-			y = Juanito.getInstance().getY()+(int)(Juanito.getInstance().getHeight()/2)-6;
-			chanclasprite.position = new Point(x,y);
+			chanclaToJuanito();
 		}
+		rect.setLocation(x, y);
+	}
+	
+	public void chanclaToJuanito() {
+		chanclasprite.totalFrames = 1;
+		velx = 0;
+		chanclasprite.velocity = new Point(velx,0);
+		x = Juanito.getInstance().getX()+(int)(Juanito.getInstance().getWidth()/2);
+		y = Juanito.getInstance().getY()+(int)(Juanito.getInstance().getHeight()/2)-6;
+		chanclasprite.position = new Point(x,y);
 	}
 	
 	public void draw(Graphics g) {
-		current.draw(g);
-		if(collision){
-			///Como la colision tarda muy poco no se alcanza a mostrar la explosion
-				explosion.paintIcon(null, g, x-110, y-100);
-		}
-		//g.drawRect(x, y, width, height);
+		if(visible)
+			chanclasprite.draw(g);
+		//g.drawRect(rect.x, rect.y, rect.width, rect.height);
 	}
 	
 	//Setters & getters
@@ -146,9 +119,9 @@ public class Chancla extends Observable {
 		return velx;
 	}
 
-	public void setVelx(int velx) {
-		if(this.velx == 0)
-			this.velx = velx;
+	public void setVelx(int _velx) {
+		if(velx==0)
+			velx = _velx;
 	}
 
 	public int getWidth() {
@@ -190,14 +163,28 @@ public class Chancla extends Observable {
 	public void setRight(boolean right) {
 		this.right = right;
 	}	
-	
+
+	public Sprite getChanclasprite() {
+		return chanclasprite;
+	}
+
+	public void setChanclasprite(Sprite chanclasprite) {
+		this.chanclasprite = chanclasprite;
+	}
+
+	public Rectangle getRect() {
+		return rect;
+	}
+
+	public void setRect(Rectangle rect) {
+		this.rect = rect;
+	}
+
+	public boolean isVisible() {
+		return visible;
+	}
+
 	public void setVisible(boolean visible) {
-		if(visible) {
-			current=chanclasprite;
-		}
-		else {
-			current=invisiblechancla;
-		}
-			
+		this.visible = visible;
 	}
 }

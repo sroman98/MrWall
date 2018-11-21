@@ -69,10 +69,6 @@ public class Sprite {
 	    return url;
 	  }
 
-	  public Rectangle getBounds() {
-	    return (new Rectangle((int)position.x, (int)position.y, getWidth(), getHeight()));
-	  }
-
 	  public void load(String filename, int _columns, int _totalFrames, int _width, int _height) {
 	    Toolkit tk = Toolkit.getDefaultToolkit();
 	    image = tk.getImage(getURL(filename));
@@ -126,18 +122,5 @@ public class Sprite {
 	    int frameY = (currentFrame / columns) * frameHeight;
 	    //draw the frame
 	    g.drawImage(image, position.x, position.y, position.x+frameWidth, position.y+frameHeight, frameX, frameY, frameX+frameWidth, frameY+frameHeight, null);
-	  }
-
-	  //check for collision with a rectangular shape
-	  public boolean collidesWith(Rectangle rect) {
-	    return (rect.intersects(getBounds()));
-	  }
-	  //check for collision with another sprite
-	  public boolean collidesWith(Sprite sprite) {
-	    return (getBounds().intersects(sprite.getBounds()));
-	  }
-	  //check for collision with a point
-	  public boolean collidesWith(Point point) {
-	    return (getBounds().contains(point.x, point.y));
 	  }
 }

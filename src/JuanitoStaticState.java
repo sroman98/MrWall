@@ -6,6 +6,7 @@ public class JuanitoStaticState implements JuanitoState {
 	}
 	
 	public void shoot() {
+		Juanito.getInstance().getMychancla().getChanclasprite().totalFrames = 10;
 		if(Juanito.getInstance().getPerfilDer()) { 
 			Juanito.getInstance().getMychancla().setRight(true);
 			Juanito.getInstance().getMychancla().setVelx(50);

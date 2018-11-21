@@ -7,8 +7,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Random;
 
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 public class PlayPanel extends JPanel implements Runnable, KeyListener {
@@ -118,6 +118,7 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 			Juanito.getInstance().setX(10);
 			Juanito.getInstance().setNivel(2);
 			playpanelstatecontext.getNivel2().createStuff();
+			Juanito.getInstance().getMychancla().chanclaToJuanito();
 		}
 	}
 	
@@ -300,16 +301,18 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener {
 		currentmiddleground.draw(dbg);
 		currentforeground.draw(dbg);
 		
-		Juanito.getInstance().draw(dbg);
-		
 		currentobstaculos.draw(dbg);
 		currentenemigos.draw(dbg);
 		hud.draw(dbg);
 		
+		Juanito.getInstance().draw(dbg);
+		
 		currentstatebackground.draw(dbg);
 		
-		if(playpanelstatecontext.getNivel2().getEnemigos().getEnemigos().size()==0) {
+		if(playpanelstatecontext.getCurrent()==playpanelstatecontext.getNivel2()&&Juanito.getInstance().getX()>=500) {
 			dbg.drawString("YOU WON", 400, 300);
+			ImageIcon explosion = new ImageIcon("img/explosion.gif");
+			explosion.paintIcon(null, dbg, 400, 250);
 		}
 		
 		

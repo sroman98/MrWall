@@ -20,7 +20,6 @@ public class Enemigo {
 	private boolean perfilder;
 	private boolean perfilizq;
 	private boolean juanitocercano;
-	//private ImageIcon edieizq;
 	
 	
 	public Enemigo(int x, int y, int width, int height){
@@ -87,7 +86,7 @@ public class Enemigo {
 	//Drawing method
 	public void draw(Graphics g) {
 		currentimage.paintIcon(null, g, this.x, this.y);
-		g.drawRect(rectangulo.x, rectangulo.y, rectangulo.width, rectangulo.height);
+		g.drawRect(rectangulo.x, rectangulo.y, rectangulo.width, rectangulo.height);	
 	}
 	
 	//Getter & setters

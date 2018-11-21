@@ -113,8 +113,8 @@ public class Juanito extends Observable {
 				}
 			}
 		}
-		rectangulo.setLocation(x+25, y);
 		mychancla.throwChancla();
+		rectangulo.setLocation(x+25, y);
 		if(this.hasChanged())
 			notifyObservers(this);
 	}
