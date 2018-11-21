@@ -22,9 +22,8 @@ public class Background {
   	 this.y=y;
   	 this.setPath(path);
   	 
-  	 File srcFile = new File(path);
   	 try {
-  		 img = ImageIO.read(srcFile);
+  		img = ImageIO.read(getClass().getResource(path));
   	 } catch (IOException e) {
   		 e.printStackTrace();
   	 }

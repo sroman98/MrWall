@@ -13,9 +13,9 @@ public class Nivel1 implements PlayPanelStrategy{
 
 	public Nivel1(PlayPanelStrategyContext context){
 		this.context=context;
-		foreground = new Background(0,0,"img/foreground1.png");
-		middleground = new Background(0,0,"img/middleground1.png");
-		background = new Background(0,0,"img/background1.png");
+		foreground = new Background(0,0,"/foreground1.png");
+		middleground = new Background(0,0,"/middleground1.png");
+		background = new Background(0,0,"/background1.png");
 		
 		obstaculos = new Obstaculos();
 		enemigos = new Enemigos();
@@ -28,7 +28,7 @@ public class Nivel1 implements PlayPanelStrategy{
 		Random r = new Random();
 		for(int i=0; i<6; i++) {
 			enemigos.addEnemigo(r.nextInt(3620)+400, 600, 70, 85);
-			obstaculos.addObstaculo(r.nextInt(3720)+300 , 635, 95, 48, "img/obs1.png");
+			obstaculos.addObstaculo(r.nextInt(3720)+300 , 635, 95, 48, "/obs1.png");
 		}
 	}
 	

@@ -8,7 +8,7 @@ public class GameActiveState implements GameState {
 
 	public GameActiveState(GameStateContext nc) {
 		setCon(nc);
-		background = new Background(0,0, "img/runningbackground.png");
+		background = new Background(0,0, "/runningbackground.png");
 		button = new Button(200,5,140,40,Color.CYAN, "pause",15, "#4372e8");
 	}
 	

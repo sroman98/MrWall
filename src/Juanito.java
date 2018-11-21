@@ -1,5 +1,6 @@
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.net.URL;
 import java.util.Observable;
 
 import javax.swing.ImageIcon;
@@ -58,7 +59,6 @@ public class Juanito extends Observable {
 		this.vida = 5;
 		this.velx = 0;
 		this.vely = 0;
-		mygif = new ImageIcon("img/jstillder.png");
 		
 		cr = cl = cd = false;
 		der=true;
@@ -74,13 +74,15 @@ public class Juanito extends Observable {
 		puntaje = 0;
 		nivel = 0;
 		
-		jmoveder= new ImageIcon("img/jmoveder.gif");
-		jmoveizq= new ImageIcon("img/jmoveizq.gif");
-		jstillder= new ImageIcon("img/jstillder.png");
-		jstillizq= new ImageIcon("img/jstillizq.png");
-		jsaltader= new ImageIcon("img/jsaltader.png");
-		jsaltaizq= new ImageIcon("img/jsaltaizq.png");
-		jinvisible=new ImageIcon("img/juanitoinvisible");	
+		jmoveder= createImageIcon("/jmoveder.gif");
+		jmoveizq= createImageIcon("/jmoveizq.gif");
+		jstillder= createImageIcon("/jstillder.png");
+		jstillizq= createImageIcon("/jstillizq.png");
+		jsaltader= createImageIcon("/jsaltader.png");
+		jsaltaizq= createImageIcon("/jsaltaizq.png");
+		jinvisible= createImageIcon("/invisiblejuanito.png");	
+		
+		mygif = jstillder;
 	}
 	
 	//Moving methods
@@ -399,5 +401,16 @@ public class Juanito extends Observable {
 
 		public void setActive(boolean a) {
 			this.active = a;
+		}
+		
+		//JAR adapted imageicon creator
+		protected ImageIcon createImageIcon(String path) {
+			URL imgURL = getClass().getResource(path);
+			if (imgURL != null) {
+				return new ImageIcon(imgURL);
+			} else {
+				System.err.println("Couldn't find file: " + path);
+				return null;
+			}
 		}
 }

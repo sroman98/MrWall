@@ -1,5 +1,6 @@
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.net.URL;
 
 import javax.swing.ImageIcon;
 
@@ -29,11 +30,11 @@ public class Enemigo {
 		this.height=height;
 		vida = 3;
 		rectangulo = new Rectangle(x+25,y,width-20,height);
-		emoveder= new ImageIcon("img/emoveder.gif");
-		emoveizq= new ImageIcon("img/emoveizq.gif");
-		estillder= new ImageIcon("img/estillder.png");
-		estillizq= new ImageIcon("img/estillizq.png");
-		einvisible=new ImageIcon("img/juanitoinvisible");
+		emoveder= createImageIcon("/emoveder.gif");
+		emoveizq= createImageIcon("/emoveizq.gif");
+		estillder= createImageIcon("/estillder.png");
+		estillizq= createImageIcon("/estillizq.png");
+		einvisible=createImageIcon("/invisiblejuanito.png");
 		
 		currentimage=estillizq;
 		juanitocercano=false;
@@ -240,7 +241,18 @@ public class Enemigo {
 	}
 	
 	public void die() {
-		ImageIcon edieizq= new ImageIcon("img/edieizq.png");
+		ImageIcon edieizq= createImageIcon("/edieizq.png");
 		setCurrentImage(edieizq);
-	}	
+	}
+	
+	//JAR adapted imageicon creator
+	protected ImageIcon createImageIcon(String path) {
+		URL imgURL = getClass().getResource(path);
+		if (imgURL != null) {
+			return new ImageIcon(imgURL);
+		} else {
+			System.err.println("Couldn't find file: " + path);
+			return null;
+		}
+	}
 }

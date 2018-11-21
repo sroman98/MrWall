@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.net.URL;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -322,7 +323,7 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener, ActionLi
 
 		if(playpanelstatecontext.getCurrent()==playpanelstatecontext.getNivel2() && playpanelstatecontext.getNivel2().getObstaculos().level2done()) {
 			dbg.drawString("YOU WON", 400, 300);
-			ImageIcon explosion = new ImageIcon("img/explosion.gif");
+			ImageIcon explosion = createImageIcon("/explosion.gif");
 			explosion.paintIcon(null, dbg, 400, 250);
 			Juanito.getInstance().setActive(false);
 		}
@@ -338,7 +339,7 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener, ActionLi
 		
 		currentenemigos.draw(dbg);
 		if(currentenemigos.getAtrapado()){
-			ImageIcon deportedgif = new ImageIcon("img/pausedbackground.png");
+			ImageIcon deportedgif = createImageIcon("/pausedbackground.png");
 			deportedgif.paintIcon(null, dbg, 0, 0);
 			dbg.drawString("YOU HAVE BEEN DEPORTED!", 340, 300);
 			if(!t.isRunning())
@@ -403,6 +404,17 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener, ActionLi
 			t.stop();
 		}
 		
+	}
+	
+	//JAR adapted imageicon creator
+	protected ImageIcon createImageIcon(String path) {
+		URL imgURL = getClass().getResource(path);
+		if (imgURL != null) {
+			return new ImageIcon(imgURL);
+		} else {
+			System.err.println("Couldn't find file: " + path);
+			return null;
+		}
 	}
 	
 }

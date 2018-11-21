@@ -13,9 +13,9 @@ public class NivelMenu implements PlayPanelStrategy{
 
 	public NivelMenu(PlayPanelStrategyContext context){
 		this.context=context;
-		foreground = new Background(0,0,"img/menubackground.png");
-		middleground = new Background(0,0,"img/menubackground.png");
-		background = new Background(0,0,"img/menubackground.png");
+		foreground = new Background(0,0,"/menubackground.png");
+		middleground = new Background(0,0,"/menubackground.png");
+		background = new Background(0,0,"/menubackground.png");
 		obstaculos = new Obstaculos();
 		buttons = new Buttons();
 		buttons.addButton(700,100,240,70,Color.CYAN,"play",30, "#4372e8");

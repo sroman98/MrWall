@@ -1,5 +1,6 @@
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -22,10 +23,10 @@ public class Obstaculo implements Observer {
 		this.height=height;
 		vida=10;
 		this.path=path;
-		image = new ImageIcon(path);
+		image = createImageIcon(path);
 		rectangulo = new Rectangle(x,y,width,height);
 		
-		if(path=="img/wall2.png")
+		if(path=="/wall2.png")
 			Juanito.getInstance().getMychancla().addObserver(this);
 	}	
 	
@@ -46,7 +47,7 @@ public class Obstaculo implements Observer {
     		Juanito.getInstance().setCr(true);
         else
         	Juanito.getInstance().setCr(false);
-        if(path!="img/wall2.png") {
+        if(path!="/wall2.png") {
         	if(Juanito.getInstance().getRectangulo().getY()+Juanito.getInstance().getRectangulo().getHeight() >= y && Juanito.getInstance().getRectangulo().getY()+Juanito.getInstance().getRectangulo().getHeight() <= y+height) {
         		Juanito.getInstance().setCd(true); 
         		Juanito.getInstance().setCl(false);
@@ -142,5 +143,16 @@ public class Obstaculo implements Observer {
 			}
 		}
 		
-	}	
+	}
+	
+	//JAR adapted imageicon creator
+	protected ImageIcon createImageIcon(String path) {
+		URL imgURL = getClass().getResource(path);
+		if (imgURL != null) {
+			return new ImageIcon(imgURL);
+		} else {
+			System.err.println("Couldn't find file: " + path);
+			return null;
+		}
+	}
 }

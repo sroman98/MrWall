@@ -1,4 +1,5 @@
 import java.awt.Graphics;
+import java.net.URL;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -23,24 +24,24 @@ public class Explosion {
 		this.x=x;
 		this.y=y;
 		frames = new ArrayList<ImageIcon>();
-		ImageIcon ex1= new ImageIcon("img/ex1.png");
+		ImageIcon ex1= createImageIcon("/ex1.png");
 		frames.add(ex1);
 		currentframe=ex1;
-		ImageIcon ex2= new ImageIcon("img/ex2.png");
+		ImageIcon ex2= createImageIcon("/ex2.png");
 		frames.add(ex2);
-		ImageIcon ex3= new ImageIcon("img/ex3.png");
+		ImageIcon ex3= createImageIcon("/ex3.png");
 		frames.add(ex3);
-		ImageIcon ex4= new ImageIcon("img/ex4.png");
+		ImageIcon ex4= createImageIcon("/ex4.png");
 		frames.add(ex4);
-		ImageIcon ex5= new ImageIcon("img/ex5.png");
+		ImageIcon ex5= createImageIcon("/ex5.png");
 		frames.add(ex5);
-		ImageIcon ex6= new ImageIcon("img/ex6.png");
+		ImageIcon ex6= createImageIcon("/ex6.png");
 		frames.add(ex6);
-		ImageIcon ex7= new ImageIcon("img/ex7.png");
+		ImageIcon ex7= createImageIcon("/ex7.png");
 		frames.add(ex7);
-		ImageIcon ex8= new ImageIcon("img/ex8.png");
+		ImageIcon ex8= createImageIcon("/ex8.png");
 		frames.add(ex8);
-		ImageIcon ex9= new ImageIcon("img/ex9.png");
+		ImageIcon ex9= createImageIcon("/ex9.png");
 		frames.add(ex9);
 	}
 	
@@ -72,4 +73,14 @@ public class Explosion {
 		return y;
 	}
 	
+	//JAR adapted imageicon creator
+	protected ImageIcon createImageIcon(String path) {
+		URL imgURL = getClass().getResource(path);
+		if (imgURL != null) {
+			return new ImageIcon(imgURL);
+		} else {
+			System.err.println("Couldn't find file: " + path);
+			return null;
+		}
+	}
 }

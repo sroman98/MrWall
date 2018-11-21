@@ -12,9 +12,9 @@ public class Nivel2 implements PlayPanelStrategy {
 
 	public Nivel2(PlayPanelStrategyContext context){
 		this.context=context;
-		foreground = new Background(0,0,"img/foreground3.png");
-		middleground = new Background(0,0,"img/middleground3.png");
-		background = new Background(0,0,"img/background3.png");
+		foreground = new Background(0,0,"/foreground3.png");
+		middleground = new Background(0,0,"/middleground3.png");
+		background = new Background(0,0,"/background3.png");
 		
 		obstaculos = new Obstaculos();
 		buttons = new Buttons();
@@ -26,10 +26,10 @@ public class Nivel2 implements PlayPanelStrategy {
 		
 		for(int i=0; i<10; i++) {
 			enemigos.addEnemigo(r.nextInt(3620)+400, 600, 70, 85);
-			obstaculos.addObstaculo(r.nextInt(3720)+300 , 635, 95, 48, "img/obs1.png");
+			obstaculos.addObstaculo(r.nextInt(3720)+300 , 635, 95, 48, "/obs1.png");
 		}
 		
-		obstaculos.addObstaculo(4180, 375, 139, 311, "img/wall2.png");
+		obstaculos.addObstaculo(4180, 375, 139, 311, "/wall2.png");
 	}
 	//getters & setters
 	public Background getBackground() {

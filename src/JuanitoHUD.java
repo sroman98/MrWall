@@ -1,11 +1,7 @@
-
-
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
@@ -20,16 +16,19 @@ public class JuanitoHUD {
 	private BufferedImage noheart;
 	private BufferedImage current;
 	
-	public JuanitoHUD() {
-		File srcFile = new File("img/heart.png");
-	  	try {
-	  		heart = ImageIO.read(srcFile);
-	  	}catch (IOException e){e.printStackTrace();}
-	  	
-	  	srcFile = new File("img/invisiblejuanito.png");
-	  	try {
-	  		noheart = ImageIO.read(srcFile);
-	  	}catch (IOException e){e.printStackTrace();}
+	public JuanitoHUD() {		
+		 try {
+	  		heart = ImageIO.read(getClass().getResource("/heart.png"));
+	  	 } catch (IOException e) {
+	  		 e.printStackTrace();
+	  	 }
+		 
+		 try {
+	  		noheart = ImageIO.read(getClass().getResource("/invisiblejuanito.png"));
+	  	 } catch (IOException e) {
+	  		 e.printStackTrace();
+	  	 }
+
 	  	current=noheart;
 	  	setVisible(true);
 	}
