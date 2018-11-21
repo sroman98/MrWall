@@ -365,13 +365,6 @@ public class PlayPanel extends JPanel implements Runnable, KeyListener, ActionLi
 			Juanito.getInstance().setActive(false);
 		}
 		
-		////////Checar lo de ready for next level/////////////
-		if(playpanelstatecontext.getCurrent()==playpanelstatecontext.getNivel1() && playpanelstatecontext.getNivel1().getEnemigos().getEnemigos().size()==0) {
-			dbg.drawString("READY FOR THE NEXT LEVEL? CONTINUE WALKING...", 200, 300);
-		}
-		
-		
-		
 		if(playpanelstatecontext.getCurrent()==playpanelstatecontext.getNivel1() || playpanelstatecontext.getCurrent()==playpanelstatecontext.getNivel2()) {
 			currentstatebutton.draw(dbg);
 		}

@@ -36,7 +36,6 @@ public class JuanitoHUD {
 	
 	public static synchronized JuanitoHUD getInstance() {
 		if(hud==null) {
-			
 			return hud = new JuanitoHUD();
 		}return hud;
 	}
