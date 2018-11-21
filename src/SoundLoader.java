@@ -11,7 +11,7 @@ public class SoundLoader implements Runnable {
 	
 	public static synchronized SoundLoader getInstance() {
 	    if(instance == null) {
-	      instance = new SoundLoader("/mariachi.wav", "/daño2.wav", "/throw.wav", "/jump.wav");
+	      instance = new SoundLoader("/mariachi.wav", "/daño.wav", "/throw.wav", "/jump.wav");
 	    }
 	    return instance;
 	}
